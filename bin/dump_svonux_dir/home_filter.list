@@ -53,6 +53,7 @@ P **/.git2/**
 + /repo/sanjuan2/.vscode/
 + /repo/sanjuan2/.vscode/**
 
+
 # Virensis ERP
 + /repo/virensis_erp/
 + /repo/virensis_erp/virensis-erp/
@@ -158,22 +159,14 @@ P **/.git2/**
 
 
 # ?dbeaver
-# cd /home/svonjoi/repo/svonux/rsync_svonux_backup/home/svonjoi/.local/share/DBeaverData/workspace6
-# llt -a -L 33
-+ /.local/share/DBeaverData/
-
-# la exclusion tiene k ir aki !!!
-- /.local/share/DBeaverData/**/*.log
-- /.local/share/DBeaverData/**/.history/**
-- /.local/share/DBeaverData/**/.indexes/**
-- /.local/share/DBeaverData/**/*.snap
-
-+ /.local/share/DBeaverData/**
+# importente el orden exclusion
+# + /.local/share/DBeaverData/
+# - /.local/share/DBeaverData/**/*.log
+# - /.local/share/DBeaverData/**/.history/**
+# - /.local/share/DBeaverData/**/.indexes/**
+# - /.local/share/DBeaverData/**/*.snap
+# + /.local/share/DBeaverData/**
 
 
-
-
-
-######################################################################
-# la exclusion tiene k ir al final
+#? la exclusion general tiene k ir al final
 - /**
