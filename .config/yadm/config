@@ -1,0 +1,7 @@
+[user]
+	name = svonjoi
+	email = svonjoi@gmail.com
+[credential]
+	username = svonjoi
+[pull]
+	ff = only
