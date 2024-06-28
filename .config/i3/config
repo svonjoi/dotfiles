@@ -1,0 +1,879 @@
+# http://i3wm.org/docs/userguide.html
+#  ██▒   █▓ ▄▄▄       ███▄ ▄███▓ ██▓███   ██▀███
+# ▓██░   █▒▒████▄    ▓██▒▀█▀ ██▒▓██░  ██▒▓██ ▒ ██▒
+#  ▓██  █▒░▒██  ▀█▄  ▓██    ▓██░▓██░ ██▓▒▓██ ░▄█ ▒
+#   ▒██ █░░░██▄▄▄▄██ ▒██    ▒██ ▒██▄█▓▒ ▒▒██▀▀█▄
+#    ▒▀█░   ▓█   ▓██▒▒██▒   ░██▒▒██▒ ░  ░░██▓ ▒██▒
+#    ░ ▐░   ▒▒   ▓▒█░░ ▒░   ░  ░▒▓▒░ ░  ░░ ▒▓ ░▒▓░
+#    ░ ░░    ▒   ▒▒ ░░  ░      ░░▒ ░       ░▒ ░ ▒░
+#      ░░    ░   ▒   ░      ░   ░░         ░░   ░
+#       ░        ░  ░       ░               ░
+#      ░
+# 00. Inbox
+# 10. Reload
+# 15. Autostart
+# 20. Keyboard Layout
+# 30. Sound section
+# 31. Screen capture
+# 40. Workspaces: set, navigation
+# 50. Bind software to workspaces
+# 60. Bind ws to outputs & move ws between outputs
+# 70. Windows & containers functionallity
+# 75. Window setup for software
+# 45. Simulate key press / remap
+# 50. Scratchpad
+# 70. Distraction-free
+# 90. Menu
+# 80. Window customization
+# 81. Gaps
+# 82. Theme colors
+# 84. Distraction-free
+
+
+#* copy of this defined variables is in setup_display.sh
+set $out_DP_1 "DP-1"
+set $out_DP_2 "DP-2"
+set $outLaptop "eDP-1"
+set $outHDMI "HDMI-1"
+
+# Set modifier keys
+# todo: $G=AltGr
+set $M Mod4
+set $A Mod1
+set $S Shift
+set $C Ctrl
+set $Y Mod3
+
+set $i3scripts ~/.config/scripts/i3_scripts
+set $rofi ~/.config/rofi
+set $bin ~/.config/scripts
+
+# +------------------------------------------+
+# 00. Inbox
+# +------------------------------------------+
+
+# bindsym $C+$A+Prior exec
+# bindsym $Y+Return exec
+# bindsym $M+$Y+F2 exec "bash ~/.config/scripts/i3_scripts/layout_resurrect.sh"
+# bindsym $M+$C+b exec terminal -e 'bmenu'
+# bindsym $M+$A+space exec kitty ranger
+# bindsym $A+P exec "rofi -modi 'obsidian:~/.config/scripts/obsidian/obsidian-rofi.py' -show"
+
+bindsym $Y+F1 exec "rofi -show fb -modes 'fb:~/.config/scripts/i3_scripts/layout_rofi.sh'"
+bindsym $Y+F2 exec i3-resurrect ls | awk '$3 == "layout" {print $2}' | rofi -sep '\n' -dmenu -p 'restore workspace' | xargs -I {} i3-resurrect restore -w {}
+
+# RDP Connection
+bindsym $Y+$S+F12 exec --no-startup-id remmina -c ~/.local/share/remmina/group_rdp_ziggurat_ziggurat.remmina >/dev/null 2>&1
+
+# emoji picker
+# yay -S x11-emoji-picker-git
+bindsym $M+period exec --no-startup-id emoji-picker
+
+# bindsym $M+$C+m exec pavucontrol
+bindsym $M+$S+n exec --no-startup-id jumpapp nm-connection-editor
+
+# clipboard
+bindsym $A+grave exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
+# scroll output of current window
+# todo: real-time scrolling
+bindsym Prior        exec --no-startup-id xdotool click --repeat 5 --delay 50 4
+bindsym Next         exec --no-startup-id xdotool click --repeat 5 --delay 50 5
+bindsym Ctrl+Prior   exec --no-startup-id xdotool click --repeat 20 --delay 0 4
+bindsym Ctrl+Next    exec --no-startup-id xdotool click --repeat 20 --delay 0 5
+
+# скролл с зажатым Ctrl в телеге увеличивает скорость прокрутки
+# bindsym Control+U exec --no-startup-id xdotool click --repeat 5 --delay 50 4
+# bindsym Control+D exec --no-startup-id xdotool click --repeat 5 --delay 50 5
+
+# backlight
+bindsym $C+F7     exec brillo -A 10
+bindsym $C+F6     exec brillo -U 10
+
+# Screen brightness controls
+# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
+# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+# XF86MonBrightnessUp
+# XF86MonBrightnessDown
+
+# set default desktop layout (default is tiling)
+# workspace_layout tabbed <stacking|tabbed>
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font xft:Fira Code 9
+
+# Use Mouse+$M to drag floating windows
+floating_modifier $M
+
+# start a terminal
+# bindsym $M+Return exec terminal
+bindsym $M+Return exec kitty
+
+# kill focused window
+# bindsym $M+q kill
+# bindsym $M+$S+q kill
+bindsym $C+$A+x kill
+
+# Kill a window interactively in a graphical session
+# bindsym $M+$A+q --release exec --no-startup-id xkill
+bindsym $C+$A+$S+x --release exec --no-startup-id xkill
+
+# start program launcher
+# bindsym $M+d exec --no-startup-id     xkb-switch -s us && rofi -show drun -show-icons -matching fuzzy -drun-display-format "{name} [<span weight='light' size='small'><i>({generic})</i></span>]"
+# bindsym $M+$Y+d exec --no-startup-id  xkb-switch -s us && rofi -show window -show-icons -matching fuzzy -theme "~/.local/share/rofi/themes/svonjoi-window-squared-material-red.rasi"
+bindsym $M+d exec --no-startup-id $rofi/launcher.sh
+bindsym $M+$S+d exec --no-startup-id rofi -show window
+
+# rofi calculator
+# bindsym $Y+g exec --no-startup-id xkb-switch -s us && rofi -show calc -modi calc -no-show-match -no-sort -matching fuzzy -theme "~/.local/share/rofi/themes/svonjoi-window-squared-material-red.rasi"
+bindsym $Y+g exec --no-startup-id \
+    xkb-switch -s us \
+    && rofi \
+        -show calc \
+        -modi calc \
+        -no-show-match \
+        -no-sort \
+        -matching fuzzy \
+        -theme "svonjoi-window-squared-material-red.rasi"
+
+# keybinding in fancy rofi (automated):
+bindsym $M+F1 exec $i3scripts/keyhint-2
+
+bindsym $Y+i exec --no-startup-id $bin/identify_process.sh
+
+# +------------------------------------------------+
+# 10. Reload
+# +------------------------------------------------+
+
+# fix layout, wallpaper, xmodmap, mouse, polybar, etc
+bindsym $M+Escape exec --no-startup-id $bin/hardware/setup_hw.sh ; exec --no-startup-id i3-msg restart && notify-send "Restart i3 inplace"
+bindsym $M+grave exec --no-startup-id $bin/hardware/setup_hw.sh
+
+# fixes (run when i3-msg restart)
+exec_always --no-startup-id fix_xcursor
+exec_always --no-startup-id nitrogen --restore
+exec_always --no-startup-id polybar-msg cmd restart
+
+# +------------------------------------------+
+# 15. Autostart
+# +------------------------------------------+
+
+exec --no-startup-id $bin/autostart.sh
+exec --no-startup-id greenclip daemon
+# exec --no-startup-id keyd-application-mapper -d
+# exec --no-startup-id copyq &
+# exec --no-startup-id copyq show
+exec --no-startup-id $bin/setup_display.sh --setup_vm --apply_xrandr --apply_polybar &
+exec --no-startup-id $bin/hardware/player_handler.pl &
+
+#? manjaro defaults
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# exec --no-startup-id nitrogen --restore; sleep 1; picom -b
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id nm-applet
+# exec --no-startup-id xfce4-power-manager
+# exec --no-startup-id start_conky_maia
+
+#? scratchpad application
+exec --no-startup-id kitty --class=kitty_scratchterm
+exec --no-startup-id kitty --class=kitty_ranger -e ranger
+exec --no-startup-id kitty --class=kitty_nmtui -e nmtui
+exec --no-startup-id alacritty --class alacritty_ranger -e ranger
+exec --no-startup-id keepassxc
+exec --no-startup-id kate
+exec --no-startup-id gcolor3
+exec --no-startup-id crow
+
+# +------------------------------------------+
+# 20. Keyboard Layout
+# +------------------------------------------+
+
+# https://www.reddit.com/r/i3wm/comments/mtdebu/comment/jhbf7bq/?utm_source=share&utm_medium=web2x&context=3
+# yay -S xkb-switch
+bindsym $M+1 exec --no-startup-id xkb-switch -s us && xmodmap ~/.Xmodmap >/dev/null 2>&1
+bindsym $M+2 exec --no-startup-id xkb-switch -s ru && xmodmap ~/.Xmodmap >/dev/null 2>&1
+# bindsym $Y+Shift+3 exec --no-startup-id xkb-switch -s es && xmodmap ~/.Xmodmap >/dev/null 2>&1
+
+# ? esto da error; no se pq, desde terminal si funciona
+# bindsym $M+1 exec --no-startup-id setxkbmap -layout 'us,ru' && xkb-switch -s us && xmodmap ~/.Xmodmap >/dev/null 2>&1
+
+# +------------------------------------------+
+# 30. Sound section
+# +------------------------------------------+
+## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
+
+exec --no-startup-id volumeicon
+
+# Screen brightness controls
+# bindsym $Y+F6 exec "amixer set Master toggle"
+# bindsym $Y+F7 exec "amixer set Master 5%-"
+# bindsym $Y+F8 exec "amixer set Master 5%+"
+
+#? Use pactl to adjust volume in PulseAudio.
+# set $refresh_i3status killall -SIGUSR1 i3status
+# bindsym $Y+F7 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && killall -SIGUSR1 i3status && notify-send "volume: $(pamixer --get-volume)%"
+# bindsym $Y+F8 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && killall -SIGUSR1 i3status && notify-send "volume: $(pamixer --get-volume)%"
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status && notify-send "mute: $(pamixer --get-mute)"
+# bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status && notify-send "mute: $(pamixer --get-mute)"
+
+exec --no-startup-id pulseaudio
+exec --no-startup-id pa-applet
+
+bindsym $C+$A+Home exec --no-startup-id playerctl previous -p spotify
+bindsym $C+$A+Delete exec --no-startup-id playerctl next -p spotify
+bindsym $C+$A+End exec --no-startup-id playerctl play-pause -p spotify
+
+bindsym $M+$C+$A+Insert exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym $M+$C+$A+End exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+
+# +------------------------------------------------+
+# 31. Screen capture
+# +------------------------------------------------+
+bindsym $Y+y exec --no-startup-id flameshot gui
+
+# todo: capture current output
+# bindsym Print exec --no-startup-id flameshot screen
+
+# Capture with GUI after 2 seconds delay (can be useful to take screenshots of mouse hover tooltips, etc.)
+bindsym $Y+$S+y exec --no-startup-id flameshot gui -d 2000 >/dev/null 2>&1
+
+bindsym $Y+u exec ~/.config/scripts/gif.sh >/dev/null 2>&1
+
+# +------------------------------------------+
+# 40. Workspaces: set, navigation
+# -------------------------------------------+
+
+# 🎲⚙🔧🔨🪓⛏⚒⚒🛠🗡⚔⚡🫒୨୧␣ツ✦✨★〣✦⊞
+# https://coolsymbol.com/
+
+# switch to workspace with urgent window automatically
+# for_window [urgent=latest] focus
+
+# workspace back and forth (with/without active container)
+workspace_auto_back_and_forth no
+# bindsym $M+b workspace back_and_forth
+# bindsym $M+$S+b move container to workspace back_and_forth; workspace back_and_forth
+
+
+# ? Rename workspace
+# bindsym $M+$Y+r exec i3-input -F 'rename workspace to "%s"' -P 'Destination: '
+# bindsym $M+$Y+r exec i3-input -F "rename workspace to "$(i3-msg -t get_workspaces | jq -r "map(select(.focused))[0].num"):%s"" -P "New name: "
+# clear workspace name
+# bindsym $M+$Y+c exec i3-msg "rename workspace to "$(i3-msg -t get_workspaces | jq -r "map(select(.focused))[0].num")""
+
+
+#? navigate workspaces next / previous
+# bindsym $M+$A+l workspace next
+# bindsym $M+$A+h workspace prev
+
+
+#? set workspaces
+# set $ws_space "0:󰣇〣󱇆✦"
+set $ws_1 1
+set $ws_2 2
+set $ws_3 3
+set $ws_4 4
+set $ws_5 5
+set $ws_q "7:q"
+set $ws_w "8:W"
+set $ws_e "9:E"
+set $ws_r "10:R"
+set $ws_t "11:T"
+set $ws_s "12:S"
+set $ws_d "13:D"
+set $ws_p "14:P"
+set $ws_x "15:X"
+set $ws_a "16:a"
+set $ws_z "17:z"
+set $ws_c "18:c"
+set $ws_v "19:v"
+set $ws_b "20:b"
+set $ws_n "21:n"
+set $ws_m "22:m"
+set $ws_semicolon "23:;"
+
+#? Switch to workspace
+bindsym $Y+1 workspace number $ws_1
+bindsym $Y+2 workspace number $ws_2
+bindsym $Y+3 workspace number $ws_3
+bindsym $Y+4 workspace number $ws_4
+bindsym $Y+5 workspace number $ws_5
+# bindsym $Y+space workspace $ws_space
+bindsym $Y+r workspace $ws_r
+bindsym $Y+t workspace $ws_t
+bindsym $Y+s workspace $ws_s
+bindsym $Y+d workspace $ws_d
+bindsym $Y+w workspace $ws_w
+bindsym $Y+e workspace $ws_e
+bindsym $Y+p workspace $ws_p
+bindsym $Y+q workspace $ws_q
+bindsym $Y+a workspace $ws_a
+bindsym $Y+z workspace $ws_z
+bindsym $Y+x workspace $ws_x
+bindsym $Y+c workspace $ws_c
+bindsym $Y+v workspace $ws_v
+bindsym $Y+b workspace $ws_b
+bindsym $Y+n workspace $ws_n
+bindsym $Y+m workspace $ws_m
+bindsym $Y+semicolon workspace $ws_semicolon
+
+#? Move focused container to workspace
+bindsym $M+$Y+1 move container to workspace number $ws_1
+bindsym $M+$Y+2 move container to workspace number $ws_2
+bindsym $M+$Y+3 move container to workspace number $ws_3
+bindsym $M+$Y+4 move container to workspace number $ws_4
+bindsym $M+$Y+5 move container to workspace number $ws_5
+# bindsym $M+$Y+space move container to workspace $ws_space
+bindsym $M+$Y+r move container to workspace $ws_r
+bindsym $M+$Y+t move container to workspace $ws_t
+bindsym $M+$Y+s move container to workspace $ws_s
+bindsym $M+$Y+d move container to workspace $ws_d
+bindsym $M+$Y+w move container to workspace $ws_w
+bindsym $M+$Y+e move container to workspace $ws_e
+bindsym $M+$Y+p move container to workspace $ws_p
+bindsym $M+$Y+q move container to workspace $ws_q
+bindsym $M+$Y+a move container to workspace $ws_a
+bindsym $M+$Y+z move container to workspace $ws_z
+bindsym $M+$Y+x move container to workspace $ws_x
+bindsym $M+$Y+c move container to workspace $ws_c
+bindsym $M+$Y+v move container to workspace $ws_v
+bindsym $M+$Y+b move container to workspace $ws_b
+bindsym $M+$Y+n move container to workspace $ws_n
+bindsym $M+$Y+m move container to workspace $ws_m
+bindsym $M+$Y+semicolon move container to workspace $ws_semicolon
+
+#? Move to workspace with focused container
+# bindsym $Y+$S+1 move container to workspace number $ws_1; workspace number $ws_1
+# bindsym $Y+$S+2 move container to workspace number $ws_2; workspace number $ws_2
+# bindsym $Y+$S+3 move container to workspace number $ws_3; workspace number $ws_3
+# bindsym $Y+$S+4 move container to workspace number $ws_4; workspace number $ws_4
+# bindsym $Y+$S+5 move container to workspace number $ws_5; workspace number $ws_5
+# bindsym $Y+$S+space move container to workspace $ws_space; workspace $ws_space
+# bindsym $Y+$S+r move container to workspace $ws_r; workspace $ws_r
+# bindsym $Y+$S+t move container to workspace $ws_t; workspace $ws_t
+# bindsym $Y+$S+s move container to workspace $ws_s; workspace $ws_s
+# bindsym $Y+$S+d move container to workspace $ws_d; workspace $ws_d
+# bindsym $Y+$S+w move container to workspace $ws_w; workspace $ws_w
+# bindsym $Y+$S+e move container to workspace $ws_e; workspace $ws_e
+# bindsym $Y+$S+p move container to workspace $ws_p; workspace $ws_p
+# bindsym $Y+$S+q move container to workspace $ws_q; workspace $ws_q
+# bindsym $Y+$S+a move container to workspace $ws_a; workspace $ws_a
+# bindsym $Y+$S+z move container to workspace $ws_z; workspace $ws_z
+# bindsym $Y+$S+x move container to workspace $ws_x; workspace $ws_x
+# bindsym $Y+$S+c move container to workspace $ws_c; workspace $ws_c
+# bindsym $Y+$S+v move container to workspace $ws_v; workspace $ws_v
+# bindsym $Y+$S+b move container to workspace $ws_b; workspace $ws_b
+# bindsym $Y+$S+n move container to workspace $ws_n; workspace $ws_n
+# bindsym $Y+$S+m move container to workspace $ws_m; workspace $ws_m
+
+
+# +----------------------------------------------+
+# 50. Bind software to workspaces
+# -----------------------------------------------+
+
+# assign [class="obsidian"] $ws_space
+assign [class="thunderbird"] $ws_t
+assign [class="remmina"] $ws_r
+assign [class="DBeaver"] $ws_d
+assign [class="Microsoft Teams - Preview"] $ws_s
+
+# todo: no funciona
+assign [class="libreoffice"] $ws_v
+assign [class="libreoffice_calc"] $ws_v
+
+# assign [class="firefox"] $ws_x
+assign [class="Postman"] $ws_p
+# assign [class="Brave-browser"] $ws_e
+assign [class="Tor Browser"] $ws_e
+# social
+# assign [class="TelegramDesktop"] $ws_s
+assign [class="whatsdesk"] $ws_s
+assign [class="discord"] $ws_s
+
+# +----------------------------------------------+
+# 60. Bind ws to outputs & move ws between outputs
+# -----------------------------------------------+
+
+# You can specify multiple outputs. The first available will be used.
+# set $monPrimary $out_DP_1 $outLaptop
+set $monPrimary $out_DP_1 $outLaptop
+set $modSecondary $out_DP_2 $out_DP_1 $outLaptop
+
+workspace $ws_1     output $monPrimary
+workspace $ws_2     output $monPrimary
+workspace $ws_3     output $monPrimary
+workspace $ws_4     output $monPrimary
+workspace $ws_5     output $monPrimary
+# workspace $ws_space output $monPrimary
+workspace $ws_r     output $monPrimary
+workspace $ws_t     output $monPrimary
+workspace $ws_s     output $monPrimary
+workspace $ws_d     output $monPrimary
+workspace $ws_w     output $monPrimary
+workspace $ws_p     output $monPrimary
+workspace $ws_q     output $monPrimary
+workspace $ws_a     output $monPrimary
+workspace $ws_z     output $monPrimary
+workspace $ws_x     output $monPrimary
+workspace $ws_c     output $monPrimary
+workspace $ws_v     output $monPrimary
+workspace $ws_b     output $monPrimary
+workspace $ws_n     output $monPrimary
+workspace $ws_m     output $monPrimary
+
+#? move workspaces between outputs
+bindsym $M+$C+h	move workspace to output left
+bindsym $M+$C+l	move workspace to output right
+bindsym $M+$C+j	move workspace to output down
+bindsym $M+$C+k move workspace to output up
+
+# +------------------------------------------+
+# 70. Windows & containers functionallity
+# +------------------------------------------+
+
+focus_follows_mouse no
+
+#todo: toggle tiling / floating; also restore from scratchpad
+bindsym $M+$S+space floating toggle
+
+#todo: change focus between tiling / floating windows
+# bindsym $M+space focus mode_toggle
+
+# toggle sticky
+# bindsym $M+$S+s sticky toggle
+
+#? Move windows
+bindsym $M+h      focus left
+bindsym $M+$S+h	  move left 30
+
+bindsym $M+j      focus down
+bindsym $M+$S+j	  move down 30
+
+bindsym $M+k      focus up
+bindsym $M+$S+k	  move up 30
+
+bindsym $M+l      focus right
+bindsym $M+$S+l	  move right 30
+
+#? Resize windows
+# keyd hyp+h = left
+bindsym $M+Left exec --no-startup-id $i3scripts/i3resize left 2
+bindsym $M+Down exec --no-startup-id $i3scripts/i3resize down 2
+bindsym $M+Up exec --no-startup-id $i3scripts/i3resize up 2
+bindsym $M+Right exec --no-startup-id $i3scripts/i3resize right 2
+bindsym $M+$S+Left exec --no-startup-id $i3scripts/i3resize left 7
+bindsym $M+$S+Down exec --no-startup-id $i3scripts/i3resize down 7
+bindsym $M+$S+Up exec --no-startup-id $i3scripts/i3resize up 7
+bindsym $M+$S+Right exec --no-startup-id $i3scripts/i3resize right 7
+
+#? change container layout (stacked, tabbed, toggle split)
+bindsym $M+c  split horizontal; exec notify-send 'tile horizontally'
+bindsym $M+v  split vertical; exec notify-send 'tile vertically'
+bindsym $M+s  layout stacking
+bindsym $M+w  layout tabbed
+bindsym $M+e  layout toggle split
+bindsym $M+x  split toggle
+
+# focus the parent container
+bindsym $M+a focus parent
+
+#? Renaming parent container
+# to pop up an input window for you to enter a container name and then focuses 
+# on the window parent, renames the container and then focuses back on the child window
+bindsym $Y+slash exec "answer=$(zenity --title=\\"i3-msg title_format\\" --text \\"Change %TITLE for parent container\\" --entry); if [ -n \\"$answer\\" ]; then i3-msg focus parent, title_format \\"<span foreground='pink'><b> $answer</b></span>\\", focus child; else i3-msg focus parent, title_format \\"<span foreground='pink'><b> %title</b></span>\\", focus child; fi"
+
+# not working
+# bindsym $M+g exec i3-input -F 'rename workspace to "'`i3-msg -t get_workspaces | jq '.[] | select(.visible == true)' | jq .num`': %s"' -P "new name? "
+
+
+# +------------------------------------------+
+# 75. Window setup for software
+# +------------------------------------------+
+
+#* workaruond cuando en una aplicacion no se muestra el border sin mas
+for_window [class="obsidian"] border pixel 1
+for_window [class="Docker Desktop"] border pixel 1
+for_window [class="Code"] border pixel 1
+
+#* para que los popups no salgan en floating mode. Por ejemplo cuando arrastro tabla a otra pantalla en dbeaver
+# for_window [class="DBeaver"] floating disable border normal
+
+#* floating mode explicito
+# for_window [title="alsamixer"] floating enable border pixel 1
+# for_window [class="(?i)virtualbox"] floating enable border normal
+# for_window [class="Gucharmap"] floating enable
+# for_window [class="Lightdm-settings"] floating enable
+# for_window [class="Nitrogen"] floating enable sticky enable border normal
+for_window [class="calamares"] floating enable border normal
+for_window [class="Clipgrab"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [class="fpakman"] floating enable
+for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="GParted"] floating enable border normal
+for_window [title="i3_help"] floating enable sticky enable border normal
+for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="Manjaro-hello"] floating enable
+for_window [class="Manjaro Settings Manager"] floating enable border normal
+for_window [title="MuseScore: Play Panel"] floating enable
+for_window [class="Oblogout"] fullscreen enable
+for_window [class="octopi"] floating enable
+for_window [title="About Pale Moon"] floating enable
+for_window [class="Pamac-manager"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="qt5ct"] floating enable sticky enable border normal
+for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
+for_window [class="Simple-scan"] floating enable border normal
+for_window [class="(?i)System-config-printer.py"] floating enable border normal
+for_window [class="Skype"] floating enable border normal
+for_window [class="Timeset-gui"] floating enable border normal
+for_window [class="Xfburn"] floating enable
+for_window [class="Arandr"] floating enable
+
+# +------------------------------------------+
+# 45. Simulate key press / remap
+# +------------------------------------------+
+# bindsym $Y+Right     exec --no-startup-id xdotool key Return
+
+# todo: pasar a keyd
+bindsym $Y+0 exec --no-startup-id xdotool key Caps_Lock
+bindsym $Y+6 exec --no-startup-id xdotool key Num_Lock
+
+
+# +------------------------------------------+
+# 50. Scratchpad
+# +------------------------------------------+
+
+#todo: https://github.com/noctuid/tdrop
+
+# move the currently focused window to the scratchpad
+# bindsym $M+$S+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+# bindsym $M+minus scratchpad show
+
+# https://wiki.archlinux.org/title/i3
+# https://i3wm.org/docs/userguide.html#command_criteria
+for_window [class="KeePassXC"], move scratchpad, resize set 1300 680
+for_window [class="kate"], move scratchpad, resize set 1300 680
+for_window [class="Gcolor3"], move scratchpad, resize set 1300 680, border pixel 1
+for_window [class="TelegramDesktop"], move scratchpad, resize set 1300 680, border pixel 1
+for_window [class="crow"], move scratchpad, resize set 1000 680, border pixel 1
+# for_window [class="copyq"], move scratchpad, resize set 1000 680, border pixel 1
+for_window [class="alacritty_ranger"], move scratchpad, resize set 1200 680, border pixel 1
+for_window [class="kitty_scratchterm"], move scratchpad, resize set 1200 680, border pixel 1
+for_window [class="kitty_zel"], move scratchpad, resize set 1200 680, border pixel 1
+for_window [class="kitty_nmtui"] move scratchpad, resize set 1200 680, border pixel 1
+for_window [class="kitty_alsamixer"] move scratchpad, resize set 1200 680, border pixel 1
+# for_window [class="Nm-connection-editor"] move scratchpad, resize set 1200 680, border pixel 1
+for_window [window_type="dialog"], resize set 1000 680, move position center
+
+# crow: main window
+bindsym $Y+$A+e exec --no-startup-id jumpapp crow ;[class="crow"] scratchpad show; move position center
+# crow: translate selection but in main window
+bindsym $Y+$A+$S+e exec --no-startup-id dbus-send --type=method_call --dest=io.crow_translate.CrowTranslate /io/crow_translate/CrowTranslate/MainWindow io.crow_translate.CrowTranslate.MainWindow.translateSelection ; [class="crow"] scratchpad show; move position center
+# crow: speakSelection
+bindsym $Y+$A+$S+s exec --no-startup-id dbus-send --type=method_call --dest=io.crow_translate.CrowTranslate /io/crow_translate/CrowTranslate/MainWindow io.crow_translate.CrowTranslate.MainWindow.speakSelection
+# copyq
+# bindsym $A+$Y+q exec --no-startup-id copyq show;[class="copyq"] scratchpad show; move position center
+
+# show & start if not running
+# 1.jumpapp
+bindsym $Y+f exec --no-startup-id jumpapp keepassxc; [class="KeePassXC"] scratchpad show; move position center
+bindsym $M+q exec --no-startup-id jumpapp kate; [class="kate"] scratchpad show; move position center
+bindsym $Y+o exec --no-startup-id jumpapp gcolor3; [class="Gcolor3"] scratchpad show; move position center
+bindsym $C+$A+Next exec --no-startup-id jumpapp TelegramDesktop; [class="TelegramDesktop"] scratchpad show; move position center
+# 2.jumpterm
+bindsym $M+space exec --no-startup-id ~/.config/scripts/jumpterm.sh alacritty alacritty_ranger ranger; [class="alacritty_ranger"] scratchpad show; move position center
+bindsym $M+$S+Tab exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_scratchterm; [class="kitty_scratchterm"] scratchpad show; move position center
+bindsym $M+n exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_nmtui nmtui ;[class="kitty_nmtui"] scratchpad show; move position center
+bindsym $M+m exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_alsamixer alsamixer; [class="kitty_alsamixer"] scratchpad show; move position center
+# with this output redirection i was able to see that the ~/.config/scripts/ is not on PATH <from i3>
+# conclusion; in some point of time, my PATH environment var was stopped being read within i3 execution
+# if zellij session dont exists, strange behaviour
+bindsym $M+Tab exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zel "zellij attach master" > /tmp/rubin 2>&1; [class="kitty_zel"] scratchpad show; move position center
+bindsym $A+Tab exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zel "zellij attach master" > /tmp/rubin 2>&1; [class="kitty_zel"] scratchpad show; move position center
+
+# +------------------------------------------+
+# 80. Window customization
+# +------------------------------------------+
+
+#? Transparency
+bindsym $M+$Y+9 exec transset-df -a --min 0.10 --dec 0.10
+bindsym $M+$Y+0 exec transset-df -a --inc 0.10
+
+#? default border
+# Configure border style <normal|1pixel|pixel xx|none|pixel>
+# default_border pixel 1
+default_border pixel 1
+default_floating_border normal
+
+#? Hide borders
+hide_edge_borders none
+
+#? change borders
+# bindsym $M+u border none
+#todo: assign keys
+# bindsym $M+$Y+e border normal
+# bindsym $M+$Y+w border pixel 1
+
+
+
+# +------------------------------------------+
+# 81. Gaps
+# +------------------------------------------+
+
+# Set inner/outer gaps
+gaps inner 9
+gaps outer -2
+
+# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
+# gaps inner|outer current|all set|plus|minus <px>
+# gaps inner all set 10
+# gaps outer all plus 5
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+smart_gaps on
+
+# Smart borders (draw borders around container only if it is not the only container on this workspace) 
+# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+smart_borders on
+
+# Press $M+$S+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
+set $wine_gaps Gaps: (o) outer, (i) inner
+set $wine_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $wine_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $M+$S+g mode "$wine_gaps"
+
+mode "$wine_gaps" {
+        bindsym o      mode "$wine_gaps_outer"
+        bindsym i      mode "$wine_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$wine_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym $S+plus  gaps inner all plus 5
+        bindsym $S+minus gaps inner all minus 5
+        bindsym $S+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$wine_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym $S+plus  gaps outer all plus 5
+        bindsym $S+minus gaps outer all minus 5
+        bindsym $S+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+
+# +------------------------------------------+
+# 82. Theme colors
+# +------------------------------------------+
+# https://thomashunter.name/i3-configurator/
+# cyan child border = 6efffc
+
+# ⚡ BORDER & TABS
+# client.focused              #4c7899   #172b3a   #ffffff   #ffd49a   #6efffc
+
+# class                     [border]  [backgr]  [text]    [indicat] [child_border]
+client.focused              #0b1720   #0b1720   #ffffff   #ffd49a   #ffffff
+client.focused_inactive     #0b1720   #0e1a23   #ffffff   #5f676a   #5f676a
+client.unfocused            #1f2528   #0f0f14   #b9b9b9   #5f676a
+client.urgent               #5860a6   #3845b1   #ffffff   #268BD2
+client.placeholder          #000000   #0c0c0c   #000000   #000000
+client.focused_tab_title    #000000   #000000   #000000   #000000   #ffffff
+
+# ⚡ Background color which will be used to paint the background of the client window on top of 
+# which the client will be rendered. Only clients which do not cover the whole area of this 
+# window expose the color. Note that this colorclass only takes a single color
+# client.background #2B2C2B
+
+# print all window titles bold
+# for_window [class=".*"] title_format "<span>%class | %title</span>"
+# f2e23d yellow
+for_window [class=".*"] title_format "<span>[<b><span foreground='#754eff'>%class</span></b>] :: %title</span>"
+# for_window [class=".*"] title_format "<span><b><span foreground='#754eff'>%class</span></b></span>"
+for_window [all] title_window_icon padding 3px
+
+title_align right
+
+# +------------------------------------------+
+# 84. Distraction-free
+# +------------------------------------------+
+
+set $freeze Distraction-free mode (super+$S+f to reactivate bindings)
+mode "$freeze" { bindsym $M+$S+f mode "default"
+}
+
+# toggle fullscreen mode for the focused container
+bindsym $M+f fullscreen toggle
+bindsym $M+$S+f	mode "$freeze" ;; exec --no-startup-id notify-send "Distraction-free mode activated." "Press Super+$S+f to return."
+
+
+
+# +------------------------------------------+
+# 100. Menu
+# +------------------------------------------+
+
+#* [MENU] Power/system-setting functions
+
+# new
+bindsym $Y+Escape exec --no-startup-id $rofi/powermenu.sh
+
+# old
+# todo: блять в рофи ибернации нету
+bindsym $Y+$S+Escape mode "$wine_system"
+set $wine_system (l)ock (e)xit switch-(u)ser (s)uspend (h)ibernate (r)eboot (S+s)hutdown (S+e)xit_X_ses
+mode "$wine_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym $S+s exec --no-startup-id i3exit shutdown, mode "default"
+    bindsym $S+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Escape mode "default"
+}
+
+
+#? LOCK SCREEN
+#todo: https://tools.suckless.org/slock/
+
+# bindsym $Y+BackSpace exec --no-startup-id blurlock
+bindsym $M+BackSpace exec --no-startup-id "$i3scripts/i3lock-fancy-pizdati --greyscale"
+
+# lock the screen with a black background
+bindsym $M+$S+BackSpace exec "i3lock -c 000000"
+
+# exec --no-startup-id xautolock -time 10 -locker blurlock
+# exec --no-startup-id xautolock -time 10 -locker "$i3scripts/i3lock-fancy-pizdati --greyscale" -detectsleep
+
+# wait for 50 mins in idle mode then xautolock used to lock the system, then wait for another 10 mins before suspending
+# xautolock -time 50 -locker slock -killtime 10 -killer "systemctl suspend" -corners -+00 -secure
+
+
+#* [MENU] VPN
+bindsym $Y+F9 mode "$wine_vpn"
+set $wine_vpn [VPN🌍] up|down (h|H)hdt (s|S)sanjuan
+mode "$wine_vpn" {
+    
+    # hdt
+    bindsym h           exec --no-startup-id $bin/vpn/vpn_handler.sh hdt up; mode "default"
+    bindsym $S+h     exec --no-startup-id $bin/vpn/vpn_handler.sh hdt down; mode "default"
+    
+    # sanjuan
+    bindsym s           exec --no-startup-id $bin/vpn/vpn_handler.sh sanjuan up; mode "default"
+    bindsym $S+s     exec --no-startup-id $bin/vpn/vpn_handler.sh sanjuan down; mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Escape mode "default"
+}
+
+#* [MENU] Notifications
+# pause dunst notifications
+bindsym $Y+9        exec --no-startup-id dunstctl close-all && notify-send "Dunst enabled 🌀" && dunstctl set-paused toggle
+bindsym $Y+$A+c     exec --no-startup-id dunstctl context
+bindsym $Y+$A+x     exec --no-startup-id dunstctl close
+bindsym $Y+$A+$S+x  exec --no-startup-id dunstctl close-all
+
+# dunstify "Title" "Message" -u critical
+
+bindsym $Y+F10 mode "$wine_notif"
+set $wine_notif [Notifications] (w|W)work-mode on|off (d)close-topmost (h)history-pop (c)context
+mode "$wine_notif" {
+    bindsym h          exec --no-startup-id dunstctl history-pop
+    bindsym w          exec --no-startup-id dunstctl close-all && $bin/notifications/dunst_manage.sh workmode enable
+    bindsym $S+w    exec --no-startup-id dunstctl close-all && $bin/notifications/dunst_manage.sh workmode disable
+    bindsym d          exec --no-startup-id dunstctl close
+    bindsym c          exec --no-startup-id dunstctl context
+
+    bindsym Escape mode "default"
+}
+
+
+#* [MENU] Monitor control
+bindsym $Y+F11 mode "$wine_monitor_control"
+set $wine_monitor_control  󰓏 [q|x|w|e|r|m]:[VM|MV|L|ML|VML|M] 󰓏 ws2output [Alt]+[1|2|3]:M|V|L 
+mode "$wine_monitor_control" {
+
+    # reapply xrandr configuration & reload polybar & apply xmodmap
+
+    set $log "/tmp/display.log"
+
+    bindsym q       exec --no-startup-id $bin/setup_display.sh --setup_vm --apply_xrandr --apply_polybar > $log 2>&1; mode "default"
+ 
+    # valid for connecting vertical monitor via docking (is always appear as dp-1) and via dp-1 port directly in laptop
+    bindsym x       exec --no-startup-id $bin/setup_display.sh --setup_mv --apply_xrandr --apply_polybar > $log 2>&1; mode "default"
+
+    bindsym w       exec --no-startup-id $bin/setup_display.sh --setup_l --apply_xrandr --apply_polybar > $log 2>&1; mode "default"
+    bindsym e       exec --no-startup-id $bin/setup_display.sh --setup_ml --apply_xrandr --apply_polybar > $log 2>&1; mode "default"
+    bindsym r       exec --no-startup-id $bin/setup_display.sh --setup_vml --apply_xrandr --apply_polybar > $log 2>&1; mode "default"
+    bindsym m       exec --no-startup-id $bin/setup_display.sh --setup_m --apply_xrandr --apply_polybar > $log 2>&1; mode "default"
+
+    # reload polybar only
+    # bindsym $C+q  exec --no-startup-id $bin/setup_display.sh --setup_vm --apply_polybar &; mode "default"
+    # bindsym $C+w  exec --no-startup-id $bin/setup_display.sh --setup_l --apply_polybar &; mode "default"
+    # bindsym $C+e  exec --no-startup-id $bin/setup_display.sh --setup_ml --apply_polybar &; mode "default"
+    # bindsym $C+r  exec --no-startup-id $bin/setup_display.sh --setup_vml --apply_polybar &; mode "default"
+
+    bindsym $A+1        [class=".*"] move workspace to output $outHDMI
+    bindsym $A+2        [class=".*"] move workspace to output $out_DP_2
+    bindsym $A+3        [class=".*"] move workspace to output $outLaptop
+
+    bindsym Escape mode "default"
+}
+
+#* [MENU] Control menu
+# bindsym $M+F12 mode "$wine_reload"
+bindsym $Y+F12 mode "$wine_reload"
+set $wine_reload [] (r)rst-i3 (c)rld-config-i3 (s)sxkhd (p)picom (d)dunst (f)setup_hw (o)polybar
+mode "$wine_reload" {
+
+    # reload sxkhd
+    bindsym s exec --no-startup-id killall sxhkd && setsid -f sxhkd && notify-send "[sxhkd] reloaded"
+
+    # reload the configuration file
+    # bindsym 2 reload && notify-send "[i3] reload the configuration file"
+    bindsym c exec --no-startup-id i3-msg reload && notify-send "[i3] reload the configuration file"
+    
+    # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+    # bindsym r restart && notify-send "[i3] restart i3"
+    bindsym r exec --no-startup-id i3-msg restart && notify-send "[i3] restart i3 inplace"
+
+    # restart picom
+    bindsym p exec --no-startup-id picom -b && notify-send "[picom] reloaded"
+
+    # reload dunst
+    bindsym d --release exec killall dunst && notify-send "[dunst] reloaded"
+
+    # reload polybar
+    bindsym o polybar-msg cmd restart && notify-send "[polybar] reloaded"
+
+    # wifi, vpn, etc
+    #bindsym n exec --no-startup-id kitty --class=kitty_nmtui -e nmtui, mode "default"
+    #bindsym n exec --no-startup-id alacritty -e nmtui, mode "default"
+    #bindsym n exec terminal -e 'nmtui', mode "default"
+    
+    # fix hardware
+    bindsym f exec --no-startup-id $bin/hardware/setup_hw.sh 2>&1, mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Escape mode "default"
+}
+
+
