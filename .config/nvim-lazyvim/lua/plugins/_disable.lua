@@ -47,11 +47,12 @@ return {
   { "nvim-telescope/telescope.nvim", enabled = true },
   { "RRethy/vim-illuminate", enabled = true },
   { "dstein64/vim-startuptime", enabled = true },
+  -- themes
   { "folke/tokyonight.nvim", enabled = true },
   { "catppuccin/nvim", enabled = true },
   -- disabled
   { "akinsho/bufferline.nvim", enabled = false },
   { "folke/persistence.nvim", enabled = false },
-  { "folke/noice.nvim", enabled = false },
+  { "folke/noice.nvim", enabled = true },
   { "echasnovski/mini.bufremove", enabled = true },
 }

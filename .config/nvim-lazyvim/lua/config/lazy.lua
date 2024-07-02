@@ -16,6 +16,7 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
     -- import/override with your plugins
     { import = "plugins" },
+    -- { import = "plugins.dap" },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
@@ -44,3 +45,13 @@ require("lazy").setup({
     },
   },
 })
+
+-- TODO: transfer to plugins/lsp/setup.lua
+-- https://neovim.discourse.group/t/autoformat-using-first-option-disable-formatting-on-tsserver/2500/3
+-- [specifications](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#serverCapabilities)
+-- require("lspconfig").tsserver.setup({
+--   on_attach = function(client)
+--     client.server_capabilities.documentFormattingProvider = false
+--     client.server_capabilities.documentRangeFormattingProvider = false
+--   end,
+-- })

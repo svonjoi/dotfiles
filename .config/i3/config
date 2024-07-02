@@ -168,12 +168,14 @@ exec --no-startup-id $bin/setup_display.sh --setup_vm --apply_xrandr --apply_pol
 exec --no-startup-id $bin/hardware/player_handler.pl &
 
 #? manjaro defaults
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec --no-startup-id nitrogen --restore; sleep 1; picom -b
-exec --no-startup-id nitrogen --restore
-exec --no-startup-id nm-applet
 # exec --no-startup-id xfce4-power-manager
 # exec --no-startup-id start_conky_maia
+
+# commented for test wtf will happen
+# exec --no-startup-id nitrogen --restore
+# exec --no-startup-id nm-applet
+# exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 #? scratchpad application
 exec --no-startup-id kitty --class=kitty_scratchterm
@@ -238,6 +240,7 @@ bindsym $Y+y exec --no-startup-id flameshot gui
 # Capture with GUI after 2 seconds delay (can be useful to take screenshots of mouse hover tooltips, etc.)
 bindsym $Y+$S+y exec --no-startup-id flameshot gui -d 2000 >/dev/null 2>&1
 
+# screencast
 bindsym $Y+u exec ~/.config/scripts/gif.sh >/dev/null 2>&1
 
 # +------------------------------------------+

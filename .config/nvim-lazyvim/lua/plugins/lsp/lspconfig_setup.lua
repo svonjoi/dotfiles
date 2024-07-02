@@ -48,7 +48,7 @@ return {
       -- LSP Server Settings
       servers = {
         bashls = {
-          -- npi if this works. idk how to see the REAL server configuration in real time
+          -- npi if this works
           settings = {
             bashIde = {
               globPattern = "*@(.sh|.inc|.bash|.command)",
@@ -72,16 +72,16 @@ return {
             },
           },
         },
-        tsserver = {
-          settings = {
-            javascript = {
-              autoClosingTags = false,
-              format = {
-                enable = false,
-              },
-            },
-          },
-        },
+        -- tsserver = {
+        --   settings = {
+        --     javascript = {
+        --       autoClosingTags = false,
+        --       format = {
+        --         enable = false,
+        --       },
+        --     },
+        --   },
+        -- },
         -- сука нерабочая
         intelephense = {
           settings = {
@@ -112,19 +112,38 @@ return {
       },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
+      -- What you see in the :LspLog are the server_capabilities. This just means
+      -- that tsserver is capable of doing formatting.
+      -- What you are defining in the setup are client_capabilities. This tells
+      -- tsserver that the client does not support formatting.
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
-        -- example to setup with typescript.nvim
         -- https://github.com/LazyVim/LazyVim/issues/249
-        tsserver = function(_, opts)
-          opts.capabilities.documentFormattingProvider = false
-        end,
-        -- eslint = function(_, opts)
-        --   opts.capabilities.documentFormattingProvider = true
+        -- https://github.com/typescript-language-server/typescript-language-server/issues/257
+
+        -- eslint = function()
+        --   require("lazyvim.util").on_attach(function(client)
+        --     if client.name == "eslint" then
+        --       client.server_capabilities.documentFormattingProvider = true
+        --     elseif client.name == "tsserver" then
+        --       client.server_capabilities.documentFormattingProvider = false
+        --       client.server_capabilities.documentRangeFormattingProvider = false
+        --     end
+        --   end)
         -- end,
 
+        -- tsserver = function()
+        -- require("lazyvim.util").on_attach(function(client)
+        --   if client.name == "tsserver" then
+        --     -- client.server_capabilities.documentFormattingProvider = false
+        --     -- client.server_capabilities.documentRangeFormattingProvider = false
+        --   end
+        -- end)
+        -- end,
         -- tsserver = function(_, opts)
         --   require("typescript").setup({ server = opts })
+        --   return true
+        -- end,
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
       },

@@ -231,6 +231,7 @@ alias ll='exa -l --all --group-directories-first'
 alias llt='exa --tree --group-directories-first'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias man='batman'
+alias Nvim=select_nvim_config
 
 
 # https://stackoverflow.com/a/39839346/16719196
@@ -326,3 +327,17 @@ function batman() {
     BAT_THEME="Solarized (dark)" command batman "$@"
     return $?
 }
+
+
+select_nvim_config() {
+  # Assumes all configs exist in directories named ~/.config/nvim-*
+  local config=$(fd --max-depth 1 --glob 'nvim-*' ~/.config | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
+ 
+  # If I exit fzf without selecting a config, don't open Neovim
+  [[ -z $config ]] && echo "No config selected" && return
+ 
+  # Open Neovim with the selected config
+  NVIM_APPNAME=$(basename $config) nvim $@
+}
+
+
