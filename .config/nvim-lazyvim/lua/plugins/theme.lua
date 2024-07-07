@@ -4,7 +4,13 @@
 --
 -- https://codeberg.org/shinyzero0/dotfiles/src/branch/guix/.config/guix-home/nvim/lua/plugins.d/Skins.lua
 return {
-  { "challenger-deep-theme/vim", config = true, lazy = true },
+  -- {
+  --   "jordanbrauer/citylights.nvim",
+  --   config = function()
+  --     require("colorbuddy").colorscheme("citylights")
+  --   end,
+  -- },
+  { "challenger-deep-theme/vim", config = true, lazy = false },
   {
     "nyoom-engineering/oxocarbon.nvim",
     -- Add in any other configuration;
@@ -12,19 +18,18 @@ return {
     --   config = bar
     --   end,
   },
-  { "SethBarberee/challenger-deep.nvim", lazy = true },
-  { "nyoom-engineering/oxocarbon.nvim", lazy = true },
+  { "SethBarberee/challenger-deep.nvim", lazy = false },
+  { "nyoom-engineering/oxocarbon.nvim", lazy = false },
   { "dasupradyumna/midnight.nvim", lazy = true },
-  { "miikanissi/modus-themes.nvim", config = true, lazy = true },
-  { "ellisonleao/gruvbox.nvim", lazy = true, opts = { contrast = "hard" } },
+  { "miikanissi/modus-themes.nvim", config = true, lazy = false },
+  { "ellisonleao/gruvbox.nvim", lazy = false, opts = { contrast = "hard" } },
   { "bluz71/vim-nightfly-colors", name = "nightfly", lazy = false, priority = 1000 },
-  { "ellisonleao/gruvbox.nvim", priority = 1000, config = true, opts = {} },
   { "pineapplegiant/spaceduck", priority = 1000, config = true, opts = {} },
   {
     "LazyVim/LazyVim",
     opts = {
-      -- vim.cmd("colorscheme gruvbox")
-      colorscheme = "spaceduck",
+      -- vim.cmd("colorscheme gruvbox"),
+      colorscheme = "gruvbox",
     },
   },
   -- { "bluz71/vim-nightfly-guicolor", lazy = true },

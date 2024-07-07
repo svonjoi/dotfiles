@@ -1,3 +1,19 @@
+-- js and php dap configuration from calebdv
+-- https://github.com/calebdw/dotfiles/blob/master/.config/nvim/lua/calebdw/plugins/dap.lua
+
+vim.keymap.set("n", "<F5>", function()
+  require("dap").continue()
+end)
+vim.keymap.set("n", "<F10>", function()
+  require("dap").step_over()
+end)
+vim.keymap.set("n", "<F11>", function()
+  require("dap").step_into()
+end)
+vim.keymap.set("n", "<F12>", function()
+  require("dap").step_out()
+end)
+
 local js_based_languages = {
   "typescript",
   "javascript",
@@ -11,6 +27,7 @@ return {
   {
     "mfussenegger/nvim-dap",
     config = function()
+      -- спизжено со внутрянки lazyvim
       local dap = require("dap")
 
       local Config = require("lazyvim.config")
@@ -24,6 +41,31 @@ return {
         )
       end
 
+      -- конфиг для пыхи
+      local registry = require("mason-registry")
+      dap.adapters.php = {
+        type = "executable",
+        command = registry.get_package("php-debug-adapter"):get_install_path() .. "/php-debug-adapter",
+      }
+      dap.configurations.php = {
+        {
+          type = "php",
+          request = "launch",
+          name = "Listen for Xdebug in Docker",
+          pathMappings = {
+            ["/var/www/html"] = "${workspaceFolder}",
+          },
+          repl_lang = "php_only",
+        },
+        {
+          type = "php",
+          request = "launch",
+          name = "Listen for Xdebug locally",
+          repl_lang = "php_only",
+        },
+      }
+
+      -- конфиг для js
       for _, language in ipairs(js_based_languages) do
         dap.configurations[language] = {
           -- Debug single nodejs files
@@ -68,13 +110,36 @@ return {
             -- webRoot = vim.fn.getcwd(),
             protocol = "inspector",
             sourceMaps = true,
-            -- TODO:
-            skipFiles = { "**/node_modules/**/*", "**/src/*" },
-            -- userDataDir = false,
-            --- trying fix breakpoints
-            -- localRoot = "${workspaceFolder}",
-            -- remoteRoot = "/usr/src/app",
-            -- cwd = "${workspaceFolder}",
+            skipFiles = {
+              "**/src/*",
+              "**/node_modules/**/*",
+              -- "<node_internals>/**",
+              -- "${workspaceFolder}/node_modules/**/*.js",
+              -- "${workspaceFolder}/js/libs/jquery-2.1.1.min.js",
+              "utils.js",
+              "${workspaceFolder}/.dist/*",
+              "${workspaceFolder}/js/app/views/asistencia/listaArchivosView.js",
+              "${workspaceFolder}/js/libs/**/*.js",
+              "${workspaceFolder}/js/libs/**/**/*.js",
+              "${workspaceFolder}/js/libs/jquery*.js",
+              "${workspaceFolder}/js/libs/bootstrap*.js",
+              "${workspaceFolder}/js/libs/backbone*.js",
+              "${workspaceFolder}/js/libs/underscore*.js",
+              "${workspaceFolder}/js/libs/moment.js",
+              "${workspaceFolder}/js/libs/select2.min.js",
+              "${workspaceFolder}/js/vendor/jquery*.js",
+              "${workspaceFolder}/js/vendor/bootstrap*.js",
+              "${workspaceFolder}/js/vendor/backbone*.js",
+              "${workspaceFolder}/js/vendor/underscore*.js",
+              "${workspaceFolder}/js/vendor/moment.js",
+              "${workspaceFolder}/js/libs/**/*.js",
+              "${workspaceFolder}/js/libs/require.js",
+              -- "${workspaceFolder}/js/app/sanjuan.js",
+              -- "${workspaceFolder}/js/app/formulario.js",
+              -- "${workspaceFolder}/js/libs/*.js",
+              -- "${workspaceFolder}/js/app/views/appView.js",
+              -- "${workspaceFolder}/js/app/app.js",
+            },
           },
           -- Divider for the launch.json derived configs
           -- {
@@ -165,5 +230,18 @@ return {
         build = "./install.sh",
       },
     },
+  },
+
+  -- fancy UI for the debugger
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "nvim-neotest/nvim-nio" },
+    -- stylua: ignore
+    keys = {
+      { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
+      { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
+      { "<leader>dF", function() require("dapui").float_element(nil, {position= "center"}) end, desc = "toggle float", mode = {"n", "v"} },
+    },
+    opts = {},
   },
 }

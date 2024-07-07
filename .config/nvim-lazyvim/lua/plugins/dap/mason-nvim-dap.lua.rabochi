@@ -10,6 +10,7 @@ end)
 vim.keymap.set("n", "<F12>", function()
   require("dap").step_out()
 end)
+
 return {
   {
     "nvim-telescope/telescope-dap.nvim",
