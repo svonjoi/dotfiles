@@ -29,7 +29,7 @@ return {
     "LazyVim/LazyVim",
     opts = {
       -- vim.cmd("colorscheme gruvbox"),
-      colorscheme = "gruvbox",
+      colorscheme = "spaceduck",
     },
   },
   -- { "bluz71/vim-nightfly-guicolor", lazy = true },

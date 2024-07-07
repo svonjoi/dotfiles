@@ -1,5 +1,4 @@
--- спиздил отсюда и чуть поправил
--- https://www.lazyvim.org/plugins/editor#neo-treenvim
+-- спиздил с внутрянки и чуть подправил
 -- пришлось поеботину утиль подключать, хз нахуя. в ридми неотри нету никаких утиль
 local Util = require("lazyvim.util")
 
@@ -9,21 +8,17 @@ return {
   cmd = "Neotree",
   keys = {
     {
-      "<leader>fe",
+      "<leader>e",
       function()
         require("neo-tree.command").execute({ toggle = true, dir = Util.root() })
       end,
       desc = "Explorer NeoTree (root dir)",
     },
     {
-      "<leader>fE",
-      function()
-        require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
-      end,
-      desc = "Explorer NeoTree (cwd)",
+      "<leader>E",
+      "<cmd>Neotree reveal<cr>",
+      desc = "Explorer NeoTree (reveal)",
     },
-    { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (root dir)", remap = true },
-    { "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
     {
       "<leader>ge",
       function()
@@ -81,25 +76,4 @@ return {
       },
     },
   },
-  config = function(_, opts)
-    local function on_move(data)
-      Util.lsp.on_rename(data.source, data.destination)
-    end
-
-    local events = require("neo-tree.events")
-    opts.event_handlers = opts.event_handlers or {}
-    vim.list_extend(opts.event_handlers, {
-      { event = events.FILE_MOVED, handler = on_move },
-      { event = events.FILE_RENAMED, handler = on_move },
-    })
-    require("neo-tree").setup(opts)
-    vim.api.nvim_create_autocmd("TermClose", {
-      pattern = "*lazygit",
-      callback = function()
-        if package.loaded["neo-tree.sources.git_status"] then
-          require("neo-tree.sources.git_status").refresh()
-        end
-      end,
-    })
-  end,
 }

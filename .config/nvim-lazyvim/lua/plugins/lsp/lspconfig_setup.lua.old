@@ -72,16 +72,16 @@ return {
             },
           },
         },
-        -- tsserver = {
-        --   settings = {
-        --     javascript = {
-        --       autoClosingTags = false,
-        --       format = {
-        --         enable = false,
-        --       },
-        --     },
-        --   },
-        -- },
+        tsserver = {
+          settings = {
+            javascript = {
+              autoClosingTags = false,
+              format = {
+                enable = false,
+              },
+            },
+          },
+        },
         -- сука нерабочая
         intelephense = {
           settings = {
