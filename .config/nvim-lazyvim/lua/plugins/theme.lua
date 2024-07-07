@@ -19,11 +19,12 @@ return {
   { "ellisonleao/gruvbox.nvim", lazy = true, opts = { contrast = "hard" } },
   { "bluz71/vim-nightfly-colors", name = "nightfly", lazy = false, priority = 1000 },
   { "ellisonleao/gruvbox.nvim", priority = 1000, config = true, opts = {} },
+  { "pineapplegiant/spaceduck", priority = 1000, config = true, opts = {} },
   {
     "LazyVim/LazyVim",
     opts = {
       -- vim.cmd("colorscheme gruvbox")
-      colorscheme = "habamax",
+      colorscheme = "spaceduck",
     },
   },
   -- { "bluz71/vim-nightfly-guicolor", lazy = true },

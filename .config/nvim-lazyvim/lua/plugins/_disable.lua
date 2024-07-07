@@ -55,4 +55,10 @@ return {
   { "folke/persistence.nvim", enabled = false },
   { "folke/noice.nvim", enabled = true },
   { "echasnovski/mini.bufremove", enabled = true },
+  -- extras???
+  { "rcarriga/nvim-dap-ui", lazy = false, enabled = true },
+  { "mfussenegger/nvim-dap", lazy = false, enabled = true },
+  { "theHamsta/nvim-dap-virtual-text", lazy = false, enabled = true },
+  { "nvim-neotest/nvim-nio", lazy = false, enabled = true },
+  { "jay-babu/mason-nvim-dap.nvim", lazy = false, enabled = true },
 }

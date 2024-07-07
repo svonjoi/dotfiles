@@ -7,14 +7,7 @@ return {
     version = false, -- last release is way too old and doesn't work on Windows
     build = ":TSUpdate",
     event = { "LazyFile", "VeryLazy" },
-    init = function(plugin)
-      -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
-      -- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
-      -- no longer trigger the **nvim-treesitter** module to be loaded in time.
-      -- Luckily, the only things that those plugins need are the custom queries, which we make available
-      -- during startup.
-      require("lazy.core.loader").add_to_rtp(plugin)
-      require("nvim-treesitter.query_predicates")
+    init = function()
       -- install treesitter parser for earch filetype
       vim.filetype.add({
         -- каждый доп ext надо устанавливать `:TSInstall sxhkdrc` или засунуть в ensure_installed
@@ -31,6 +24,7 @@ return {
           -- ["flake.lock"] = "json",
           -- ["run"] = "sh",
           [".envrc"] = "sh",
+          [".txt"] = "sh",
           ["sxhkdrc"] = "sxhkdrc",
         },
         pattern = {
@@ -39,30 +33,19 @@ return {
       })
     end,
     dependencies = {
+      -- {
+      --   "nvim-treesitter/nvim-treesitter-textobjects",
+      -- },
+      -- спиздил для пыха
       {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        config = function()
-          -- When in diff mode, we want to use the default
-          -- vim text objects c & C instead of the treesitter ones.
-          local move = require("nvim-treesitter.textobjects.move") ---@type table<string,fun(...)>
-          local configs = require("nvim-treesitter.configs")
-          for name, fn in pairs(move) do
-            if name:find("goto") == 1 then
-              move[name] = function(q, ...)
-                if vim.wo.diff then
-                  local config = configs.get_module("textobjects.move")[name] ---@type table<string,string>
-                  for key, query in pairs(config or {}) do
-                    if q == query and key:find("[%]%[][cC]") then
-                      vim.cmd("normal! " .. key)
-                      return
-                    end
-                  end
-                end
-                return fn(q, ...)
-              end
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        opts = {
+          custom_calculation = function(_, language_tree)
+            if vim.bo.filetype == "blade" and language_tree._lang ~= "javascript" and language_tree._lang ~= "php" then
+              return "{{-- %s --}}"
             end
-          end
-        end,
+          end,
+        },
       },
     },
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
@@ -70,14 +53,12 @@ return {
       { "<c-space>", desc = "Increment selection" },
       { "<bs>", desc = "Decrement selection", mode = "x" },
     },
-    ---@type TSConfig
-    ---@diagnostic disable-next-line: missing-fields
     opts = {
       highlight = { enable = true },
-      indent = { enable = true },
+      indent = { enable = true }, -- Needed because treesitter highlight turns off autoindent for php files
       ensure_installed = {
         "php",
-        "bash",
+        -- "bash",
         "c",
         "diff",
         "html",
@@ -122,19 +103,29 @@ return {
         },
       },
     },
-    ---@param opts TSConfig
+
     config = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        ---@type table<string, boolean>
-        local added = {}
-        opts.ensure_installed = vim.tbl_filter(function(lang)
-          if added[lang] then
-            return false
-          end
-          added[lang] = true
-          return true
-        end, opts.ensure_installed)
-      end
+      -- if type(opts.ensure_installed) == "table" then
+      --   opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
+      -- end
+
+      -- установить blade для пыха
+      ---@class ParserInfo[]
+      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+      parser_config.blade = {
+        install_info = {
+          url = "https://github.com/EmranMR/tree-sitter-blade",
+          files = {
+            "src/parser.c",
+            -- 'src/scanner.cc',
+          },
+          branch = "main",
+          generate_requires_npm = true,
+          requires_generate_from_grammar = true,
+        },
+        filetype = "blade",
+      }
+
       require("nvim-treesitter.configs").setup(opts)
     end,
   },
@@ -155,18 +146,11 @@ return {
           if Util.inject.get_upvalue(tsc.toggle, "enabled") then
             Util.info("Enabled Treesitter Context", { title = "Option" })
           else
-            Util.warn("Disabled Treesitter Context", { title = "Option" })
+            Util.warn("Disabled Treesitter Context (нахуй)", { title = "Option" })
           end
         end,
         desc = "Toggle Treesitter Context",
       },
     },
-  },
-
-  -- Automatically add closing tags for HTML and JSX
-  {
-    "windwp/nvim-ts-autotag",
-    event = "LazyFile",
-    opts = {},
   },
 }
