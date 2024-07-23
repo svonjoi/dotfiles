@@ -562,6 +562,7 @@ for_window [class="KeePassXC"], move scratchpad, resize set 1300 680
 for_window [class="kate"], move scratchpad, resize set 1300 680
 for_window [class="Gcolor3"], move scratchpad, resize set 1300 680, border pixel 1
 for_window [class="TelegramDesktop"], move scratchpad, resize set 1300 680, border pixel 1
+for_window [class="Emacs"], move scratchpad, resize set 1600 680, border pixel 1
 for_window [class="crow"], move scratchpad, resize set 1000 680, border pixel 1
 # for_window [class="copyq"], move scratchpad, resize set 1000 680, border pixel 1
 for_window [class="alacritty_ranger"], move scratchpad, resize set 1200 680, border pixel 1
@@ -587,6 +588,7 @@ bindsym $Y+f exec --no-startup-id jumpapp keepassxc; [class="KeePassXC"] scratch
 bindsym $M+q exec --no-startup-id jumpapp kate; [class="kate"] scratchpad show; move position center
 bindsym $Y+o exec --no-startup-id jumpapp gcolor3; [class="Gcolor3"] scratchpad show; move position center
 bindsym $C+$A+Next exec --no-startup-id jumpapp TelegramDesktop; [class="TelegramDesktop"] scratchpad show; move position center
+bindsym $C+$A+Prior exec --no-startup-id jumpapp emacs; [class="Emacs"] scratchpad show; move position center
 # 2.jumpterm
 bindsym $M+space exec --no-startup-id ~/.config/scripts/jumpterm.sh alacritty alacritty_ranger ranger; [class="alacritty_ranger"] scratchpad show; move position center
 bindsym $M+$S+Tab exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_scratchterm; [class="kitty_scratchterm"] scratchpad show; move position center
@@ -597,6 +599,7 @@ bindsym $M+m exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_alsa
 # if zellij session dont exists, strange behaviour
 bindsym $M+Tab exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zel "zellij attach master" > /tmp/rubin 2>&1; [class="kitty_zel"] scratchpad show; move position center
 bindsym $A+Tab exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zel "zellij attach master" > /tmp/rubin 2>&1; [class="kitty_zel"] scratchpad show; move position center
+bindsym $M+0 exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zel "zellij attach master" > /tmp/rubin 2>&1; [class="kitty_zel"] scratchpad show; move position center
 
 # +------------------------------------------+
 # 80. Window customization

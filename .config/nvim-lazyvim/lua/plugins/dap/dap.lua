@@ -68,29 +68,11 @@ return {
       -- конфиг для js
       for _, language in ipairs(js_based_languages) do
         dap.configurations[language] = {
-          -- Debug single nodejs files
-          {
-            type = "pwa-node",
-            request = "launch",
-            name = "Launch file",
-            program = "${file}",
-            cwd = vim.fn.getcwd(),
-            sourceMaps = true,
-          },
-          -- Debug nodejs processes (make sure to add --inspect when you run the process)
-          {
-            type = "pwa-node",
-            request = "attach",
-            name = "Attach",
-            processId = require("dap.utils").pick_process,
-            cwd = vim.fn.getcwd(),
-            sourceMaps = true,
-          },
           -- Debug web applications (client side)
           {
             type = "pwa-chrome",
             request = "launch",
-            name = "Launch & Debug Chrome",
+            name = "Завести ебучий хром",
             url = function()
               local co = coroutine.running()
               return coroutine.create(function()
@@ -106,8 +88,8 @@ return {
                 end)
               end)
             end,
+            repl_lang = "javascript",
             webRoot = "${workspaceFolder}",
-            -- webRoot = vim.fn.getcwd(),
             protocol = "inspector",
             sourceMaps = true,
             skipFiles = {
@@ -140,6 +122,26 @@ return {
               -- "${workspaceFolder}/js/app/views/appView.js",
               -- "${workspaceFolder}/js/app/app.js",
             },
+          },
+          -- Debug single nodejs files
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch file",
+            program = "${file}",
+            cwd = vim.fn.getcwd(),
+            sourceMaps = true,
+            repl_lang = "javascript",
+          },
+          -- Debug nodejs processes (make sure to add --inspect when you run the process)
+          {
+            type = "pwa-node",
+            request = "attach",
+            name = "Attach",
+            processId = require("dap.utils").pick_process,
+            cwd = vim.fn.getcwd(),
+            sourceMaps = true,
+            repl_lang = "javascript",
           },
           -- Divider for the launch.json derived configs
           -- {
@@ -241,7 +243,40 @@ return {
       { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
       { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
       { "<leader>dF", function() require("dapui").float_element(nil, {position= "center"}) end, desc = "toggle float", mode = {"n", "v"} },
+      { "<leader>dR", function() require("dapui").float_element("repl", {position= "center"}) end, desc = "floating-repl", mode = {"n", "v"} },
     },
     opts = {},
+    config = function(_, opts)
+      local dap = require("dap")
+      local dapui = require("dapui")
+      dapui.setup(opts)
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open({})
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close({})
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close({})
+      end
+    end,
   },
+  -- {
+  --   "rcarriga/cmp-dap",
+  -- }
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   dependencies = {
+  --     "LiadOz/nvim-dap-repl-highlights",
+  --   },
+  --   opts = {
+  --     highlight = {
+  --       enable = true,
+  --     },
+  --     -- TODO:dap_repl does not exist as adapter
+  --     -- :TSInstall dap_repl
+  --
+  --     ensure_installed = { "dap_repl", ... },
+  --   },
+  -- },
 }

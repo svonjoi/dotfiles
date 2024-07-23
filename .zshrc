@@ -206,7 +206,10 @@ znap source marlonrichert/zsh-autocomplete
 #? |        svonjoi        |
 #? +-----------------------+
 
-export EDITOR=/usr/bin/vim
+# configpath: ~/.config/nvim
+# datapath ~/.local/share/nvim
+export EDITOR=nvim
+
 export KLOUD="/mnt/gdrive_loadmaks/"
 export POLYBAR_SCRIPTS="$HOME/bin/polybar_scripts"
 

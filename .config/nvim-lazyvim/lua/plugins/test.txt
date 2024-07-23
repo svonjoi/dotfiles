@@ -1,8 +1,0 @@
-#!/bin/sh
-2024-07-05s
-
-
-kek=asds
-$kek
-
-

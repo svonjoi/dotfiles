@@ -73,12 +73,6 @@ return {
               LazyVim.lsp.action["source.organizeImports"],
               desc = "Organize Imports",
             },
-            -- это от меня коронный
-            {
-              "<leader>cM",
-              "<cmd>Telescope lsp_document_symbols ignore_symbols=variable,property,function<cr>",
-              desc = "Document methods",
-            },
             {
               "<leader>cu",
               LazyVim.lsp.action["source.removeUnused.ts"],
@@ -96,6 +90,12 @@ return {
               end,
               desc = "Select TS workspace version",
             },
+            -- это от меня коронный (для легаси пыха вместо методов функции)
+            -- {
+            --   "<leader>cM",
+            --   "<cmd>Telescope lsp_document_symbols ignore_symbols=variable,property,function<cr>",
+            --   desc = "Document methods",
+            -- },
           },
         },
       },

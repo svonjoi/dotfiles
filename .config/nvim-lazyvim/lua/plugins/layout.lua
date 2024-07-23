@@ -39,6 +39,7 @@ return {
   },
   {
     "toppair/reach.nvim",
+    -- "ShinyZero0/reach.nvim",
     opts = {
       notifications = true,
     },
@@ -89,6 +90,26 @@ return {
           require("reach").buffers(options)
         end,
         desc = "Reach buffers",
+      },
+      {
+        "<leader>m",
+        function()
+          local options = {
+            filter = function(mark)
+              return mark:match("[a-zA-Z]") -- return true to disable
+            end,
+            -- A map of action to key that should be used to invoke it
+            actions = {
+              split = "-",
+              vertsplit = "|",
+              tabsplit = "]",
+              delete = "<Space>",
+            },
+          }
+
+          require("reach").marks(options)
+        end,
+        desc = "Reach marks",
       },
     },
   },

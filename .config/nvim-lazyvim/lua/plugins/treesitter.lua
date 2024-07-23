@@ -33,6 +33,7 @@ return {
       })
     end,
     dependencies = {
+      "LiadOz/nvim-dap-repl-highlights",
       -- {
       --   "nvim-treesitter/nvim-treesitter-textobjects",
       -- },
@@ -58,7 +59,7 @@ return {
       indent = { enable = true }, -- Needed because treesitter highlight turns off autoindent for php files
       ensure_installed = {
         "php",
-        -- "bash",
+        "bash",
         "c",
         "diff",
         "html",
@@ -83,6 +84,8 @@ return {
         "yaml",
         "kdl",
         "sxhkdrc",
+        "dap_repl",
+        "php_only",
       },
       incremental_selection = {
         enable = true,
@@ -105,9 +108,7 @@ return {
     },
 
     config = function(_, opts)
-      -- if type(opts.ensure_installed) == "table" then
-      --   opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
-      -- end
+      require("nvim-dap-repl-highlights").setup()
 
       -- установить blade для пыха
       ---@class ParserInfo[]
