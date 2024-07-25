@@ -1,6 +1,8 @@
 -- https://github.com/savq/melange-nvim
 -- https://github.com/bluz71/vim-nightfly-colors
 -- https://github.com/miikanissi/modus-themes.nvim
+-- https://github.com/sho-87/kanagawa-paper.nvim
+-- https://github.com/water-sucks/darkrose.nvim
 --
 -- https://codeberg.org/shinyzero0/dotfiles/src/branch/guix/.config/guix-home/nvim/lua/plugins.d/Skins.lua
 return {
@@ -25,6 +27,30 @@ return {
   { "ellisonleao/gruvbox.nvim", lazy = false, opts = { contrast = "hard" } },
   { "bluz71/vim-nightfly-colors", name = "nightfly", lazy = false, priority = 1000 },
   { "pineapplegiant/spaceduck", priority = 1000, config = true, opts = {} },
+  {
+    "water-sucks/darkrose.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      -- Override colors
+      colors = {
+        orange = "#F87757",
+      },
+      -- Override existing or add new highlight groups
+      overrides = function(c)
+        return {
+          Class = { fg = c.magenta },
+          ["@variable"] = { fg = c.fg_dark },
+        }
+      end,
+      -- Styles to enable or disable
+      styles = {
+        bold = true, -- Enable bold highlights for some highlight groups
+        italic = true, -- Enable italic highlights for some highlight groups
+        underline = true, -- Enable underline highlights for some highlight groups
+      },
+    },
+  },
   {
     "LazyVim/LazyVim",
     opts = {
