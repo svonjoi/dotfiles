@@ -11,7 +11,7 @@ return {
 
     local opts = {
       options = {
-        theme = "auto",
+        theme = "16color",
         globalstatus = vim.o.laststatus == 3,
         disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter" } },
       },
@@ -32,7 +32,7 @@ return {
             },
           },
           { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-          -- { LazyVim.lualine.pretty_path() },
+          { LazyVim.lualine.pretty_path() },
         },
         lualine_x = {
         -- stylua: ignore
