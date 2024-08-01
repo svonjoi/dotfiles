@@ -196,11 +196,15 @@ bindkey "^I" my-fzf-tab
 
 znap source marlonrichert/zsh-autocomplete
 
+znap install bigH/git-fuzzy
+
 #? +-----------------------+
 #? |         zinit         |
 #? +-----------------------+
 
 # https://github.com/zdharma-continuum/zinit
+# zinit ice as"program" pick"bin/git-fuzzy"
+# zinit light bigH/git-fuzzy
 
 #? +-----------------------+
 #? |        svonjoi        |
