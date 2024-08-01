@@ -1,0 +1,212 @@
+# ,---- [home]
+# | 
+# | si indicamos /dev/ va a buscar dir "dev" inmediatamente desde el home. Si no, buscara en el home y en subdirs.
+# | Prueba ejecutar this script con /bin/ y con bin/. Vas a ver lo q pasa.
+# | 
+# `----
+
+- nohup.out
++ /.config/
++ /.local/
++ /.local/share/
++ /dev/
++ /repo/
+
+#?+----------------------------------------------+
+#?| Personal                                     |
+#?+----------------------------------------------+
+
++ /.config/scripts/
++ /.config/scripts/**
+
++ /.ssh/
++ /.ssh/**
+
++ /.fonts/
++ /.fonts/**
+
+# my desktop entries; appears in rofi launch menu
++ /.local/share/applications/
++ /.local/share/applications/**
+
+# list of MIME type associations and their corresponding default applications. The file can be edited manually or modified using the xdg-mime utility
++ /.config/mimeapps.list
+
+# certificates
++ /.pki/
++ /.pki/**
+
+#+----------------------------------------------+
+#| Project config                               |
+#+----------------------------------------------+
+
+- **/.git2/
+P **/.git2/
+P **/.git2/**
+
++ /.git-credentials
++ /.gitconfig
+
+# Tunuve
++ /repo/sanjuan2/
++ /repo/sanjuan2/.git/
++ /repo/sanjuan2/.git/config
++ /repo/sanjuan2/.vscode/
++ /repo/sanjuan2/.vscode/**
+
+# Virensis ERP
++ /repo/virensis_erp/
++ /repo/virensis_erp/virensis-erp/
++ /repo/virensis_erp/virensis-erp/.env
++ /repo/virensis_erp/virensis-erp/.git/
++ /repo/virensis_erp/virensis-erp/.git/config
+
++ /repo/virensis_erp/virensis-erp-dock/
++ /repo/virensis_erp/virensis-erp-dock/.env
++ /repo/virensis_erp/virensis-erp-dock/.git/
++ /repo/virensis_erp/virensis-erp-dock/.git/config
+
+# data/
++ /repo/svonux/
++ /repo/svonux/.git/
++ /repo/svonux/.git/config
+
++ /repo/obsi-vamp1r/
++ /repo/obsi-vamp1r/.git/
++ /repo/obsi-vamp1r/.git/config
+
+#+----------------------------------------------+
+#| Sound                                        |
+#+----------------------------------------------+
+
++ /.asoundrc
+
+#?+----------------------------------------------+
+#?| Svonux dot files                             |
+#?+----------------------------------------------+
+
++ /.zshrc
++ /.zsh_history
+
++ /.bashrc
++ /.profile
++ /.bash_profile
+
++ /.config/i3/
++ /.config/i3/**
++ /.i3/
++ /.i3/i3-resurrect/
++ /.i3/i3-resurrect/**
+
++ /.config/polybar/
++ /.config/polybar/**
++ /.config/dunst/
++ /.config/dunst/dunstrc
++ /.config/kitty/
++ /.config/kitty/**
++ /.config/picom.conf
++ /.config/picom.conf.spizdil
+
++ /.vimrc
+
++ /.Xmodmap
++ /.config/sxhkd/
++ /.config/sxhkd/**
++ /.config/keyd/
++ /.config/keyd/app.conf
+
++ /.config/rofi/
++ /.config/rofi/**
++ /.local/share/rofi/
++ /.local/share/rofi/**
+
++ /.config/ranger/
++ /.config/ranger/scope.sh
++ /.config/ranger/rc.conf
++ /.config/ranger/commands.py
++ /.config/ranger/devicons.py
++ /.local/share/ranger/
++ /.local/share/ranger/history
++ /.local/share/ranger/bookmarks
++ /.local/share/ranger/tagged
+
++ /.config/zellij/
++ /.config/zellij/**
++ /.config/zellij/layouts/
++ /.config/zellij/layouts/**
++ /.config/zellij/plugins/
++ /.config/zellij/plugins/**
+
+# also install bat-extras
++ /.config/bat/
++ /.config/bat/**
+
++ /.config/qutebrowser/
++ /.config/qutebrowser/config.py
+# + /.config/qutebrowser/autoconfig.yml
++ /.config/qutebrowser/greasemonkey/
++ /.config/qutebrowser/greasemonkey/**
+
+# + /.local/share/sioyek/
+# + /.local/share/sioyek/**
++ /.config/sioyek/
++ /.config/sioyek/**
+
+# nvim
++ /.config/nvim-lazyvim/
++ /.config/nvim-lazyvim/**
++ /.config/nvim-kickstart/
++ /.config/nvim-kickstart/**
+
+# nvim sessions
++ /.local/share/nvim-kickstart/
++ /.local/share/nvim-kickstart/sessions/
++ /.local/share/nvim-kickstart/sessions/**
++ /.local/share/nvim-lazyvim/
++ /.local/share/nvim-lazyvim/sessions/
++ /.local/share/nvim-lazyvim/sessions/**
+
++ /.emacs
+
++ /.config/yadm/config
+
+#?+----------------------------------------------+
+#?| GUI Software                                 |
+#?+----------------------------------------------+
+
++ /.config/copyq/
++ /.config/copyq/copyq.conf
+
++ /.config/kopia/
++ /.config/kopia/**
+
++ /.vscode/
++ /.vscode/remote_ssh_config
+# + /.config/Code/
+# + /.config/Code/User/
+# + /.config/Code/User/snippets/
+# + /.config/Code/User/snippets/**
+# + /.config/Code/User/keybindings.json
+# + /.config/Code/User/settings.json
+
++ /.local/share/remmina/
++ /.local/share/remmina/**
+
++ /.config/espanso/
++ /.config/espanso/match/
++ /.config/espanso/match/default.yml
+
++ /.config/freerdp
+
++ /.config/flameshotrc
++ /.config/flameshot/
++ /.config/flameshot/flameshot.ini
+
++ /.config/keepassxc/**
++ /.config/KeePassXCrc
+
++ /.config/Crow Translate/
++ /.config/Crow Translate/**
+
+#? la exclusion general tiene k ir al final
+- /**

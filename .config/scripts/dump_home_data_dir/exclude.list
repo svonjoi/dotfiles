@@ -1,0 +1,53 @@
+**/no_sync/
+
+#+----------------------------------------------+
+#| 🏁 Personal exclude                          |
+#+----------------------------------------------+
+
+VirtualBox VMs/
+dev/prj/
+dev/assets/_db_data/
+repo/
+
+#+----------------------------------------------+
+#| 🏁 Other                                     |
+#+----------------------------------------------+
+**/node_modules/
+.npm/
+.vscode
+.gdfuse/
+.cache/
+.var/
+.docker/
+snap/
+Downloads/
+drivers/
+Torrent/
+.config/Microsoft/
+.config/Microsoft Teams - Preview/
+.config/microsoft-edge/
+.config/Code/
+.config/discord/
+.config/google-chrome/
+.config/Docker Desktop/
+.config/VirtualBox/
+.config/BraveSoftware/
+.config/libreoffice/
+.config/obsidian/
+.config/whatsdesk/
+.config/Postman/
+.cargo/
+.mozilla/
+.eclipse/
+.local/share/Trash/
+.local/share/icons/
+.local/share/lutris/
+.local/share/teamviewer15/
+.local/share/ktorrent/
+.local/share/TelegramDesktop/
+.anydesk/
+.parsec/
+.moonchild productions/
+.PlayOnLinux/
+.thunderbird/
+.opam/

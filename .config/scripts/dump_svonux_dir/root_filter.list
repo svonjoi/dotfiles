@@ -1,0 +1,37 @@
+# ,---- [root]
+# | 
+# | 
+# | 
+# `----
+
+
++ etc/
+
++ etc/hosts
+
++ etc/dnsmasq.d/
++ etc/dnsmasq.d/02-custom.conf
+
++ etc/udev/
++ etc/udev/rules.d/
++ etc/udev/rules.d/99-test-udev.rules
++ etc/udev/rules.d/95-usb.rules
+
++ etc/keyd/
++ etc/keyd/default.conf
+
+# + etc/lemurs/
+# + etc/lemurs/config.toml
+# + etc/lemurs/wms/
+# + etc/lemurs/wms/**
+
+# systemd user drop-in configurations
++ etc/systemd/
++ etc/systemd/*.conf.d/
++ etc/systemd/*.conf.d/**
+
++ etc/NetworkManager/
++ etc/NetworkManager/system-connections/
++ etc/NetworkManager/system-connections/**
+
+- /**
