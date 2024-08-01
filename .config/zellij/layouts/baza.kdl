@@ -1,19 +1,32 @@
 layout {
-
     default_tab_template {
-        // the default zellij tab-bar and status bar plugins
-        pane size=1 borderless=true {
-            plugin location="zellij:compact-bar"
-            // plugin location="zellij:tab-bar"
-        }
         children
-        //pane size=2 borderless=true {
-            //plugin location="zellij:status-bar"
-        //}
+        pane size=1 borderless=true {
+            plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
+                format_left  "{mode}#[bg=#0e0a1b,fg=#adad88] {session} "
+                format_center "{tabs}"
+                format_right "#[bg=#0e0a1b,fg=#adad88] {swap_layout} "
+                format_space  "#[bg=#0e0a1b]"
+
+                mode_locked  "#[bg=red,fg=white]  LOCKED "
+                mode_normal  "#[bg=#adad88] "
+                mode_tmux    "#[bg=#ffc387] "
+
+                tab_normal "#[bg=#0e0a1b,fg=#adad88] {name} {sync_indicator}{fullscreen_indicator}{floating_indicator}#[bg=#adad88,fg=black]"
+                tab_active "#[bg=black,fg=#adad88] {name} {sync_indicator}{fullscreen_indicator}{floating_indicator}#[bg=black,fg=#adad88]"
+
+                tab_sync_indicator       "󰓦 "
+                tab_fullscreen_indicator "󱟱  "
+                tab_floating_indicator   "󰉈 "
+
+                datetime          "{format}"
+                datetime_format   "%d-%m-%Y %H:%M"
+                datetime_timezone "Europe/Berlin"
+            }
+        }
     }
 
-    tab name="baza" focus=true {
-        // a tab with three horizontal panes
-        pane cwd="/home/svonjoi/"
+    tab name="~" focus=true {
+        pane size="1" cwd="/home/svonjoi/"
     }
 }
