@@ -164,7 +164,7 @@ exec --no-startup-id greenclip daemon
 # exec --no-startup-id keyd-application-mapper -d
 # exec --no-startup-id copyq &
 # exec --no-startup-id copyq show
-exec --no-startup-id $bin/setup_display.sh --setup_vm --apply_xrandr --apply_polybar &
+exec --no-startup-id $bin/setup_display.sh --setup_l &
 exec --no-startup-id $bin/hardware/player_handler.pl &
 
 #? manjaro defaults
@@ -561,7 +561,7 @@ bindsym $Y+6 exec --no-startup-id xdotool key Num_Lock
 for_window [class="KeePassXC"], move scratchpad, resize set 1300 680
 for_window [class="kate"], move scratchpad, resize set 1300 680
 for_window [class="Gcolor3"], move scratchpad, resize set 1300 680, border pixel 1
-for_window [class="TelegramDesktop"], move scratchpad, resize set 1300 680, border pixel 1
+# for_window [class="TelegramDesktop"], move scratchpad, resize set 1300 680, border pixel 1
 for_window [class="Emacs"], move scratchpad, resize set 1600 680, border pixel 1
 for_window [class="crow"], move scratchpad, resize set 1000 680, border pixel 1
 # for_window [class="copyq"], move scratchpad, resize set 1000 680, border pixel 1
@@ -589,7 +589,7 @@ bindsym $M+q exec --no-startup-id jumpapp kate; [class="kate"] scratchpad show; 
 
 bindsym $Y+o exec --no-startup-id jumpapp gcolor3; [class="Gcolor3"] scratchpad show; move position center
 
-bindsym $C+$A+Next exec --no-startup-id jumpapp TelegramDesktop; [class="TelegramDesktop"] scratchpad show; move position center
+# bindsym $C+$A+Next exec --no-startup-id jumpapp TelegramDesktop; [class="TelegramDesktop"] scratchpad show; move position center
 bindsym $C+$A+Prior exec --no-startup-id jumpapp emacs; [class="Emacs"] scratchpad show; move position center
 # 2.jumpterm
 bindsym $M+space exec --no-startup-id ~/.config/scripts/jumpterm.sh alacritty alacritty_ranger ranger; [class="alacritty_ranger"] scratchpad show; move position center
@@ -823,15 +823,15 @@ mode "$wine_monitor_control" {
 
     set $log "/tmp/display.log"
 
-    bindsym q       exec --no-startup-id $bin/setup_display.sh --setup_vm --apply_xrandr --apply_polybar > $log 2>&1; mode "default"
+    bindsym q exec --no-startup-id $bin/setup_display.sh --setup_vm > $log 2>&1; mode "default"
  
     # valid for connecting vertical monitor via docking (is always appear as dp-1) and via dp-1 port directly in laptop
-    bindsym x       exec --no-startup-id $bin/setup_display.sh --setup_mv --apply_xrandr --apply_polybar > $log 2>&1; mode "default"
+    bindsym x exec --no-startup-id $bin/setup_display.sh --setup_mv > $log 2>&1; mode "default"
 
-    bindsym w       exec --no-startup-id $bin/setup_display.sh --setup_l --apply_xrandr --apply_polybar > $log 2>&1; mode "default"
-    bindsym e       exec --no-startup-id $bin/setup_display.sh --setup_ml --apply_xrandr --apply_polybar > $log 2>&1; mode "default"
-    bindsym r       exec --no-startup-id $bin/setup_display.sh --setup_vml --apply_xrandr --apply_polybar > $log 2>&1; mode "default"
-    bindsym m       exec --no-startup-id $bin/setup_display.sh --setup_m --apply_xrandr --apply_polybar > $log 2>&1; mode "default"
+    bindsym w exec --no-startup-id $bin/setup_display.sh --setup_l > $log 2>&1; mode "default"
+    bindsym e exec --no-startup-id $bin/setup_display.sh --setup_ml > $log 2>&1; mode "default"
+    bindsym r exec --no-startup-id $bin/setup_display.sh --setup_vml > $log 2>&1; mode "default"
+    bindsym m exec --no-startup-id $bin/setup_display.sh --setup_m > $log 2>&1; mode "default"
 
     # reload polybar only
     # bindsym $C+q  exec --no-startup-id $bin/setup_display.sh --setup_vm --apply_polybar &; mode "default"
@@ -839,9 +839,9 @@ mode "$wine_monitor_control" {
     # bindsym $C+e  exec --no-startup-id $bin/setup_display.sh --setup_ml --apply_polybar &; mode "default"
     # bindsym $C+r  exec --no-startup-id $bin/setup_display.sh --setup_vml --apply_polybar &; mode "default"
 
-    bindsym $A+1        [class=".*"] move workspace to output $outHDMI
-    bindsym $A+2        [class=".*"] move workspace to output $out_DP_2
-    bindsym $A+3        [class=".*"] move workspace to output $outLaptop
+    bindsym $A+1 [class=".*"] move workspace to output $outHDMI
+    bindsym $A+2 [class=".*"] move workspace to output $out_DP_2
+    bindsym $A+3 [class=".*"] move workspace to output $outLaptop
 
     bindsym Escape mode "default"
 }
