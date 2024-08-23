@@ -18,6 +18,12 @@ vim.keymap.del("n", "]b")
 vim.keymap.del("n", "<leader>bb")
 vim.keymap.del("n", "<leader>`")
 
+vim.keymap.set("n", "<leader>sx", require("telescope.builtin").resume, {
+  noremap = true,
+  silent = true,
+  desc = "Resume",
+})
+
 -- todo: neotree mapping
 -- map({ "n" }, "<leader>f1", '<cmd>let @+=expand("%")<cr><esc>', { desc = "copy relative filepath" })
 -- map({ "n" }, "<leader>f2", '<cmd>let @+=expand("%:p")<cr><esc>', { desc = "copy absolute filepath" })

@@ -41,6 +41,8 @@ done
 # mount if not mounted already
 # mount | grep /mnt/gdrive_ >/dev/null || google-drive-ocamlfuse -label gdrive_svonjoi /mnt/gdrive_svonjoi/
 # mount | grep /mnt/gdrive_ >/dev/null || google-drive-ocamlfuse -label gdrive_inna /mnt/gdrive_inna/
+
+# TODO: эта дрочь (?иногда) не работает, если запускается со скрипта
 mount | grep /mnt/gdrive_ >/dev/null || google-drive-ocamlfuse -label gdrive_loadmaks /mnt/gdrive_loadmaks/
 
 # google-drive-ocamlfuse -label gdrive_loadmaks /mnt/gdrive_loadmaks/

@@ -35,6 +35,8 @@ function parse_params() {
   setup_m=0
   setup_l=0
   setup_ml=0
+  setup_vm=0
+  setup_mv=0
   setup_polybar_all_mon=0
 
   if [ $# -eq 0 ]; then

@@ -806,7 +806,7 @@ set $wine_notif [Notifications] (w|W)work-mode on|off (d)close-topmost (h)histor
 mode "$wine_notif" {
     bindsym h          exec --no-startup-id dunstctl history-pop
     bindsym w          exec --no-startup-id dunstctl close-all && $bin/notifications/dunst_manage.sh workmode enable
-    bindsym $S+w    exec --no-startup-id dunstctl close-all && $bin/notifications/dunst_manage.sh workmode disable
+    bindsym $S+w       exec --no-startup-id dunstctl close-all && $bin/notifications/dunst_manage.sh workmode disable
     bindsym d          exec --no-startup-id dunstctl close
     bindsym c          exec --no-startup-id dunstctl context
 
@@ -824,7 +824,7 @@ mode "$wine_monitor_control" {
     set $log "/tmp/display.log"
 
     bindsym q exec --no-startup-id $bin/setup_display.sh --setup_vm > $log 2>&1; mode "default"
- 
+
     # valid for connecting vertical monitor via docking (is always appear as dp-1) and via dp-1 port directly in laptop
     bindsym x exec --no-startup-id $bin/setup_display.sh --setup_mv > $log 2>&1; mode "default"
 
@@ -832,12 +832,6 @@ mode "$wine_monitor_control" {
     bindsym e exec --no-startup-id $bin/setup_display.sh --setup_ml > $log 2>&1; mode "default"
     bindsym r exec --no-startup-id $bin/setup_display.sh --setup_vml > $log 2>&1; mode "default"
     bindsym m exec --no-startup-id $bin/setup_display.sh --setup_m > $log 2>&1; mode "default"
-
-    # reload polybar only
-    # bindsym $C+q  exec --no-startup-id $bin/setup_display.sh --setup_vm --apply_polybar &; mode "default"
-    # bindsym $C+w  exec --no-startup-id $bin/setup_display.sh --setup_l --apply_polybar &; mode "default"
-    # bindsym $C+e  exec --no-startup-id $bin/setup_display.sh --setup_ml --apply_polybar &; mode "default"
-    # bindsym $C+r  exec --no-startup-id $bin/setup_display.sh --setup_vml --apply_polybar &; mode "default"
 
     bindsym $A+1 [class=".*"] move workspace to output $outHDMI
     bindsym $A+2 [class=".*"] move workspace to output $out_DP_2
