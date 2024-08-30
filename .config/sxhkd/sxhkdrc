@@ -1,15 +1,10 @@
 # ,---- [sxhkdrc]
-# | 
-# | to bind multiple similar programs use additional modifier. Ex: 
-# | 	- VSCode Hyper+C & PHPStorm Hyper+Shift+C
-# | 	- Dbeaver Hyper+D & MySqlWorkbench Hyper+Shift+D
-# | 
+# |
 # | where is executable file of program: which <package>
-# | 
-# | FREE KEYS: [?]
-# | 
+# |
+# |
 
-super + 3
+mod3 + o
   ~/.config/scripts/colorpicker.sh
 
 

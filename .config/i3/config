@@ -184,7 +184,7 @@ exec --no-startup-id kitty --class=kitty_nmtui -e nmtui
 exec --no-startup-id alacritty --class alacritty_ranger -e ranger
 exec --no-startup-id keepassxc
 exec --no-startup-id kate
-exec --no-startup-id gcolor3
+# exec --no-startup-id gcolor3
 exec --no-startup-id crow
 
 # +------------------------------------------+
@@ -560,7 +560,7 @@ bindsym $Y+6 exec --no-startup-id xdotool key Num_Lock
 # https://i3wm.org/docs/userguide.html#command_criteria
 for_window [class="KeePassXC"], move scratchpad, resize set 1300 680
 for_window [class="kate"], move scratchpad, resize set 1300 680
-for_window [class="Gcolor3"], move scratchpad, resize set 1300 680, border pixel 1
+# for_window [class="Gcolor3"], move scratchpad, resize set 1300 680, border pixel 1
 # for_window [class="TelegramDesktop"], move scratchpad, resize set 1300 680, border pixel 1
 for_window [class="Emacs"], move scratchpad, resize set 1600 680, border pixel 1
 for_window [class="crow"], move scratchpad, resize set 1000 680, border pixel 1
@@ -587,7 +587,7 @@ bindsym $Y+$A+$S+s exec --no-startup-id dbus-send --type=method_call --dest=io.c
 bindsym $Y+f exec --no-startup-id jumpapp keepassxc; [class="KeePassXC"] scratchpad show; move position center
 bindsym $M+q exec --no-startup-id jumpapp kate; [class="kate"] scratchpad show; move position center
 
-bindsym $Y+o exec --no-startup-id jumpapp gcolor3; [class="Gcolor3"] scratchpad show; move position center
+# bindsym $Y+o exec --no-startup-id jumpapp gcolor3; [class="Gcolor3"] scratchpad show; move position center
 
 # bindsym $C+$A+Next exec --no-startup-id jumpapp TelegramDesktop; [class="TelegramDesktop"] scratchpad show; move position center
 bindsym $C+$A+Prior exec --no-startup-id jumpapp emacs; [class="Emacs"] scratchpad show; move position center

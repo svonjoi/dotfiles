@@ -239,8 +239,8 @@ function main() {
       notify-send "$outHDMI is not fucking plugged"
     fi
 
-    mode="1600x900"
-    # mode="1920x1080"
+    # mode="1600x900"
+    mode="1920x1080"
 
     if [ $apply_xrandr -eq 1 ]; then
       xrandr --output $outHDMI --primary \
