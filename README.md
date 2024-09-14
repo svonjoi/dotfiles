@@ -1,1 +1,1 @@
-arch, i3wm, zellij, nvim,..
+personal dotfiles managed with yadm
