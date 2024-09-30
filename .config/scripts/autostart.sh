@@ -17,17 +17,15 @@ nohup greenclip daemon &
 #todo: start crow
 
 # kill this shit: sudo killall teamviewerd
-# эта дрочь просит пароль судо
+# хуйня проситб пароль заебала
 # teamviewer --daemon start
 
 # +------------------------------------------------+
 # |                  MOUNT CLOUDS                  |
 # +------------------------------------------------+
+# если дроченый клауд не монтируется, запустить этот скрипт вручную еще раз
 
-# set up the environment variables needed to use opam
-eval $(opam env)
-
-# create dirs if not exist
+# prepare directories
 declare -a directories=(
   "/mnt/gdrive_loadmaks/"
 )
@@ -38,9 +36,8 @@ for dir in "${directories[@]}"; do
   fi
 done
 
-# mount if not mounted already
-# mount | grep /mnt/gdrive_ >/dev/null || google-drive-ocamlfuse -label gdrive_svonjoi /mnt/gdrive_svonjoi/
-# mount | grep /mnt/gdrive_ >/dev/null || google-drive-ocamlfuse -label gdrive_inna /mnt/gdrive_inna/
+# set up the environment variables needed to use opam
+eval $(opam env)
 
 # TODO: эта дрочь (?иногда) не работает, если запускается со скрипта
 mount | grep /mnt/gdrive_ >/dev/null || google-drive-ocamlfuse -label gdrive_loadmaks /mnt/gdrive_loadmaks/

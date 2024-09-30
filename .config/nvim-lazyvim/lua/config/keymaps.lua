@@ -18,6 +18,9 @@ vim.keymap.del("n", "]b")
 vim.keymap.del("n", "<leader>bb")
 vim.keymap.del("n", "<leader>`")
 
+-- хули не пашет
+vim.keymap.del("n", "<C-w>q")
+
 vim.keymap.set("n", "<leader>sx", require("telescope.builtin").resume, {
   noremap = true,
   silent = true,

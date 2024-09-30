@@ -1,4 +1,3 @@
-# http://i3wm.org/docs/userguide.html
 #  ██▒   █▓ ▄▄▄       ███▄ ▄███▓ ██▓███   ██▀███
 # ▓██░   █▒▒████▄    ▓██▒▀█▀ ██▒▓██░  ██▒▓██ ▒ ██▒
 #  ▓██  █▒░▒██  ▀█▄  ▓██    ▓██░▓██░ ██▓▒▓██ ░▄█ ▒
@@ -29,8 +28,6 @@
 # 82. Theme colors
 # 84. Distraction-free
 
-
-#* copy of this defined variables is in setup_display.sh
 set $out_DP_1 "DP-1"
 set $out_DP_2 "DP-2"
 set $outLaptop "eDP-1"
@@ -279,14 +276,14 @@ set $ws_3 3
 set $ws_4 4
 set $ws_5 5
 set $ws_q "7:q"
-set $ws_w "8:W"
-set $ws_e "9:E"
-set $ws_r "10:R"
-set $ws_t "11:T"
-set $ws_s "12:S"
-set $ws_d "13:D"
-set $ws_p "14:P"
-set $ws_x "15:X"
+set $ws_w "8:w"
+set $ws_e "9:e"
+set $ws_r "10:r"
+set $ws_t "11:t"
+set $ws_s "12:s"
+set $ws_d "13:d"
+set $ws_p "14:p"
+set $ws_x "15:x"
 set $ws_a "16:a"
 set $ws_z "17:z"
 set $ws_c "18:c"
@@ -774,20 +771,16 @@ bindsym $M+$S+BackSpace exec "i3lock -c 000000"
 # wait for 50 mins in idle mode then xautolock used to lock the system, then wait for another 10 mins before suspending
 # xautolock -time 50 -locker slock -killtime 10 -killer "systemctl suspend" -corners -+00 -secure
 
-
 #* [MENU] VPN
 bindsym $Y+F9 mode "$wine_vpn"
 set $wine_vpn [VPN🌍] up|down (h|H)hdt (s|S)sanjuan
 mode "$wine_vpn" {
-    
     # hdt
-    bindsym h           exec --no-startup-id $bin/vpn/vpn_handler.sh hdt up; mode "default"
-    bindsym $S+h     exec --no-startup-id $bin/vpn/vpn_handler.sh hdt down; mode "default"
-    
+    bindsym h exec --no-startup-id $bin/vpn/vpn_handler.sh up hdt; mode "default"
+    bindsym $S+h exec --no-startup-id $bin/vpn/vpn_handler.sh down hdt; mode "default"
     # sanjuan
-    bindsym s           exec --no-startup-id $bin/vpn/vpn_handler.sh sanjuan up; mode "default"
-    bindsym $S+s     exec --no-startup-id $bin/vpn/vpn_handler.sh sanjuan down; mode "default"
-
+    bindsym s exec --no-startup-id $bin/vpn/vpn_handler.sh up sanjuan; mode "default"
+    bindsym $S+s exec --no-startup-id $bin/vpn/vpn_handler.sh down sanjuan; mode "default"
     # exit system mode: "Enter" or "Escape"
     bindsym Escape mode "default"
 }

@@ -1,11 +1,9 @@
 #!/bin/zsh
-# ,---- [ ]
-# | 
-# | $1 vpn-connection-name
-# | $2 up/down
-# |  
+# ,---- [vpn-handler]
+# | $1 up/down
+# | $2 vpn-connection-name: hdt/sanjuan
 # `----
 
-nmcli connection $2 $1 | while read OUTPUT; do notify-send "$OUTPUT"; done
-
 # nmcli connection up sanjuan_oficina
+nmcli connection $1 $2 | while read OUTPUT; do notify-send "$OUTPUT"; done
+
