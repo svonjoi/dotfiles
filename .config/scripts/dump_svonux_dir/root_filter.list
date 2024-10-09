@@ -31,6 +31,7 @@
 + etc/systemd/*.conf.d/**
 
 + etc/NetworkManager/
++ etc/NetworkManager/NetworkManager.conf
 + etc/NetworkManager/system-connections/
 + etc/NetworkManager/system-connections/**
 
