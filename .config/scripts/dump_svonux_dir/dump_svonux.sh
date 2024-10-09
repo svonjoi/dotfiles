@@ -14,8 +14,8 @@
 source ~/.config/scripts/lib/color_output.sh
 
 # stop script if error code; set -x
-# set -e
-set -x
+set -e
+# set -x
 
 #? manual-assign variables
 REPO_DIR=$HOME/dev/repo/svonux

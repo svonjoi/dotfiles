@@ -1,3 +1,4 @@
+# http://i3wm.org/docs/userguide.html
 #  ██▒   █▓ ▄▄▄       ███▄ ▄███▓ ██▓███   ██▀███
 # ▓██░   █▒▒████▄    ▓██▒▀█▀ ██▒▓██░  ██▒▓██ ▒ ██▒
 #  ▓██  █▒░▒██  ▀█▄  ▓██    ▓██░▓██░ ██▓▒▓██ ░▄█ ▒
@@ -28,6 +29,7 @@
 # 82. Theme colors
 # 84. Distraction-free
 
+#* copy of this defined variables is in setup_display.sh
 set $out_DP_1 "DP-1"
 set $out_DP_2 "DP-2"
 set $outLaptop "eDP-1"
@@ -43,7 +45,7 @@ set $Y Mod3
 
 set $i3scripts ~/.config/scripts/i3_scripts
 set $rofi ~/.config/rofi
-set $bin ~/.config/scripts
+set $scripts ~/.config/scripts
 
 # +------------------------------------------+
 # 00. Inbox
@@ -137,15 +139,15 @@ bindsym $Y+g exec --no-startup-id \
 # keybinding in fancy rofi (automated):
 bindsym $M+F1 exec $i3scripts/keyhint-2
 
-bindsym $Y+i exec --no-startup-id $bin/identify_process.sh
+bindsym $Y+i exec --no-startup-id $scripts/identify_process.sh
 
 # +------------------------------------------------+
 # 10. Reload
 # +------------------------------------------------+
 
 # fix layout, wallpaper, xmodmap, mouse, polybar, etc
-bindsym $M+Escape exec --no-startup-id $bin/hardware/setup_hw.sh ; exec --no-startup-id i3-msg restart && notify-send "Restart i3 inplace"
-bindsym $M+grave exec --no-startup-id $bin/hardware/setup_hw.sh
+bindsym $M+Escape exec --no-startup-id $scripts/hardware/setup_hw.sh ; exec --no-startup-id i3-msg restart && notify-send "Restart i3 inplace"
+bindsym $M+grave exec --no-startup-id $scripts/hardware/setup_hw.sh
 
 # fixes (run when i3-msg restart)
 exec_always --no-startup-id fix_xcursor
@@ -156,13 +158,13 @@ exec_always --no-startup-id polybar-msg cmd restart
 # 15. Autostart
 # +------------------------------------------+
 
-exec --no-startup-id $bin/autostart.sh
+exec --no-startup-id $scripts/autostart.sh
 exec --no-startup-id greenclip daemon
 # exec --no-startup-id keyd-application-mapper -d
 # exec --no-startup-id copyq &
 # exec --no-startup-id copyq show
-exec --no-startup-id $bin/setup_display.sh --setup_l &
-exec --no-startup-id $bin/hardware/player_handler.pl &
+exec --no-startup-id $scripts/setup_display.sh --setup_l &
+exec --no-startup-id $scripts/hardware/player_handler.pl &
 
 #? manjaro defaults
 # exec --no-startup-id nitrogen --restore; sleep 1; picom -b
@@ -547,11 +549,11 @@ bindsym $Y+6 exec --no-startup-id xdotool key Num_Lock
 #todo: https://github.com/noctuid/tdrop
 
 # move the currently focused window to the scratchpad
-# bindsym $M+$S+minus move scratchpad
+bindsym $M+$S+minus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-# bindsym $M+minus scratchpad show
+bindsym $M+minus scratchpad show
 
 # https://wiki.archlinux.org/title/i3
 # https://i3wm.org/docs/userguide.html#command_criteria
@@ -733,20 +735,17 @@ bindsym $M+$S+f	mode "$freeze" ;; exec --no-startup-id notify-send "Distraction-
 # +------------------------------------------+
 
 #* [MENU] Power/system-setting functions
-
-# new
+# TODO: блять в рофи гибернации нету
 bindsym $Y+Escape exec --no-startup-id $rofi/powermenu.sh
 
-# old
-# todo: блять в рофи ибернации нету
 bindsym $Y+$S+Escape mode "$wine_system"
 set $wine_system (l)ock (e)xit switch-(u)ser (s)uspend (h)ibernate (r)eboot (S+s)hutdown (S+e)xit_X_ses
 mode "$wine_system" {
     bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym s exec --no-startup-id nmcli radio wifi off; i3exit suspend, mode "default"
     bindsym u exec --no-startup-id i3exit switch_user, mode "default"
     bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym h exec --no-startup-id "$scripts/power/hibernate.sh", mode "default"
     bindsym r exec --no-startup-id i3exit reboot, mode "default"
     bindsym $S+s exec --no-startup-id i3exit shutdown, mode "default"
     bindsym $S+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
@@ -776,11 +775,11 @@ bindsym $Y+F9 mode "$wine_vpn"
 set $wine_vpn [VPN🌍] up|down (h|H)hdt (s|S)sanjuan
 mode "$wine_vpn" {
     # hdt
-    bindsym h exec --no-startup-id $bin/vpn/vpn_handler.sh up hdt; mode "default"
-    bindsym $S+h exec --no-startup-id $bin/vpn/vpn_handler.sh down hdt; mode "default"
+    bindsym h exec --no-startup-id $scripts/vpn/vpn_handler.sh up hdt; mode "default"
+    bindsym $S+h exec --no-startup-id $scripts/vpn/vpn_handler.sh down hdt; mode "default"
     # sanjuan
-    bindsym s exec --no-startup-id $bin/vpn/vpn_handler.sh up sanjuan; mode "default"
-    bindsym $S+s exec --no-startup-id $bin/vpn/vpn_handler.sh down sanjuan; mode "default"
+    bindsym s exec --no-startup-id $scripts/vpn/vpn_handler.sh up sanjuan; mode "default"
+    bindsym $S+s exec --no-startup-id $scripts/vpn/vpn_handler.sh down sanjuan; mode "default"
     # exit system mode: "Enter" or "Escape"
     bindsym Escape mode "default"
 }
@@ -798,8 +797,8 @@ bindsym $Y+F10 mode "$wine_notif"
 set $wine_notif [Notifications] (w|W)work-mode on|off (d)close-topmost (h)history-pop (c)context
 mode "$wine_notif" {
     bindsym h          exec --no-startup-id dunstctl history-pop
-    bindsym w          exec --no-startup-id dunstctl close-all && $bin/notifications/dunst_manage.sh workmode enable
-    bindsym $S+w       exec --no-startup-id dunstctl close-all && $bin/notifications/dunst_manage.sh workmode disable
+    bindsym w          exec --no-startup-id dunstctl close-all && $scripts/notifications/dunst_manage.sh workmode enable
+    bindsym $S+w       exec --no-startup-id dunstctl close-all && $scripts/notifications/dunst_manage.sh workmode disable
     bindsym d          exec --no-startup-id dunstctl close
     bindsym c          exec --no-startup-id dunstctl context
 
@@ -816,15 +815,15 @@ mode "$wine_monitor_control" {
 
     set $log "/tmp/display.log"
 
-    bindsym q exec --no-startup-id $bin/setup_display.sh --setup_vm > $log 2>&1; mode "default"
+    bindsym q exec --no-startup-id $scripts/setup_display.sh --setup_vm > $log 2>&1; mode "default"
 
     # valid for connecting vertical monitor via docking (is always appear as dp-1) and via dp-1 port directly in laptop
-    bindsym x exec --no-startup-id $bin/setup_display.sh --setup_mv > $log 2>&1; mode "default"
+    bindsym x exec --no-startup-id $scripts/setup_display.sh --setup_mv > $log 2>&1; mode "default"
 
-    bindsym w exec --no-startup-id $bin/setup_display.sh --setup_l > $log 2>&1; mode "default"
-    bindsym e exec --no-startup-id $bin/setup_display.sh --setup_ml > $log 2>&1; mode "default"
-    bindsym r exec --no-startup-id $bin/setup_display.sh --setup_vml > $log 2>&1; mode "default"
-    bindsym m exec --no-startup-id $bin/setup_display.sh --setup_m > $log 2>&1; mode "default"
+    bindsym w exec --no-startup-id $scripts/setup_display.sh --setup_l > $log 2>&1; mode "default"
+    bindsym e exec --no-startup-id $scripts/setup_display.sh --setup_ml > $log 2>&1; mode "default"
+    bindsym r exec --no-startup-id $scripts/setup_display.sh --setup_vml > $log 2>&1; mode "default"
+    bindsym m exec --no-startup-id $scripts/setup_display.sh --setup_m > $log 2>&1; mode "default"
 
     bindsym $A+1 [class=".*"] move workspace to output $outHDMI
     bindsym $A+2 [class=".*"] move workspace to output $out_DP_2
@@ -865,7 +864,7 @@ mode "$wine_reload" {
     #bindsym n exec terminal -e 'nmtui', mode "default"
     
     # fix hardware
-    bindsym f exec --no-startup-id $bin/hardware/setup_hw.sh 2>&1, mode "default"
+    bindsym f exec --no-startup-id $scripts/hardware/setup_hw.sh 2>&1, mode "default"
 
     # exit system mode: "Enter" or "Escape"
     bindsym Escape mode "default"
