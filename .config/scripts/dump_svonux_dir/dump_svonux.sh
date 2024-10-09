@@ -282,7 +282,7 @@ function main() {
     sudo git add .
     # git add .
 
-    git commit -m "[autodump] by $SCRIPT"
+    sudo git commit -m "[autodump] by $SCRIPT"
     git push
   fi
 
