@@ -143,9 +143,12 @@ P **/.git2/**
 
 + /.config/qutebrowser/
 + /.config/qutebrowser/config.py
-# + /.config/qutebrowser/autoconfig.yml
 + /.config/qutebrowser/greasemonkey/
 + /.config/qutebrowser/greasemonkey/**
++ /.config/qutebrowser/bookmarks/
++ /.config/qutebrowser/bookmarks/**
++ /.config/qutebrowser/quickmarks
+# + /.config/qutebrowser/autoconfig.yml
 
 # + /.local/share/sioyek/
 # + /.local/share/sioyek/**
@@ -170,6 +173,11 @@ P **/.git2/**
 
 + /.config/yadm/config
 
++ /.config/lazydocker/
++ /.config/lazydocker/**
++ /.config/lazyvim/
++ /.config/lazyvim/**
+
 #?+----------------------------------------------+
 #?| GUI Software                                 |
 #?+----------------------------------------------+
@@ -178,7 +186,7 @@ P **/.git2/**
 + /.config/copyq/copyq.conf
 
 + /.config/kopia/
-+ /.config/kopia/**
++ /.config/kopia/ui-preferences.json
 
 + /.vscode/
 + /.vscode/remote_ssh_config

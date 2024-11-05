@@ -17,6 +17,7 @@
 # 31. Screen capture
 # 40. Workspaces: set, navigation
 # 50. Bind software to workspaces
+# 51. save and restore workspaces
 # 60. Bind ws to outputs & move ws between outputs
 # 70. Windows & containers functionallity
 # 75. Window setup for software
@@ -53,13 +54,9 @@ set $scripts ~/.config/scripts
 
 # bindsym $C+$A+Prior exec
 # bindsym $Y+Return exec
-# bindsym $M+$Y+F2 exec "bash ~/.config/scripts/i3_scripts/layout_resurrect.sh"
 # bindsym $M+$C+b exec terminal -e 'bmenu'
 # bindsym $M+$A+space exec kitty ranger
 # bindsym $A+P exec "rofi -modi 'obsidian:~/.config/scripts/obsidian/obsidian-rofi.py' -show"
-
-bindsym $Y+F1 exec "rofi -show fb -modes 'fb:~/.config/scripts/i3_scripts/layout_rofi.sh'"
-bindsym $Y+F2 exec i3-resurrect ls | awk '$3 == "layout" {print $2}' | rofi -sep '\n' -dmenu -p 'restore workspace' | xargs -I {} i3-resurrect restore -w {}
 
 # RDP Connection
 bindsym $Y+$S+F12 exec --no-startup-id remmina -c ~/.local/share/remmina/group_rdp_ziggurat_ziggurat.remmina >/dev/null 2>&1
@@ -73,6 +70,7 @@ bindsym $M+$S+n exec --no-startup-id jumpapp nm-connection-editor
 
 # clipboard
 bindsym $A+grave exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+# bindsym $A+$Y+q exec --no-startup-id copyq show;[class="copyq"] scratchpad show; move position center
 
 # scroll output of current window
 # todo: real-time scrolling
@@ -126,15 +124,15 @@ bindsym $M+$S+d exec --no-startup-id rofi -show window
 
 # rofi calculator
 # bindsym $Y+g exec --no-startup-id xkb-switch -s us && rofi -show calc -modi calc -no-show-match -no-sort -matching fuzzy -theme "~/.local/share/rofi/themes/svonjoi-window-squared-material-red.rasi"
-bindsym $Y+g exec --no-startup-id \
-    xkb-switch -s us \
-    && rofi \
-        -show calc \
-        -modi calc \
-        -no-show-match \
-        -no-sort \
-        -matching fuzzy \
-        -theme "svonjoi-window-squared-material-red.rasi"
+# bindsym $Y+g exec --no-startup-id \
+#     xkb-switch -s us \
+#     && rofi \
+#         -show calc \
+#         -modi calc \
+#         -no-show-match \
+#         -no-sort \
+#         -matching fuzzy \
+#         -theme "svonjoi-window-squared-material-red.rasi"
 
 # keybinding in fancy rofi (automated):
 bindsym $M+F1 exec $i3scripts/keyhint-2
@@ -146,8 +144,8 @@ bindsym $Y+i exec --no-startup-id $scripts/identify_process.sh
 # +------------------------------------------------+
 
 # fix layout, wallpaper, xmodmap, mouse, polybar, etc
-bindsym $M+Escape exec --no-startup-id $scripts/hardware/setup_hw.sh ; exec --no-startup-id i3-msg restart && notify-send "Restart i3 inplace"
-bindsym $M+grave exec --no-startup-id $scripts/hardware/setup_hw.sh
+bindsym $M+Escape exec --no-startup-id $scripts/helpers/i3_restart.sh
+bindsym $A+F1 exec --no-startup-id $scripts/helpers/kostil_reconnect_input_device.sh
 
 # fixes (run when i3-msg restart)
 exec_always --no-startup-id fix_xcursor
@@ -164,7 +162,9 @@ exec --no-startup-id greenclip daemon
 # exec --no-startup-id copyq &
 # exec --no-startup-id copyq show
 exec --no-startup-id $scripts/setup_display.sh --setup_l &
-exec --no-startup-id $scripts/hardware/player_handler.pl &
+exec --no-startup-id $scripts/helpers/player_handler.pl &
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id picom -b
 
 #? manjaro defaults
 # exec --no-startup-id nitrogen --restore; sleep 1; picom -b
@@ -394,6 +394,13 @@ assign [class="whatsdesk"] $ws_s
 assign [class="discord"] $ws_s
 
 # +----------------------------------------------+
+# 51. save and restore workspaces
+# -----------------------------------------------+
+
+bindsym $Y+F1 exec "rofi -show fb -modes 'fb:~/.config/scripts/i3_scripts/ws/rofi_layout_options.sh'"
+bindsym $Y+F2 exec "~/.config/scripts/i3_scripts/ws/restore_ws_layout.sh"
+
+# +----------------------------------------------+
 # 60. Bind ws to outputs & move ws between outputs
 # -----------------------------------------------+
 
@@ -559,9 +566,9 @@ bindsym $M+minus scratchpad show
 # https://i3wm.org/docs/userguide.html#command_criteria
 for_window [class="KeePassXC"], move scratchpad, resize set 1300 680
 for_window [class="kate"], move scratchpad, resize set 1300 680
-# for_window [class="Gcolor3"], move scratchpad, resize set 1300 680, border pixel 1
+for_window [class="Gcolor3"], move scratchpad, resize set 1300 680, border pixel 1
 # for_window [class="TelegramDesktop"], move scratchpad, resize set 1300 680, border pixel 1
-for_window [class="Emacs"], move scratchpad, resize set 1600 680, border pixel 1
+for_window [class="Emacs"], move scratchpad, resize set 1150 670, border pixel 1
 for_window [class="crow"], move scratchpad, resize set 1000 680, border pixel 1
 # for_window [class="copyq"], move scratchpad, resize set 1000 680, border pixel 1
 for_window [class="alacritty_ranger"], move scratchpad, resize set 1200 680, border pixel 1
@@ -573,23 +580,21 @@ for_window [class="kitty_alsamixer"] move scratchpad, resize set 1200 680, borde
 for_window [window_type="dialog"], resize set 1000 680, move position center
 
 # crow: main window
-bindsym $Y+$A+e exec --no-startup-id jumpapp crow ;[class="crow"] scratchpad show; move position center
+bindsym $M+5 exec --no-startup-id jumpapp crow ;[class="crow"] scratchpad show; move position center
 # crow: translate selection but in main window
-bindsym $Y+$A+$S+e exec --no-startup-id dbus-send --type=method_call --dest=io.crow_translate.CrowTranslate /io/crow_translate/CrowTranslate/MainWindow io.crow_translate.CrowTranslate.MainWindow.translateSelection ; [class="crow"] scratchpad show; move position center
+bindsym $M+6 exec --no-startup-id qdbus org.kde.CrowTranslate /org/kde/CrowTranslate/MainWindow translateSelection; [class="crow"] scratchpad show; move position center
 # crow: speakSelection
-bindsym $Y+$A+$S+s exec --no-startup-id dbus-send --type=method_call --dest=io.crow_translate.CrowTranslate /io/crow_translate/CrowTranslate/MainWindow io.crow_translate.CrowTranslate.MainWindow.speakSelection
-# copyq
-# bindsym $A+$Y+q exec --no-startup-id copyq show;[class="copyq"] scratchpad show; move position center
+bindsym $M+Shift+6 exec --no-startup-id qdbus org.kde.CrowTranslate /org/kde/CrowTranslate/MainWindow speakSelection
 
 # show & start if not running
 # 1.jumpapp
 bindsym $Y+f exec --no-startup-id jumpapp keepassxc; [class="KeePassXC"] scratchpad show; move position center
 bindsym $M+q exec --no-startup-id jumpapp kate; [class="kate"] scratchpad show; move position center
 
-# bindsym $Y+o exec --no-startup-id jumpapp gcolor3; [class="Gcolor3"] scratchpad show; move position center
+bindsym $Y+$S+o exec --no-startup-id jumpapp gcolor3; [class="Gcolor3"] scratchpad show; move position center
 
 # bindsym $C+$A+Next exec --no-startup-id jumpapp TelegramDesktop; [class="TelegramDesktop"] scratchpad show; move position center
-bindsym $C+$A+Prior exec --no-startup-id jumpapp emacs; [class="Emacs"] scratchpad show; move position center
+bindsym $M+4 exec --no-startup-id jumpapp emacs; [class="Emacs"] scratchpad show; move position center
 # 2.jumpterm
 bindsym $M+space exec --no-startup-id ~/.config/scripts/jumpterm.sh alacritty alacritty_ranger ranger; [class="alacritty_ranger"] scratchpad show; move position center
 bindsym $M+$S+Tab exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_scratchterm; [class="kitty_scratchterm"] scratchpad show; move position center
@@ -731,38 +736,30 @@ bindsym $M+$S+f	mode "$freeze" ;; exec --no-startup-id notify-send "Distraction-
 
 
 # +------------------------------------------+
-# 100. Menu
+# 100. POWER
 # +------------------------------------------+
 
-#* [MENU] Power/system-setting functions
 # TODO: блять в рофи гибернации нету
-bindsym $Y+Escape exec --no-startup-id $rofi/powermenu.sh
+bindsym $Y+$S+Escape exec --no-startup-id $rofi/powermenu.sh
 
-bindsym $Y+$S+Escape mode "$wine_system"
-set $wine_system (l)ock (e)xit switch-(u)ser (s)uspend (h)ibernate (r)eboot (S+s)hutdown (S+e)xit_X_ses
+bindsym $Y+Escape mode "$wine_system"
+set $wine_system (l)ock (e)xit switch(u)ser (s)uspend (h)ibernate (r)eboot (S+s)hutdown
 mode "$wine_system" {
-    bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym s exec --no-startup-id nmcli radio wifi off; i3exit suspend, mode "default"
-    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym h exec --no-startup-id "$scripts/power/hibernate.sh", mode "default"
-    bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym $S+s exec --no-startup-id i3exit shutdown, mode "default"
-    bindsym $S+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-    # exit system mode: "Enter" or "Escape"
+    bindsym s    exec --no-startup-id $scripts/power.sh suspend, mode "default"
+    bindsym h    exec --no-startup-id $scripts/power.sh hibernate; mode "default"
+    bindsym l    exec --no-startup-id $scripts/power.sh lock, mode "default"
+    bindsym e    exec --no-startup-id $scripts/power.sh logout, mode "default"
+    bindsym u    exec --no-startup-id $scripts/power.sh switch, mode "default"
+    bindsym r    exec --no-startup-id $scripts/power.sh reboot, mode "default"
+    bindsym $S+s exec --no-startup-id $scripts/power/sh shutdown, mode "default"
+
+    # bindsym $S+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
     bindsym Escape mode "default"
 }
 
-
-#? LOCK SCREEN
-#todo: https://tools.suckless.org/slock/
-
-# bindsym $Y+BackSpace exec --no-startup-id blurlock
-bindsym $M+BackSpace exec --no-startup-id "$i3scripts/i3lock-fancy-pizdati --greyscale"
-
-# lock the screen with a black background
-bindsym $M+$S+BackSpace exec "i3lock -c 000000"
+bindsym $M+BackSpace exec --no-startup-id $scripts/power.sh lock
 
 # exec --no-startup-id xautolock -time 10 -locker blurlock
 # exec --no-startup-id xautolock -time 10 -locker "$i3scripts/i3lock-fancy-pizdati --greyscale" -detectsleep
@@ -772,14 +769,14 @@ bindsym $M+$S+BackSpace exec "i3lock -c 000000"
 
 #* [MENU] VPN
 bindsym $Y+F9 mode "$wine_vpn"
-set $wine_vpn [VPN🌍] up|down (h|H)hdt (s|S)sanjuan
+set $wine_vpn [VPN🌍] up|down (h|H)hdt (s|S)office
 mode "$wine_vpn" {
     # hdt
     bindsym h exec --no-startup-id $scripts/vpn/vpn_handler.sh up hdt; mode "default"
     bindsym $S+h exec --no-startup-id $scripts/vpn/vpn_handler.sh down hdt; mode "default"
-    # sanjuan
-    bindsym s exec --no-startup-id $scripts/vpn/vpn_handler.sh up sanjuan; mode "default"
-    bindsym $S+s exec --no-startup-id $scripts/vpn/vpn_handler.sh down sanjuan; mode "default"
+    # office
+    bindsym s exec --no-startup-id $scripts/vpn/vpn_handler.sh up office; mode "default"
+    bindsym $S+s exec --no-startup-id $scripts/vpn/vpn_handler.sh down office; mode "default"
     # exit system mode: "Enter" or "Escape"
     bindsym Escape mode "default"
 }
@@ -808,7 +805,7 @@ mode "$wine_notif" {
 
 #* [MENU] Monitor control
 bindsym $Y+F11 mode "$wine_monitor_control"
-set $wine_monitor_control  󰓏 [q|x|w|e|r|m]:[VM|MV|L|ML|VML|M] 󰓏 ws2output [Alt]+[1|2|3]:M|V|L 
+set $wine_monitor_control  󰓏 [q|x|X|w|e|r|m|h]:[VM|MV|MH|L|ML|VML|M|H] 󰓏 ws2output [Alt]+[1|2|3]:M|V|L 
 mode "$wine_monitor_control" {
 
     # reapply xrandr configuration & reload polybar & apply xmodmap
@@ -819,6 +816,8 @@ mode "$wine_monitor_control" {
 
     # valid for connecting vertical monitor via docking (is always appear as dp-1) and via dp-1 port directly in laptop
     bindsym x exec --no-startup-id $scripts/setup_display.sh --setup_mv > $log 2>&1; mode "default"
+    bindsym Shift+x exec --no-startup-id $scripts/setup_display.sh --setup_mh > $log 2>&1; mode "default"
+    bindsym h exec --no-startup-id $scripts/setup_display.sh --setup_h > $log 2>&1; mode "default"
 
     bindsym w exec --no-startup-id $scripts/setup_display.sh --setup_l > $log 2>&1; mode "default"
     bindsym e exec --no-startup-id $scripts/setup_display.sh --setup_ml > $log 2>&1; mode "default"
@@ -835,38 +834,36 @@ mode "$wine_monitor_control" {
 #* [MENU] Control menu
 # bindsym $M+F12 mode "$wine_reload"
 bindsym $Y+F12 mode "$wine_reload"
-set $wine_reload [] (r)rst-i3 (c)rld-config-i3 (s)sxkhd (p)picom (d)dunst (f)setup_hw (o)polybar
+set $wine_reload [] (h)setup_hw (r)rst-i3 (c)rld-config-i3 (s)sxkhd (p)picom (d)dunst (f)setup_hw (o)polybar (e)espanso
 mode "$wine_reload" {
 
+    # bindsym m exec --no-startup-id $scripts/hardware/mouse.sh, mode "default"
+
+    # setup hardware
+    # bindsym h exec --no-startup-id $scripts/hardware/setup_hw.sh, mode "default"
+
     # reload sxkhd
-    bindsym s exec --no-startup-id killall sxhkd && setsid -f sxhkd && notify-send "[sxhkd] reloaded"
+    bindsym s exec --no-startup-id killall sxhkd && setsid -f sxhkd && notify-send "[sxhkd] reloaded", mode "default"
 
     # reload the configuration file
     # bindsym 2 reload && notify-send "[i3] reload the configuration file"
-    bindsym c exec --no-startup-id i3-msg reload && notify-send "[i3] reload the configuration file"
-    
+    bindsym c exec --no-startup-id i3-msg reload && notify-send "[i3] reload the configuration file", mode "default"
+
     # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
     # bindsym r restart && notify-send "[i3] restart i3"
-    bindsym r exec --no-startup-id i3-msg restart && notify-send "[i3] restart i3 inplace"
+    bindsym r exec --no-startup-id i3-msg restart && notify-send "[i3] restart i3 inplace", mode "default"
 
-    # restart picom
-    bindsym p exec --no-startup-id picom -b && notify-send "[picom] reloaded"
-
-    # reload dunst
-    bindsym d --release exec killall dunst && notify-send "[dunst] reloaded"
-
-    # reload polybar
-    bindsym o polybar-msg cmd restart && notify-send "[polybar] reloaded"
+    # other
+    bindsym p exec --no-startup-id picom -b && notify-send "[picom] reloaded", mode "default"
+    bindsym d exec killall dunst && notify-send "[dunst] reloaded", mode "default"
+    bindsym o polybar-msg cmd restart && notify-send "[polybar] reloaded", mode "default"
+    bindsym e exec --no-startup-id espanso restart && notify-send "[espanso] restarted", mode "default"
 
     # wifi, vpn, etc
     #bindsym n exec --no-startup-id kitty --class=kitty_nmtui -e nmtui, mode "default"
     #bindsym n exec --no-startup-id alacritty -e nmtui, mode "default"
     #bindsym n exec terminal -e 'nmtui', mode "default"
-    
-    # fix hardware
-    bindsym f exec --no-startup-id $scripts/hardware/setup_hw.sh 2>&1, mode "default"
 
-    # exit system mode: "Enter" or "Escape"
     bindsym Escape mode "default"
 }
 

@@ -4,17 +4,15 @@ keybinds {
         // tmux
         bind "Ctrl f" { SwitchToMode "Tmux"; }
         unbind "Ctrl b"
-        // general stuff
         bind "Alt n" { NewPane; }
-        // bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
         bind "Alt w" { ToggleFloatingPanes;}
-        bind "Alt t" { NewTab;}
+        bind "Alt t" { NewTab; }
         bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
         bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
         bind "Alt j" "Alt Down" { MoveFocus "Down"; }
         bind "Alt k" "Alt Up" { MoveFocus "Up"; }
-        bind "Alt +" { Resize "Increase"; }
-        bind "Alt -" { Resize "Decrease"; }
+        bind "Alt i" { MoveTab "Left"; }
+        bind "Alt o" { MoveTab "Right"; }
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
         bind "Alt 1" { GoToTab 1; }
@@ -32,7 +30,11 @@ keybinds {
                 ignore_case true
             }
         }
-        bind "Alt f" { ToggleFocusFullscreen; }
+        // TODO: ?
+        // bind "Alt +" { Resize "Increase"; }
+        // bind "Alt -" { Resize "Decrease"; }
+        // bind "Alt f" { ToggleFocusFullscreen; }
+        // bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
     } 
     tmux clear-defaults=true {
         bind "Ctrl f" { Write 2; SwitchToMode "Normal"; }

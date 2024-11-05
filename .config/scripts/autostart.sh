@@ -1,4 +1,9 @@
-~/.config/scripts/hardware/setup_hw.sh
+#!/bin/bash
+
+~/.config/scripts/helpers/setup_remap.sh
+
+~/.config/scripts/hardware/mouse.sh
+~/.config/scripts/hardware/layout.sh
 
 # disable power-button
 # https://unix.stackexchange.com/questions/547582/how-to-disable-cleanly-the-power-button
@@ -40,8 +45,12 @@ done
 eval $(opam env)
 
 # TODO: эта дрочь (?иногда) не работает, если запускается со скрипта
+# а если вручную то сразу ебашит; тестануть в след раз с `set -x`
 mount | grep /mnt/gdrive_ >/dev/null || google-drive-ocamlfuse -label gdrive_loadmaks /mnt/gdrive_loadmaks/
 
 # google-drive-ocamlfuse -label gdrive_loadmaks /mnt/gdrive_loadmaks/
 # google-drive-ocamlfuse -label gdrive_svonjoi /mnt/gdrive_svonjoi/
 # google-drive-ocamlfuse -label gdrive_inna /mnt/gdrive_inna/
+#
+
+notify-send "autostart.sh done"

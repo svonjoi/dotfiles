@@ -4,13 +4,14 @@
 # |
 # |
 
-mod3 + o
-  ~/.config/scripts/colorpicker.sh
+#mod3 + o
+#  ~/.config/scripts/colorpicker.sh
 
+super + F2; v; s
+  ~/.config/scripts/vpn/vpn_handler.sh up office
 
-
-
-
+super + F2; v; S
+  ~/.config/scripts/vpn/vpn_handler.sh down office
 
 
 

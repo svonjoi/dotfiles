@@ -33,6 +33,7 @@ else
   # -hwaccel_output_format vaapi -hwaccel vaapi -vaapi_device /dev/dri/renderD128 \
   # -f pulse -i default \
   ffmpeg -y -thread_queue_size 65536 \
+    -f pulse -i default \
     -f x11grab -i $DISPLAY \
     -vcodec libx264 \
     -pix_fmt yuv420p \

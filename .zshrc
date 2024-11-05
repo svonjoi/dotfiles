@@ -212,7 +212,7 @@ znap install bigH/git-fuzzy
 
 # configpath: ~/.config/nvim
 # datapath ~/.local/share/nvim
-export EDITOR=nvim
+export EDITOR=nvim1
 
 export KLOUD="/mnt/gdrive_loadmaks/"
 export POLYBAR_SCRIPTS="$HOME/bin/polybar_scripts"
@@ -233,12 +233,16 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
+# exa, lsd accepts the same parms
 alias l='exa --all --group-directories-first'
-alias ll='exa -l --all --group-directories-first'
+alias ll='lsd -l --all --group-directories-first'
 alias llt='exa --tree --group-directories-first'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias man='batman'
-alias Nvim=select_nvim_config
+alias Nvim=nvim_selecting_config
+alias nvim1='NVIM_APPNAME=nvim-kickstart nvim'
+alias nvim2='NVIM_APPNAME=nvim-lazyvim nvim'
+alias dump='~/.config/scripts/dump_svonux/dump_svonux.sh --full'
 
 
 # https://stackoverflow.com/a/39839346/16719196
@@ -282,6 +286,29 @@ yankpath () {
   realpath $1 | yank
 }
 
+# Add a # to the front of the command (so it becomes a comment)
+copy_last_command () {
+  history | tail -n 1 | sed "s/[[:digit:]]*  //" | sed "s/^#//" | xclip
+}
+zle -N copy_last_command
+bindkey '^k' copy_last_command
+
+if [[ -n $DISPLAY ]]; then
+    copy_line_to_x_clipboard() {
+        echo -n $BUFFER | xclip -selection clipboard
+        zle reset-prompt
+    }
+    zle -N copy_line_to_x_clipboard
+    bindkey '^Y' copy_line_to_x_clipboard
+fi
+
+# yadm
+function yc() {
+    cd ~
+    yadm enter lazygit
+    cd -
+}
+
 # +-----------------------+
 # |         $PATH         |
 # +-----------------------+
@@ -298,7 +325,7 @@ done
 
 
 # sioyek
-PATH="$HOME/dev/third/sioyek/build${PATH:+:${PATH}}"; export PATH;
+# PATH="$HOME/dev/third/sioyek/build${PATH:+:${PATH}}"; export PATH;
 
 # export PATH="$PATH:$HOME/.config/i3/scripts/"
 
@@ -335,16 +362,55 @@ function batman() {
     return $?
 }
 
-
-select_nvim_config() {
+nvim_selecting_config() {
   # Assumes all configs exist in directories named ~/.config/nvim-*
   local config=$(fd --max-depth 1 --glob 'nvim-*' ~/.config | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
  
   # If I exit fzf without selecting a config, don't open Neovim
   [[ -z $config ]] && echo "No config selected" && return
  
+  set -x
   # Open Neovim with the selected config
   NVIM_APPNAME=$(basename $config) nvim $@
 }
+
+# https://gist.github.com/elijahmanor/b279553c0132bfad7eae23e34ceb593b
+function nvims2() {
+  set -x
+  items=$(find $HOME/.config -maxdepth 2 -name "init.lua" -type f -execdir sh -c 'pwd | xargs basename' \;)
+  selected=$(printf "%s\n" "${items[@]}" | FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS-} --preview-window 'right:border-left:50%:<40(right:border-left:50%:hidden)' --preview 'lsd -l -A --tree --depth=1 --color=always --blocks=size,name ~/.config/{} | head -200'" fzf )
+  if [[ -z $selected ]]; then
+    return 0
+  elif [[ $selected == "nvim" ]]; then
+    selected="nvim-kickstart"
+  fi
+  echo "$@"
+  ~/.config/scripts/helpers/nvim_runner.sh $selected
+  # NVIM_APPNAME=$selected nvim "$@"
+}
+
+bindkey -s "^v" "nvims2\n"
+bindkey -s "^z" "omz reload\n"
+
+
+function remove_ws_layout() {
+  ~/.config/scripts/i3_scripts/ws/remove_ws_layout.sh
+}
+zle -N remove_ws_layout
+bindkey "^3" remove_ws_layout
+
+
+
+
+# fzf shell integration
+# TODO: много полезняшек
+# https://junegunn.github.io/fzf/shell-integration/
+source <(fzf --zsh)
+
+# Preview file content using bat (https://github.com/sharkdp/bat)
+export FZF_CTRL_T_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'bat -n --color=always {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
 
