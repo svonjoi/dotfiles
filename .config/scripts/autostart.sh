@@ -1,17 +1,10 @@
 #!/bin/bash
-
-~/.config/scripts/helpers/setup_remap.sh
+# run once when system starts
 
 ~/.config/scripts/hardware/mouse.sh
 ~/.config/scripts/hardware/layout.sh
-
-# disable power-button
-# https://unix.stackexchange.com/questions/547582/how-to-disable-cleanly-the-power-button
-nohup systemd-inhibit \
-  --what="handle-power-key" \
-  --who="disable-shutdown-button script" \
-  --why="allows i3 to open shutdown-dialog instead" \
-  sleep 1000d
+~/.config/scripts/helpers/setup_remap.sh
+~/.config/scripts/cloud.sh
 
 # set keybinding
 # killall sxhkd && setsid -f sxhkd
@@ -25,32 +18,12 @@ nohup greenclip daemon &
 # хуйня проситб пароль заебала
 # teamviewer --daemon start
 
-# +------------------------------------------------+
-# |                  MOUNT CLOUDS                  |
-# +------------------------------------------------+
-# если дроченый клауд не монтируется, запустить этот скрипт вручную еще раз
+# disable power-button
+# https://unix.stackexchange.com/questions/547582/how-to-disable-cleanly-the-power-button
+nohup systemd-inhibit \
+  --what="handle-power-key" \
+  --who="disable-shutdown-button script" \
+  --why="allows i3 to open shutdown-dialog instead" \
+  sleep 1000d
 
-# prepare directories
-declare -a directories=(
-  "/mnt/gdrive_loadmaks/"
-)
-
-for dir in "${directories[@]}"; do
-  if [ ! -d "$dir" ]; then
-    mkdir "$dir"
-  fi
-done
-
-# set up the environment variables needed to use opam
-eval $(opam env)
-
-# TODO: эта дрочь (?иногда) не работает, если запускается со скрипта
-# а если вручную то сразу ебашит; тестануть в след раз с `set -x`
-mount | grep /mnt/gdrive_ >/dev/null || google-drive-ocamlfuse -label gdrive_loadmaks /mnt/gdrive_loadmaks/
-
-# google-drive-ocamlfuse -label gdrive_loadmaks /mnt/gdrive_loadmaks/
-# google-drive-ocamlfuse -label gdrive_svonjoi /mnt/gdrive_svonjoi/
-# google-drive-ocamlfuse -label gdrive_inna /mnt/gdrive_inna/
-#
-
-notify-send "autostart.sh done"
+notify-send "autostart done"
