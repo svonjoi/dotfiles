@@ -2520,3 +2520,93 @@ config.bind('<Alt-P>', 'cmd-set-text -s :tab-select')
 
 # c.url.searchengines = {'DEFAULT': 'https://www.google.com/search?q={}'}
 # c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}'}
+
+config.source('themes/qute-city-lights/city-lights-theme.py')
+
+
+## Bindings for prompt mode
+# config.bind('<Alt-B>', 'rl-backward-word', mode='prompt')
+# config.bind('<Alt-Backspace>', 'rl-backward-kill-word', mode='prompt')
+# config.bind('<Alt-D>', 'rl-kill-word', mode='prompt')
+# config.bind('<Alt-E>', 'prompt-fileselect-external', mode='prompt')
+# config.bind('<Alt-F>', 'rl-forward-word', mode='prompt')
+# config.bind('<Alt-Shift-Y>', 'prompt-yank --sel', mode='prompt')
+# config.bind('<Alt-Y>', 'prompt-yank', mode='prompt')
+# config.bind('<Ctrl-?>', 'rl-delete-char', mode='prompt')
+# config.bind('<Ctrl-A>', 'rl-beginning-of-line', mode='prompt')
+# config.bind('<Ctrl-B>', 'rl-backward-char', mode='prompt')
+# config.bind('<Ctrl-E>', 'rl-end-of-line', mode='prompt')
+# config.bind('<Ctrl-F>', 'rl-forward-char', mode='prompt')
+# config.bind('<Ctrl-H>', 'rl-backward-delete-char', mode='prompt')
+# config.bind('<Ctrl-K>', 'rl-kill-line', mode='prompt')
+# config.bind('<Ctrl-P>', 'prompt-open-download --pdfjs', mode='prompt')
+# config.bind('<Ctrl-Shift-W>', 'rl-filename-rubout', mode='prompt')
+# config.bind('<Ctrl-U>', 'rl-unix-line-discard', mode='prompt')
+# config.bind('<Ctrl-W>', 'rl-rubout " "', mode='prompt')
+# config.bind('<Ctrl-X>', 'prompt-open-download', mode='prompt')
+# config.bind('<Ctrl-Y>', 'rl-yank', mode='prompt')
+# config.bind('<Down>', 'prompt-item-focus next', mode='prompt')
+# config.bind('<Escape>', 'mode-leave', mode='prompt')
+# config.bind('<Return>', 'prompt-accept', mode='prompt')
+# config.bind('<Shift-Tab>', 'prompt-item-focus prev', mode='prompt')
+# config.bind('<Tab>', 'prompt-item-focus next', mode='prompt')
+# config.bind('<Up>', 'prompt-item-focus prev', mode='prompt')
+
+## Bindings for command mode
+# config.bind('<Alt-B>', 'rl-backward-word', mode='command')
+# config.bind('<Alt-Backspace>', 'rl-backward-kill-word', mode='command')
+# config.bind('<Alt-D>', 'rl-kill-word', mode='command')
+# config.bind('<Alt-F>', 'rl-forward-word', mode='command')
+# config.bind('<Ctrl-?>', 'rl-delete-char', mode='command')
+# config.bind('<Ctrl-A>', 'rl-beginning-of-line', mode='command')
+# config.bind('<Ctrl-B>', 'rl-backward-char', mode='command')
+# config.bind('<Ctrl-C>', 'completion-item-yank', mode='command')
+# config.bind('<Ctrl-D>', 'completion-item-del', mode='command')
+# config.bind('<Ctrl-E>', 'rl-end-of-line', mode='command')
+# config.bind('<Ctrl-F>', 'rl-forward-char', mode='command')
+# config.bind('<Ctrl-H>', 'rl-backward-delete-char', mode='command')
+# config.bind('<Ctrl-K>', 'rl-kill-line', mode='command')
+# config.bind('<Ctrl-N>', 'command-history-next', mode='command')
+# config.bind('<Ctrl-P>', 'command-history-prev', mode='command')
+# config.bind('<Ctrl-Return>', 'command-accept --rapid', mode='command')
+# config.bind('<Ctrl-Shift-C>', 'completion-item-yank --sel', mode='command')
+# config.bind('<Ctrl-Shift-Tab>', 'completion-item-focus prev-category', mode='command')
+# config.bind('<Ctrl-Shift-W>', 'rl-filename-rubout', mode='command')
+# config.bind('<Ctrl-Tab>', 'completion-item-focus next-category', mode='command')
+# config.bind('<Ctrl-U>', 'rl-unix-line-discard', mode='command')
+# config.bind('<Ctrl-W>', 'rl-rubout " "', mode='command')
+# config.bind('<Ctrl-Y>', 'rl-yank', mode='command')
+# config.bind('<Down>', 'completion-item-focus --history next', mode='command')
+# config.bind('<Escape>', 'mode-leave', mode='command')
+# config.bind('<PgDown>', 'completion-item-focus next-page', mode='command')
+# config.bind('<PgUp>', 'completion-item-focus prev-page', mode='command')
+# config.bind('<Return>', 'command-accept', mode='command')
+# config.bind('<Shift-Delete>', 'completion-item-del', mode='command')
+# config.bind('<Shift-Tab>', 'completion-item-focus prev', mode='command')
+# config.bind('<Tab>', 'completion-item-focus next', mode='command')
+# config.bind('<Up>', 'completion-item-focus --history prev', mode='command')
+
+
+## Bindings for insert mode
+# config.bind('<Ctrl-E>', 'edit-text', mode='insert')
+# config.bind('<Escape>', 'mode-leave', mode='insert')
+# config.bind('<Shift-Escape>', 'fake-key <Escape>', mode='insert')
+# config.bind('<Shift-Ins>', 'insert-text -- {primary}', mode='insert')
+c.bindings.commands = {
+    'insert': {
+        '<Ctrl-f>'        : 'fake-key <Right>',
+        '<Ctrl-b>'        : 'fake-key <Left>',
+        '<Ctrl-a>'        : 'fake-key <Home>',
+        '<Ctrl-e>'        : 'fake-key <End>',
+        '<Ctrl-n>'        : 'fake-key <Down>',
+        '<Ctrl-p>'        : 'fake-key <Up>',
+        '<Alt-v>'         : 'fake-key <PgUp>',
+        '<Ctrl-v>'        : 'fake-key <PgDown>',
+        '<Alt-f>'         : 'fake-key <Ctrl-Right>',
+        '<Alt-b>'         : 'fake-key <Ctrl-Left>',
+        '<Ctrl-d>'        : 'fake-key <Delete>',
+        '<Alt-d>'         : 'fake-key <Ctrl-Delete>',
+        '<Alt-Backspace>' : 'fake-key <Ctrl-Backspace>',
+        '<Ctrl-y>'        : 'insert-text {primary}',
+    }
+}
