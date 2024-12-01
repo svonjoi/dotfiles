@@ -2502,8 +2502,9 @@ c.tabs.position = 'left'
 config.unbind('b', mode='normal')
 
 config.bind('xs', 'config-cycle statusbar.show always never')
-config.bind('xt', 'config-cycle tabs.show always never')
-config.bind('xx', 'config-cycle tabs.show always never;; config-cycle statusbar.show always never')
+config.bind('x<Tab>', 'config-cycle tabs.show always never')
+config.bind('xx', 'config-cycle tabs.show always never')
+# config.bind('xt', 'config-cycle tabs.show always never;; config-cycle statusbar.show always never')
 
 config.bind('Ba', 'spawn --userscript ~/.config/scripts/bookmarks/marks.sh add')
 config.bind('Bd', 'spawn --userscript ~/.config/scripts/bookmarks/marks.sh delete')
