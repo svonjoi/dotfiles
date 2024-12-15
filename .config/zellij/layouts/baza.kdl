@@ -8,25 +8,46 @@ layout {
                 format_right "#[bg=#0e0a1b,fg=#adad88] {swap_layout} "
                 format_space  "#[bg=#0e0a1b]"
 
-                mode_locked  "#[bg=red,fg=white]  LOCKED "
+                //mode_locked  "#[bg=red,fg=white]  LOCKED "
+                mode_locked  "#[bg=red,fg=white]  "
                 mode_normal  "#[bg=#adad88] "
-                mode_tmux    "#[bg=#ffc387] "
+                mode_tmux    "#[bg=#E5BD1A] "
+                mode_pane    "#[bg=#1AE5AB] "
+                mode_resize    "#[bg=#1AE5AB] "
+                mode_move    "#[bg=#1AE5AB] "
+                mode_tab    "#[bg=#1AE5AB] "
+                mode_scroll    "#[bg=#1AE5AB] "
+                mode_search    "#[bg=#1AE5AB] "
+                mode_entersearch    "#[bg=#1AE5AB] "
+                mode_renametab    "#[bg=#1AE5AB] "
+                mode_renamepane    "#[bg=#1AE5AB] "
+                mode_session    "#[bg=#1AE5AB] "
 
                 tab_normal "#[bg=#0e0a1b,fg=#adad88] {name} {sync_indicator}{fullscreen_indicator}{floating_indicator}#[bg=#adad88,fg=black]"
                 tab_active "#[bg=black,fg=#adad88] {name} {sync_indicator}{fullscreen_indicator}{floating_indicator}#[bg=black,fg=#adad88]"
+                // tab_separator "#[fg=#A6A6A6,bg=#0E0A1B]|"
+
+                //command_shit_command     "~/.config/scripts/zellij/zellij_output.sh"
+                //command_shit_format      "#[fg=blue] {stdout} "
+                //command_shit_interval    "10"
+                //command_shit_rendermode  "static"
 
                 tab_sync_indicator       "󰓦 "
-                tab_fullscreen_indicator "󱟱  "
-                tab_floating_indicator   "󰉈 "
+                tab_fullscreen_indicator "󰉈 "
+                tab_floating_indicator   "‡ "
 
                 datetime          "{format}"
                 datetime_format   "%d-%m-%Y %H:%M"
                 datetime_timezone "Europe/Berlin"
             }
         }
+        //pane size=2 borderless=true {
+        //    plugin location="status-bar"
+        //}
     }
 
     tab name="~" focus=true {
-        pane size="1" cwd="/home/svonjoi/"
+        //pane size="1" cwd="/home/svonjoi/"
+        pane size="1" cwd="~"
     }
 }
