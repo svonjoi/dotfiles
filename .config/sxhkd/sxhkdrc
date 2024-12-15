@@ -4,15 +4,48 @@
 # |
 # |
 
+# NOTE:(?)keysym used here is case sensitive
+
 #mod3 + o
 #  ~/.config/scripts/colorpicker.sh
 
-super + F2; v; s
-  ~/.config/scripts/vpn/vpn_handler.sh up office
+#super + F2; v; s
+#  ~/.config/scripts/vpn/vpn_handler.sh up office
 
-super + F2; v; S
-  ~/.config/scripts/vpn/vpn_handler.sh down office
+#super + F2; v; S
+#  ~/.config/scripts/vpn/vpn_handler.sh down office
 
+#ctrl + f
+#  xkb-switch -s us && xmodmap ~/.Xmodmap >/dev/null 2>&1
+
+mod3 + 0
+  xdotool key Caps_Lock
+
+mod3 + 6
+  xdotool key Num_Lock
+
+# window transparency
+super + 9
+  transset-df -a --min 0.05 --dec 0.05
+
+super + shift + 9
+  transset-df -a --inc 0.05
+
+super + F11
+  flameshot gui
+
+super + ctrl + F11
+  flameshot creen
+
+super + shift + F11
+  flameshot gui -d 2000 >/dev/null 2>&1
+
+super + F12
+  ~/.config/scripts/identify_process.sh
+
+# screencast
+super + F10
+  ~/.config/scripts/screencast.sh >/dev/null 2>&1
 
 
 #? +------------------------------------+

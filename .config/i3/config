@@ -14,14 +14,12 @@
 # 15. Autostart
 # 20. Keyboard Layout
 # 30. Sound section
-# 31. Screen capture
 # 40. Workspaces: set, navigation
 # 50. Bind software to workspaces
 # 51. save and restore workspaces
 # 60. Bind ws to outputs & move ws between outputs
 # 70. Windows & containers functionallity
 # 75. Window setup for software
-# 45. Simulate key press / remap
 # 50. Scratchpad
 # 70. Distraction-free
 # 90. Menu
@@ -30,7 +28,7 @@
 # 82. Theme colors
 # 84. Distraction-free
 
-#* copy of this defined variables is in setup_display.sh
+#* copy of this defined variables is in output.sh
 set $out_DP_1 "DP-1"
 set $out_DP_2 "DP-2"
 set $outLaptop "eDP-1"
@@ -51,12 +49,7 @@ set $scripts ~/.config/scripts
 # +------------------------------------------+
 # 00. Inbox
 # +------------------------------------------+
-
-# bindsym $C+$A+Prior exec
-# bindsym $Y+Return exec
-# bindsym $M+$C+b exec terminal -e 'bmenu'
-# bindsym $M+$A+space exec kitty ranger
-# bindsym $A+P exec "rofi -modi 'obsidian:~/.config/scripts/obsidian/obsidian-rofi.py' -show"
+# TODO: перенести в сышкадыси
 
 # RDP Connection
 bindsym $Y+$S+F12 exec --no-startup-id remmina -c ~/.local/share/remmina/group_rdp_ziggurat_ziggurat.remmina >/dev/null 2>&1
@@ -135,9 +128,7 @@ bindsym $M+$S+d exec --no-startup-id rofi -show window
 #         -theme "svonjoi-window-squared-material-red.rasi"
 
 # keybinding in fancy rofi (automated):
-bindsym $M+F1 exec $i3scripts/keyhint-2
-
-bindsym $Y+i exec --no-startup-id $scripts/identify_process.sh
+# bindsym $M+F1 exec $i3scripts/keyhint-2
 
 # +------------------------------------------------+
 # 10. Reload
@@ -149,7 +140,8 @@ bindsym $A+F1 exec --no-startup-id $scripts/helpers/kostil_reconnect_input_devic
 
 # fixes (run when i3-msg restart)
 exec_always --no-startup-id fix_xcursor
-exec_always --no-startup-id nitrogen --restore
+# exec_always --no-startup-id nitrogen --restore
+exec_always --no-startup-id /usr/bin/dwall -s bitday
 exec_always --no-startup-id polybar-msg cmd restart
 
 # +------------------------------------------+
@@ -161,9 +153,10 @@ exec --no-startup-id greenclip daemon
 # exec --no-startup-id keyd-application-mapper -d
 # exec --no-startup-id copyq &
 # exec --no-startup-id copyq show
-exec --no-startup-id $scripts/setup_display.sh --setup_l &
+exec --no-startup-id $scripts/output.sh --setup_l &
 exec --no-startup-id $scripts/helpers/player_handler.pl &
-exec --no-startup-id nitrogen --restore
+# exec --no-startup-id nitrogen --restore
+exec --no-startup-id /usr/bin/dwall -s bitday
 exec --no-startup-id picom -b
 
 #? manjaro defaults
@@ -228,19 +221,6 @@ bindsym $C+$A+End exec --no-startup-id playerctl play-pause -p spotify
 bindsym $M+$C+$A+Insert exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym $M+$C+$A+End exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
 
-# +------------------------------------------------+
-# 31. Screen capture
-# +------------------------------------------------+
-bindsym $Y+y exec --no-startup-id flameshot gui
-
-# todo: capture current output
-# bindsym Print exec --no-startup-id flameshot screen
-
-# Capture with GUI after 2 seconds delay (can be useful to take screenshots of mouse hover tooltips, etc.)
-bindsym $Y+$S+y exec --no-startup-id flameshot gui -d 2000 >/dev/null 2>&1
-
-# screencast
-bindsym $Y+u exec ~/.config/scripts/gif.sh >/dev/null 2>&1
 
 # +------------------------------------------+
 # 40. Workspaces: set, navigation
@@ -293,7 +273,8 @@ set $ws_v "19:v"
 set $ws_b "20:b"
 set $ws_n "21:n"
 set $ws_m "22:m"
-set $ws_semicolon "23:;"
+set $ws_f "23:f"
+set $ws_semicolon "24:;"
 
 #? Switch to workspace
 bindsym $Y+1 workspace number $ws_1
@@ -318,6 +299,7 @@ bindsym $Y+v workspace $ws_v
 bindsym $Y+b workspace $ws_b
 bindsym $Y+n workspace $ws_n
 bindsym $Y+m workspace $ws_m
+bindsym $Y+f workspace $ws_f
 bindsym $Y+semicolon workspace $ws_semicolon
 
 #? Move focused container to workspace
@@ -343,6 +325,7 @@ bindsym $M+$Y+v move container to workspace $ws_v
 bindsym $M+$Y+b move container to workspace $ws_b
 bindsym $M+$Y+n move container to workspace $ws_n
 bindsym $M+$Y+m move container to workspace $ws_m
+bindsym $M+$Y+f move container to workspace $ws_f
 bindsym $M+$Y+semicolon move container to workspace $ws_semicolon
 
 #? Move to workspace with focused container
@@ -397,8 +380,8 @@ assign [class="discord"] $ws_s
 # 51. save and restore workspaces
 # -----------------------------------------------+
 
-bindsym $Y+F1 exec "rofi -show fb -modes 'fb:~/.config/scripts/i3_scripts/ws/rofi_layout_options.sh'"
-bindsym $Y+F2 exec "~/.config/scripts/i3_scripts/ws/restore_ws_layout.sh"
+bindsym $M+8 exec "rofi -show fb -modes 'fb:~/.config/scripts/i3_scripts/ws/rofi_layout_options.sh'"
+bindsym $M+Shift+8 exec "~/.config/scripts/i3_scripts/ws/restore_ws_layout.sh"
 
 # +----------------------------------------------+
 # 60. Bind ws to outputs & move ws between outputs
@@ -490,7 +473,7 @@ bindsym $M+a focus parent
 #? Renaming parent container
 # to pop up an input window for you to enter a container name and then focuses 
 # on the window parent, renames the container and then focuses back on the child window
-bindsym $Y+slash exec "answer=$(zenity --title=\\"i3-msg title_format\\" --text \\"Change %TITLE for parent container\\" --entry); if [ -n \\"$answer\\" ]; then i3-msg focus parent, title_format \\"<span foreground='pink'><b> $answer</b></span>\\", focus child; else i3-msg focus parent, title_format \\"<span foreground='pink'><b> %title</b></span>\\", focus child; fi"
+# bindsym $Y+slash exec "answer=$(zenity --title=\\"i3-msg title_format\\" --text \\"Change %TITLE for parent container\\" --entry); if [ -n \\"$answer\\" ]; then i3-msg focus parent, title_format \\"<span foreground='pink'><b> $answer</b></span>\\", focus child; else i3-msg focus parent, title_format \\"<span foreground='pink'><b> %title</b></span>\\", focus child; fi"
 
 # not working
 # bindsym $M+g exec i3-input -F 'rename workspace to "'`i3-msg -t get_workspaces | jq '.[] | select(.visible == true)' | jq .num`': %s"' -P "new name? "
@@ -539,15 +522,6 @@ for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 for_window [class="Arandr"] floating enable
 
-# +------------------------------------------+
-# 45. Simulate key press / remap
-# +------------------------------------------+
-# bindsym $Y+Right     exec --no-startup-id xdotool key Return
-
-# todo: pasar a keyd
-bindsym $Y+0 exec --no-startup-id xdotool key Caps_Lock
-bindsym $Y+6 exec --no-startup-id xdotool key Num_Lock
-
 
 # +------------------------------------------+
 # 50. Scratchpad
@@ -588,9 +562,10 @@ bindsym $M+Shift+6 exec --no-startup-id qdbus org.kde.CrowTranslate /org/kde/Cro
 
 # show & start if not running
 # 1.jumpapp
-bindsym $Y+f exec --no-startup-id jumpapp keepassxc; [class="KeePassXC"] scratchpad show; move position center
+bindsym $M+7 exec --no-startup-id jumpapp keepassxc; [class="KeePassXC"] scratchpad show; move position center
 bindsym $M+q exec --no-startup-id jumpapp kate; [class="kate"] scratchpad show; move position center
 
+# :TODO
 bindsym $Y+$S+o exec --no-startup-id jumpapp gcolor3; [class="Gcolor3"] scratchpad show; move position center
 
 # bindsym $C+$A+Next exec --no-startup-id jumpapp TelegramDesktop; [class="TelegramDesktop"] scratchpad show; move position center
@@ -610,10 +585,6 @@ bindsym $M+0 exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zel 
 # +------------------------------------------+
 # 80. Window customization
 # +------------------------------------------+
-
-#? Transparency
-bindsym $M+$Y+9 exec transset-df -a --min 0.10 --dec 0.10
-bindsym $M+$Y+0 exec transset-df -a --inc 0.10
 
 #? default border
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
@@ -775,8 +746,8 @@ mode "$wine_vpn" {
     bindsym h exec --no-startup-id $scripts/vpn/vpn_handler.sh up hdt; mode "default"
     bindsym $S+h exec --no-startup-id $scripts/vpn/vpn_handler.sh down hdt; mode "default"
     # office
-    bindsym s exec --no-startup-id $scripts/vpn/vpn_handler.sh up office; mode "default"
-    bindsym $S+s exec --no-startup-id $scripts/vpn/vpn_handler.sh down office; mode "default"
+    bindsym s exec --no-startup-id $scripts/vpn/vpn_handler.sh up mazafaka; mode "default"
+    bindsym $S+s exec --no-startup-id $scripts/vpn/vpn_handler.sh down mazafaka; mode "default"
     # exit system mode: "Enter" or "Escape"
     bindsym Escape mode "default"
 }
@@ -812,17 +783,17 @@ mode "$wine_monitor_control" {
 
     set $log "/tmp/display.log"
 
-    bindsym q exec --no-startup-id $scripts/setup_display.sh --setup_vm > $log 2>&1; mode "default"
+    bindsym q exec --no-startup-id $scripts/output.sh --setup_vm > $log 2>&1; mode "default"
 
     # valid for connecting vertical monitor via docking (is always appear as dp-1) and via dp-1 port directly in laptop
-    bindsym x exec --no-startup-id $scripts/setup_display.sh --setup_mv > $log 2>&1; mode "default"
-    bindsym Shift+x exec --no-startup-id $scripts/setup_display.sh --setup_mh > $log 2>&1; mode "default"
-    bindsym h exec --no-startup-id $scripts/setup_display.sh --setup_h > $log 2>&1; mode "default"
+    bindsym x exec --no-startup-id $scripts/output.sh --setup_mv > $log 2>&1; mode "default"
+    bindsym Shift+x exec --no-startup-id $scripts/output.sh --setup_mh > $log 2>&1; mode "default"
+    bindsym h exec --no-startup-id $scripts/output.sh --setup_h > $log 2>&1; mode "default"
 
-    bindsym w exec --no-startup-id $scripts/setup_display.sh --setup_l > $log 2>&1; mode "default"
-    bindsym e exec --no-startup-id $scripts/setup_display.sh --setup_ml > $log 2>&1; mode "default"
-    bindsym r exec --no-startup-id $scripts/setup_display.sh --setup_vml > $log 2>&1; mode "default"
-    bindsym m exec --no-startup-id $scripts/setup_display.sh --setup_m > $log 2>&1; mode "default"
+    bindsym w exec --no-startup-id $scripts/output.sh --setup_l > $log 2>&1; mode "default"
+    bindsym e exec --no-startup-id $scripts/output.sh --setup_ml > $log 2>&1; mode "default"
+    bindsym r exec --no-startup-id $scripts/output.sh --setup_vml > $log 2>&1; mode "default"
+    bindsym m exec --no-startup-id $scripts/output.sh --setup_m > $log 2>&1; mode "default"
 
     bindsym $A+1 [class=".*"] move workspace to output $outHDMI
     bindsym $A+2 [class=".*"] move workspace to output $out_DP_2

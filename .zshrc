@@ -72,16 +72,6 @@ zstyle ':omz:update' frequency 13
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    git
-    git-auto-fetch
-)
-
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -131,32 +121,29 @@ antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
-antigen bundle git
-
 # fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting!!
 # fzf-tab ALSO needs fzf installed, otherwise it cannot work!
 # todo: docs https://github.com/Aloxaf/fzf-tab#usage
-antigen bundle Aloxaf/fzf-tab
+# antigen bundle Aloxaf/fzf-tab
+antigen bundle zsh-interactive-cd
 
-antigen bundle heroku
-antigen bundle pip
-antigen bundle lein
+antigen bundle git
+antigen bundle git-auto-fetch
 antigen bundle command-not-found
-antigen bundle djui/alias-tips
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle MichaelAquilina/zsh-auto-notify
+antigen bundle aliases
 
-# history: ~/.zsh_history
+# https://github.com/ohmyzsh/ohmyzsh/wiki/FAQ#how-do-i-reset-the-completion-cache
 antigen bundle zsh-users/zsh-autosuggestions
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+# history: ~/.zsh_history
 
 # https://github.com/zsh-users/zsh-autosuggestions/issues/751#issuecomment-1774018197
 autoload -Uz compinit && compinit
 
-# differences with https://github.com/ajeetdsouza/zoxide ???
 antigen bundle z
 
-# Tell Antigen that you're done.
 antigen apply
 
 # colorls
@@ -172,31 +159,8 @@ antigen apply
         https://github.com/marlonrichert/zsh-snap.git ~/Repos/znap
 source ~/Repos/znap/znap.zsh # Start Znap
 
-# +-----------------------+
-# this plugin replaces the fzf-tab functionallity in a worst way
-# features i use https://github.com/marlonrichert/zsh-autocomplete#other-features
-# - `ctrl+r` real-time history search listing multiple results
-# - `up` las history items, 
-# todo: docs https://github.com/marlonrichert/zsh-autocomplete#other-features
-
-# real-time type-ahead autocompletion to Zsh. Find as you type, then press `Tab` to insert the top completion or `down` to select another completion
-# instalando este plugin con antigen da error
-
-# https://github.com/marlonrichert/zsh-autocomplete/discussions/604
-# zstyle ':autocomplete:key-bindings' enabled no
-
-### [fix] fzf-tab & zsh-autocomplete compatibility check
-### https://github.com/Aloxaf/fzf-tab/issues/198
-my-fzf-tab() {
-  functions[compadd]=$functions[-ftb-compadd]
-  zle fzf-tab-complete
-}
-zle -N my-fzf-tab
-bindkey "^I" my-fzf-tab
-
-znap source marlonrichert/zsh-autocomplete
-
-znap install bigH/git-fuzzy
+# znap source marlonrichert/zsh-autocomplete
+# znap install bigH/git-fuzzy
 
 #? +-----------------------+
 #? |         zinit         |
@@ -212,7 +176,7 @@ znap install bigH/git-fuzzy
 
 # configpath: ~/.config/nvim
 # datapath ~/.local/share/nvim
-export EDITOR=nvim1
+export EDITOR=nvim
 
 export KLOUD="/mnt/gdrive_loadmaks/"
 export POLYBAR_SCRIPTS="$HOME/bin/polybar_scripts"
@@ -299,7 +263,7 @@ if [[ -n $DISPLAY ]]; then
         zle reset-prompt
     }
     zle -N copy_line_to_x_clipboard
-    bindkey '^Y' copy_line_to_x_clipboard
+    bindkey '^y' copy_line_to_x_clipboard
 fi
 
 # yadm
@@ -308,6 +272,12 @@ function yc() {
     yadm enter lazygit
     cd -
 }
+
+function apply_wallpaper() {
+    # nitrogen --restore
+    /usr/bin/dwall -s bitday
+}
+
 
 # +-----------------------+
 # |         $PATH         |
@@ -390,14 +360,38 @@ function nvims2() {
 }
 
 bindkey -s "^v" "nvims2\n"
-bindkey -s "^z" "omz reload\n"
-
+bindkey -s "^z" "source ~/.zshrc && omz reload";
 
 function remove_ws_layout() {
   ~/.config/scripts/i3_scripts/ws/remove_ws_layout.sh
 }
 zle -N remove_ws_layout
 bindkey "^3" remove_ws_layout
+
+
+
+FZF_ALIAS_OPTS=${FZF_ALIAS_OPTS:-"--preview-window up:3:hidden:wrap"}
+
+function fzf_alias() {
+    local selection
+    # use sed with column to work around MacOS/BSD column not having a -l option
+    if selection=$(alias |
+                       sed 's/=/\t/' |
+                       column -s '	' -t |
+                       FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_ALIAS_OPTS" fzf --preview "echo {2..}" --query="$BUFFER" |
+                       awk '{ print $1 }'); then
+        BUFFER=$selection
+        CURSOR=$#BUFFER
+    fi
+    zle redisplay
+}
+
+zle -N fzf_alias
+# bindkey "^a" fzf_alias
+bindkey -M emacs '\ea' fzf_alias
+bindkey -M vicmd '\ea' fzf_alias
+bindkey -M viins '\ea' fzf_alias
+#
 
 
 

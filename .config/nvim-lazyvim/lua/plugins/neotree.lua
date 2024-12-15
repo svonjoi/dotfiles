@@ -97,6 +97,8 @@ return {
           "*/sxhkd/*",
           "*/zellij",
           "*/zellij/*",
+          "*/sioyek",
+          "*/sioyek/*",
           "picom.conf",
           ".emacs",
           ".zshrc",
