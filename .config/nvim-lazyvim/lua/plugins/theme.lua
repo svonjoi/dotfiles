@@ -55,6 +55,7 @@ return {
     "LazyVim/LazyVim",
     opts = {
       -- vim.cmd("colorscheme gruvbox"),
+      -- SPACEDUCK causa lualine error
       colorscheme = "spaceduck",
     },
   },

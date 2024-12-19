@@ -380,8 +380,8 @@ assign [class="discord"] $ws_s
 # 51. save and restore workspaces
 # -----------------------------------------------+
 
-bindsym $M+8 exec "rofi -show fb -modes 'fb:~/.config/scripts/i3_scripts/ws/rofi_layout_options.sh'"
-bindsym $M+Shift+8 exec "~/.config/scripts/i3_scripts/ws/restore_ws_layout.sh"
+bindsym $M+8 exec "~/.config/scripts/i3_scripts/ws/restore_ws_layout.sh"
+bindsym $M+Shift+8 exec "rofi -show fb -modes 'fb:~/.config/scripts/i3_scripts/ws/rofi_layout_options.sh'"
 
 # +----------------------------------------------+
 # 60. Bind ws to outputs & move ws between outputs

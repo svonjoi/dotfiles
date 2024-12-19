@@ -19,14 +19,58 @@ return {
     "nvim-telescope/telescope.nvim",
     keys = {
       {
-        "<leader>cF",
-        "<cmd>Telescope lsp_document_symbols ignore_symbols=variable,property,method<cr>",
-        desc = "doc-functions",
+        "<leader>lF",
+        "<cmd>Telescope lsp_document_symbols symbols=function<cr>",
+        desc = "document functions",
       },
       {
-        "<leader>cM",
-        "<cmd>Telescope lsp_document_symbols ignore_symbols=variable,property,function<cr>",
-        desc = "docs-methods",
+        "<leader>lM",
+        "<cmd>Telescope lsp_document_symbols symbols=methods<cr>",
+        desc = "document methods",
+      },
+      {
+        "<leader>ld",
+        "<cmd>Telescope lsp_definitions<cr>",
+        desc = "definitions",
+      },
+      {
+        "<leader>li",
+        "<cmd>Telescope lsp_implementations<cr>",
+        desc = "implementations",
+      },
+      {
+        "<leader>lt",
+        "<cmd>Telescope <cr>",
+        desc = "type definitions",
+      },
+      {
+        "<leader>lt",
+        "<cmd>Telescope lsp_type_definitions<cr>",
+        desc = "type definitions",
+      },
+      {
+        "<leader>lD",
+        "<cmd>Telescope diagnostics<cr>",
+        desc = "telescope diagnostics",
+      },
+      {
+        "<leader>lR",
+        "<cmd>Telescope lsp_references<cr>",
+        desc = "references",
+      },
+      {
+        "<leader>lw",
+        "<cmd>Telescope lsp_workspace_symbols<cr>",
+        desc = "lsp_workspace_symbols",
+      },
+    },
+  },
+  {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = {
+      spec = {
+        { "<leader>l", group = "LSP" },
       },
     },
   },

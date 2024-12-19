@@ -6,9 +6,6 @@
 
 # NOTE:(?)keysym used here is case sensitive
 
-#mod3 + o
-#  ~/.config/scripts/colorpicker.sh
-
 #super + F2; v; s
 #  ~/.config/scripts/vpn/vpn_handler.sh up office
 
@@ -47,6 +44,8 @@ super + F12
 super + F10
   ~/.config/scripts/screencast.sh >/dev/null 2>&1
 
+mod3 + o
+  ~/.config/scripts/colorpicker.sh
 
 #? +------------------------------------+
 #? | OLD SHIT

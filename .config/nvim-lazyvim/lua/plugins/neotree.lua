@@ -63,11 +63,6 @@ return {
           --"node_modules",
         },
         hide_by_pattern = {
-          --"*.meta",
-          --"*/src/*/tsconfig.json",
-          "*/.config/*",
-        },
-        always_show = { -- remains visible even if other settings would normally hide it
           --".gitignored",
         },
         always_show_by_pattern = { -- uses glob style patterns

@@ -6,7 +6,7 @@ keybinds {
     // 2 keybinding taken by zellij: C-f (tmux), C-g (exit from locked mode), and alt+..
     normal clear-defaults=true {
         bind "Ctrl f" { SwitchToMode "Tmux"; }
-        // unbind "Ctrl b"
+        // unbind "Ctrl d"
 
         bind "Alt n" { NewPane; }
         // bind "Alt w" { ToggleFloatingPanes;}
