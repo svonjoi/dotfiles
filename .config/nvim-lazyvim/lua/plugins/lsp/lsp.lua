@@ -25,7 +25,7 @@ return {
       },
       {
         "<leader>lM",
-        "<cmd>Telescope lsp_document_symbols symbols=methods<cr>",
+        "<cmd>Telescope lsp_document_symbols symbols=method<cr>",
         desc = "document methods",
       },
       {

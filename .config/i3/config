@@ -779,7 +779,7 @@ bindsym $Y+F11 mode "$wine_monitor_control"
 set $wine_monitor_control  󰓏 [q|x|X|w|e|r|m|h]:[VM|MV|MH|L|ML|VML|M|H] 󰓏 ws2output [Alt]+[1|2|3]:M|V|L 
 mode "$wine_monitor_control" {
 
-    # reapply xrandr configuration & reload polybar & apply xmodmap
+    # reaply xrandr configuration & reload polybar & apply xmodmap
 
     set $log "/tmp/display.log"
 

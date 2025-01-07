@@ -2499,29 +2499,6 @@ c.tabs.position = 'left'
 # config.bind('n', 'prompt-accept no', mode='yesno')
 # config.bind('y', 'prompt-accept yes', mode='yesno')
 #TODO: kak ne merzhet vruchnuju config after upgrade?
-config.unbind('b', mode='normal')
-
-config.bind('xs', 'config-cycle statusbar.show always never')
-config.bind('x<Tab>', 'config-cycle tabs.show always never')
-config.bind('xx', 'config-cycle tabs.show always never')
-# config.bind('xt', 'config-cycle tabs.show always never;; config-cycle statusbar.show always never')
-
-config.bind('Ba', 'spawn --userscript ~/.config/scripts/bookmarks/marks.sh add')
-config.bind('Bd', 'spawn --userscript ~/.config/scripts/bookmarks/marks.sh delete')
-config.bind('Bo', 'spawn --userscript ~/.config/scripts/bookmarks/marks.sh get')
-
-config.bind('ba', 'quickmark-save')
-config.bind('bd', 'quickmark-del')
-config.bind('bo', 'cmd-set-text -s :quickmark-load -t')
-
-config.bind('M', 'bookmark-del')
-
-config.bind('<Alt-P>', 'cmd-set-text -s :tab-select')
-
-# c.url.searchengines = {'DEFAULT': 'https://www.google.com/search?q={}'}
-# c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}'}
-
-config.source('themes/qute-city-lights/city-lights-theme.py')
 
 
 ## Bindings for prompt mode
@@ -2610,3 +2587,26 @@ c.bindings.commands = {
         '<Ctrl-y>'        : 'insert-text {primary}',
     }
 }
+config.unbind('b', mode='normal')
+
+config.bind('xs', 'config-cycle statusbar.show always never')
+config.bind('x<Tab>', 'config-cycle tabs.show always never')
+config.bind('xx', 'config-cycle tabs.show always never')
+# config.bind('xt', 'config-cycle tabs.show always never;; config-cycle statusbar.show always never')
+
+config.bind('Ba', 'spawn --userscript ~/.config/scripts/bookmarks/marks.sh add')
+config.bind('Bd', 'spawn --userscript ~/.config/scripts/bookmarks/marks.sh delete')
+config.bind('Bo', 'spawn --userscript ~/.config/scripts/bookmarks/marks.sh get')
+
+config.bind('ba', 'quickmark-save')
+config.bind('bd', 'quickmark-del')
+config.bind('bo', 'cmd-set-text -s :quickmark-load -t')
+
+config.bind('M', 'bookmark-del')
+
+config.bind('<Alt-P>', 'cmd-set-text -s :tab-select')
+
+# c.url.searchengines = {'DEFAULT': 'https://www.google.com/search?q={}'}
+# c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}'}
+
+config.source('themes/qute-city-lights/city-lights-theme.py')

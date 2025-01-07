@@ -35,9 +35,14 @@
 (global-set-key "\C-w" 'clipboard-kill-region)
 (global-set-key "\M-w" 'clipboard-kill-ring-save)
 (global-set-key "\C-y" 'clipboard-yank)
+; C+Insert for Copy
+; S+Delete for Cut
+; S+Insert Paste
 
 ; https://emacs.stackexchange.com/questions/639/how-can-i-restart-emacs-and-preserve-my-open-buffers-and-interactive-history
 ; ne workaet for telega
 (desktop-save-mode 1)
 (savehist-mode 1)
 (add-to-list 'savehist-additional-variables 'kill-ring) ;; for example
+
+

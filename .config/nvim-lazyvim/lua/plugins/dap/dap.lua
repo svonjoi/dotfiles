@@ -72,7 +72,7 @@ return {
           {
             type = "pwa-chrome",
             request = "launch",
-            name = "Завести ебучий хром",
+            name = "ебучий хром",
             url = function()
               local co = coroutine.running()
               return coroutine.create(function()

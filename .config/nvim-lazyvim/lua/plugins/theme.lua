@@ -26,7 +26,7 @@ return {
   { "miikanissi/modus-themes.nvim", config = true, lazy = false },
   { "ellisonleao/gruvbox.nvim", lazy = false, opts = { contrast = "hard" } },
   { "bluz71/vim-nightfly-colors", name = "nightfly", lazy = false, priority = 1000 },
-  { "pineapplegiant/spaceduck", priority = 1000, config = true, opts = {} },
+  -- { "pineapplegiant/spaceduck", priority = 1000, config = true, opts = {} },
   {
     "water-sucks/darkrose.nvim",
     lazy = false,
@@ -56,7 +56,7 @@ return {
     opts = {
       -- vim.cmd("colorscheme gruvbox"),
       -- SPACEDUCK causa lualine error
-      colorscheme = "spaceduck",
+      colorscheme = "darkrose",
     },
   },
   -- { "bluz71/vim-nightfly-guicolor", lazy = true },
