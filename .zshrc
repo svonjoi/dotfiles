@@ -250,6 +250,20 @@ yankpath () {
   realpath $1 | yank
 }
 
+addText() {
+  if [ -z "$1" ]; then
+    echo "Usage: addText <text>"
+    return 1
+  fi
+
+  # text_to_add="$1"
+  # RBUFFER=${text_to_add}${RBUFFER}
+
+  # https://gist.github.com/YumaInaura/2a1a915b848728b34eacf4e674ca61eb
+  # $1 is inputted as console input buffer not as command result stdout
+  print -z $1
+}
+
 # Add a # to the front of the command (so it becomes a comment)
 copy_last_command () {
   history | tail -n 1 | sed "s/[[:digit:]]*  //" | sed "s/^#//" | xclip
@@ -278,6 +292,27 @@ function apply_wallpaper() {
     /usr/bin/dwall -s bitday
 }
 
+# Allow Ranger to `cd` your current shell by exiting with capital Q
+# https://github.com/ranger/ranger/issues/1554#issuecomment-2576451254
+function ranger {
+  local IFS=$'\t\n'
+  local tempfile="$(mktemp -t tmp.XXXXXX)"
+  local ranger_cmd=(
+    command
+    ranger
+    # quitallcd добавил в ~.config/ranger/commands.py
+    --cmd="map Q quitallcd $tempfile"
+  )
+  
+  ${ranger_cmd[@]} "$@"
+  local target_dir=$(cat -- "$tempfile" | tr -d ' ')
+  local cwd=$(echo -n `pwd` | tr -d ' ')
+  if [[ -f "$tempfile" ]] && [[ "$target_dir" != "" ]] && \
+      [[ "$target_dir" != "$cwd" ]]; then
+    cd -- "$target_dir"
+  fi
+  command rm -f -- "$tempfile" 2>/dev/null
+}
 
 # +-----------------------+
 # |         $PATH         |
@@ -360,13 +395,17 @@ function nvims2() {
 }
 
 bindkey -s "^v" "nvims2\n"
-bindkey -s "^z" "source ~/.zshrc && omz reload";
+
+function reloadZsh() {
+  addText "source ~/.zshrc && omz reload"
+}
+zle -N reload_zsh
 
 function remove_ws_layout() {
   ~/.config/scripts/i3_scripts/ws/remove_ws_layout.sh
 }
 zle -N remove_ws_layout
-bindkey "^3" remove_ws_layout
+bindkey -s "^n" remove_ws_layout
 
 
 

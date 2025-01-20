@@ -158,6 +158,7 @@ P **/.git2/**
 + /.local/share/sioyek/
 + /.local/share/sioyek/**
 
+
 # nvim
 + /.config/nvim-lazyvim/
 + /.config/nvim-lazyvim/**

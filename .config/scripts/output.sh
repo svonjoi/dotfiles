@@ -15,7 +15,7 @@ set -x
 #? [polybar]
 # there are 3 types of bar configured: main|secondary|third; https://github.com/polybar/polybar/issues/763
 # environment variables for use within polybar-config and polybar-scripts
-export COLOR_SPECIAL_TEXT="#1effe4" # 4a72bb
+export COLOR_SPECIAL_TEXT="#1f77d5" # 4a72bb
 export COLOR_CURRENT_TRACK="#787878"
 # morado #8d95ff
 # dorado #adad88
