@@ -2606,7 +2606,10 @@ config.bind('M', 'bookmark-del')
 
 config.bind('<Alt-P>', 'cmd-set-text -s :tab-select')
 
+c.zoom.default = '120%'
+
 # c.url.searchengines = {'DEFAULT': 'https://www.google.com/search?q={}'}
 # c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}'}
+# c.url.default_page = 'https://google.com/'
 
 config.source('themes/qute-city-lights/city-lights-theme.py')

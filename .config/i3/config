@@ -732,8 +732,8 @@ mode "$wine_vpn" {
     bindsym h exec --no-startup-id $scripts/vpn/vpn_handler.sh up hdt; mode "default"
     bindsym $S+h exec --no-startup-id $scripts/vpn/vpn_handler.sh down hdt; mode "default"
     # office
-    bindsym s exec --no-startup-id $scripts/vpn/vpn_handler.sh up mazafaka; mode "default"
-    bindsym $S+s exec --no-startup-id $scripts/vpn/vpn_handler.sh down mazafaka; mode "default"
+    bindsym s exec --no-startup-id $scripts/vpn/vpn_handler.sh up office; mode "default"
+    bindsym $S+s exec --no-startup-id $scripts/vpn/vpn_handler.sh down office; mode "default"
     # exit system mode: "Enter" or "Escape"
     bindsym Escape mode "default"
 }

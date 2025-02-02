@@ -1,3 +1,17 @@
+#### reload the current zsh session
+# The main advantage of exec zsh is that no rogue state is left
+# after such a reload - e.g. env variables you’ve previously set
+# that are no longer in your config. By the way, exec (like source)
+# is just a Zsh built-in. Here is what the documentation has to 
+# say about it
+#
+# exec zsh
+# omz reload (alias for exec zsh)
+#
+#### reload config file
+# source ~/.zshrc
+# . ~/.zshrc
+#
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -105,11 +119,19 @@ export LC_ALL=en_US.UTF-8
 #? +-----------------------+
 #? |        Antigen        |
 #? +-----------------------+
-# plugins: https://github.com/unixorn/awesome-zsh-plugins
-# antigen bundle github-user/repo --branch=main
+# location
 # ~/.antigen folder where all the plugins are installed
-# uninstall plugin: just comment `antigen bundle` line & source .zshrc & restart shell (and zellij session..; just `zellij -ka` then restore session)
-
+#
+# download from
+# https://github.com/unixorn/awesome-zsh-plugins
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
+#
+# install plugin; прописать бандл и засорсить
+# antigen bundle github-user/repo --branch=main
+#
+# uninstall plugin
+#   just comment `antigen bundle` line & source .zshrc & restart shell (and zellij session..; just `zellij -ka` then restore session)
+#
 # todo: replace with https://github.com/mattmc3/antidote
 # todo: https://github.com/MichaelAquilina/zsh-auto-notify
 
@@ -127,11 +149,18 @@ antigen use oh-my-zsh
 # antigen bundle Aloxaf/fzf-tab
 antigen bundle zsh-interactive-cd
 
-antigen bundle git
+#  TODO: выборочно пиздить алиасы
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
+#
+# antigen bundle git
+
 antigen bundle git-auto-fetch
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle MichaelAquilina/zsh-auto-notify
+
+# list the shortcuts that are currently available based on the plugins you have enabled.
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/aliases
 antigen bundle aliases
 
 # https://github.com/ohmyzsh/ohmyzsh/wiki/FAQ#how-do-i-reset-the-completion-cache
@@ -171,7 +200,7 @@ source ~/Repos/znap/znap.zsh # Start Znap
 # zinit light bigH/git-fuzzy
 
 #? +-----------------------+
-#? |        svonjoi        |
+#? |       morkefavn       |
 #? +-----------------------+
 
 # configpath: ~/.config/nvim
@@ -203,14 +232,20 @@ alias ll='lsd -l --all --group-directories-first'
 alias llt='exa --tree --group-directories-first'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias man='batman'
-alias Nvim=nvim_selecting_config
-alias nvim1='NVIM_APPNAME=nvim-kickstart nvim'
-alias nvim2='NVIM_APPNAME=nvim-lazyvim nvim'
 alias dump='~/.config/scripts/dump_svonux/dump_svonux.sh --full'
 
+alias v=openNvimWithConfigSelecion
+alias nvim1='NVIM_APPNAME=nvim-kickstart nvim'
+alias nvim2='NVIM_APPNAME=nvim-lazyvim nvim'
+bindkey -s "^v" "openNvimWithConfigSelecion2\n"
+
+# alias zsh-source-config=zshSourceConfigFile
+# alias zsh-reload-session=zshReloadSession
+alias r='exec zsh'
+
+alias re='removeWsLayout'
 
 # https://stackoverflow.com/a/39839346/16719196
-
 # shopt -s cdable_vars
 # export ddev=$HOME/Documents/dev/
 # export dsanjuan2=$HOME/Documents/dev/sanjuan2/
@@ -367,7 +402,7 @@ function batman() {
     return $?
 }
 
-nvim_selecting_config() {
+function openNvimWithConfigSelecion() {
   # Assumes all configs exist in directories named ~/.config/nvim-*
   local config=$(fd --max-depth 1 --glob 'nvim-*' ~/.config | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
  
@@ -380,7 +415,7 @@ nvim_selecting_config() {
 }
 
 # https://gist.github.com/elijahmanor/b279553c0132bfad7eae23e34ceb593b
-function nvims2() {
+function openNvimWithConfigSelecion2() {
   set -x
   items=$(find $HOME/.config -maxdepth 2 -name "init.lua" -type f -execdir sh -c 'pwd | xargs basename' \;)
   selected=$(printf "%s\n" "${items[@]}" | FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS-} --preview-window 'right:border-left:50%:<40(right:border-left:50%:hidden)' --preview 'lsd -l -A --tree --depth=1 --color=always --blocks=size,name ~/.config/{} | head -200'" fzf )
@@ -394,19 +429,18 @@ function nvims2() {
   # NVIM_APPNAME=$selected nvim "$@"
 }
 
-bindkey -s "^v" "nvims2\n"
 
-function reloadZsh() {
-  addText "source ~/.zshrc && omz reload"
+function zshSourceConfigFile() {
+  addText "source ~/.zshrc"
 }
-zle -N reload_zsh
 
-function remove_ws_layout() {
+function zshReloadSession() {
+  addText "exec zsh"
+}
+
+function removeWsLayout() {
   ~/.config/scripts/i3_scripts/ws/remove_ws_layout.sh
 }
-zle -N remove_ws_layout
-bindkey -s "^n" remove_ws_layout
-
 
 
 FZF_ALIAS_OPTS=${FZF_ALIAS_OPTS:-"--preview-window up:3:hidden:wrap"}
@@ -427,11 +461,10 @@ function fzf_alias() {
 
 zle -N fzf_alias
 # bindkey "^a" fzf_alias
+# A-a
 bindkey -M emacs '\ea' fzf_alias
 bindkey -M vicmd '\ea' fzf_alias
 bindkey -M viins '\ea' fzf_alias
-#
-
 
 
 

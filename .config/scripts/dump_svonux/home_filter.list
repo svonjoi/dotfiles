@@ -10,7 +10,7 @@
 + /.local/
 + /.local/share/
 + /dev/
-+ /repo/
++ /dev/repo/
 
 #?+----------------------------------------------+
 #?| Personal                                     |
@@ -49,32 +49,32 @@ P **/.git2/**
 + /.gitconfig
 
 # Tunuve
-+ /repo/sanjuan2/
-+ /repo/sanjuan2/.git/
-+ /repo/sanjuan2/.git/config
-+ /repo/sanjuan2/.vscode/
-+ /repo/sanjuan2/.vscode/**
++ /dev/repo/sanjuan2/
++ /dev/repo/sanjuan2/.git/
++ /dev/repo/sanjuan2/.git/config
++ /dev/repo/sanjuan2/.vscode/
++ /dev/repo/sanjuan2/.vscode/**
 
 # Virensis ERP
-+ /repo/virensis_erp/
-+ /repo/virensis_erp/virensis-erp/
-+ /repo/virensis_erp/virensis-erp/.env
-+ /repo/virensis_erp/virensis-erp/.git/
-+ /repo/virensis_erp/virensis-erp/.git/config
++ /dev/repo/virensis_erp/
++ /dev/repo/virensis_erp/virensis-erp/
++ /dev/repo/virensis_erp/virensis-erp/.env
++ /dev/repo/virensis_erp/virensis-erp/.git/
++ /dev/repo/virensis_erp/virensis-erp/.git/config
 
-+ /repo/virensis_erp/virensis-erp-dock/
-+ /repo/virensis_erp/virensis-erp-dock/.env
-+ /repo/virensis_erp/virensis-erp-dock/.git/
-+ /repo/virensis_erp/virensis-erp-dock/.git/config
++ /dev/repo/virensis_erp/virensis-erp-dock/
++ /dev/repo/virensis_erp/virensis-erp-dock/.env
++ /dev/repo/virensis_erp/virensis-erp-dock/.git/
++ /dev/repo/virensis_erp/virensis-erp-dock/.git/config
 
 # data/
-+ /repo/svonux/
-+ /repo/svonux/.git/
-+ /repo/svonux/.git/config
++ /dev/repo/svonux/
++ /dev/repo/svonux/.git/
++ /dev/repo/svonux/.git/config
 
-+ /repo/obsi-vamp1r/
-+ /repo/obsi-vamp1r/.git/
-+ /repo/obsi-vamp1r/.git/config
++ /dev/repo/obsi-vamp1r/
++ /dev/repo/obsi-vamp1r/.git/
++ /dev/repo/obsi-vamp1r/.git/config
 
 #+----------------------------------------------+
 #| Sound                                        |
@@ -186,6 +186,12 @@ P **/.git2/**
 #?| GUI Software                                 |
 #?+----------------------------------------------+
 
++ /.mozilla/
++ /.mozilla/firefox/
++ /.mozilla/firefox/*.default-release/
++ /.mozilla/firefox/*.default-release/chrome/
++ /.mozilla/firefox/*.default-release/chrome/**
+
 + /.config/copyq/
 + /.config/copyq/copyq.conf
 
@@ -221,6 +227,7 @@ P **/.git2/**
 + /.config/Crow Translate/**
 
 + /.config/screenkey.json
+
 
 #? la exclusion general tiene k ir al final
 - /**
