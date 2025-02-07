@@ -149,11 +149,6 @@ antigen use oh-my-zsh
 # antigen bundle Aloxaf/fzf-tab
 antigen bundle zsh-interactive-cd
 
-#  TODO: выборочно пиздить алиасы
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
-#
-# antigen bundle git
-
 antigen bundle git-auto-fetch
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -245,19 +240,29 @@ alias r='exec zsh'
 
 alias re='removeWsLayout'
 
-# https://stackoverflow.com/a/39839346/16719196
-# shopt -s cdable_vars
-# export ddev=$HOME/Documents/dev/
-# export dsanjuan2=$HOME/Documents/dev/sanjuan2/
-# export dgdrive_loadmaks=$HOME/Documents/gdrive_loadmaks/
-# export dgdrive_svonjoi=$HOME/Documents/gdrive_svonjoi/
-# export dpkm=/media/svonjoi/Data/private/pkm_vampir/
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
+#  TODO: GIT ALIAS
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
+alias gst='git status'
+alias gco='git checkout'
+alias g='git'
+alias ga='git add'
+alias gc='git commit --verbose'
+alias gca='git commit --verbose --all'
+alias gcam='git commit --all --message'
+alias gd='git diff'
+alias gf='git fetch'
+alias gfa='git fetch --all --tags --prune'
+alias gl='git pull'
+alias gp='git push'
+alias gpd='git push --dry-run'
+alias gpv='git push --verbose'
+alias grm='git rm'
+alias rmc='git rm --cached'
 
 # he instalado esto pero tira de su propia bdd asi que he vuelto con zsh-z para
 # no volver a completar la bdd, xq tampoco he visto ninguna mejora

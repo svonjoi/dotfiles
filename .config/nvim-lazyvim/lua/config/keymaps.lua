@@ -23,6 +23,8 @@ vim.keymap.set("n", "<leader>;", function()
   LazyVim.news.changelog()
 end, { desc = "LazyVim Changelog" })
 
+-- vim.keymap.set("v", "<M-/>", "<Esc>/\%V")
+
 -- vim.keymap.set("n", "<leader>sx", require("telescope.builtin").resume, {
 --   noremap = true,
 --   silent = true,
