@@ -1,4 +1,5 @@
 layout {
+    // https://zellij.dev/documentation/creating-a-layout.html?highlight=default_tab_template#default-tab-template
     default_tab_template {
         children
         pane size=1 borderless=true {
