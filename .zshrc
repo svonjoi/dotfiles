@@ -92,10 +92,6 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
@@ -195,8 +191,16 @@ source ~/Repos/znap/znap.zsh # Start Znap
 # zinit light bigH/git-fuzzy
 
 #? +-----------------------+
-#? |       morkefavn       |
+#? |      GLOBAL VARS      |
 #? +-----------------------+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # configpath: ~/.config/nvim
 # datapath ~/.local/share/nvim
@@ -204,6 +208,13 @@ export EDITOR=nvim
 
 export KLOUD="/mnt/gdrive_loadmaks/"
 export POLYBAR_SCRIPTS="$HOME/bin/polybar_scripts"
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+#? +-----------------------+
+#? |         ALIAS         |
+#? +-----------------------+
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -217,9 +228,6 @@ if [ -x /usr/bin/dircolors ]; then
   alias egrep='egrep --color=auto'
 fi
 
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
 # some more ls aliases
 # exa, lsd accepts the same parms
 alias l='exa --all --group-directories-first'
@@ -232,7 +240,6 @@ alias dump='~/.config/scripts/dump_svonux/dump_svonux.sh --full'
 alias v=openNvimWithConfigSelecion
 alias nvim1='NVIM_APPNAME=nvim-kickstart nvim'
 alias nvim2='NVIM_APPNAME=nvim-lazyvim nvim'
-bindkey -s "^v" "openNvimWithConfigSelecion2\n"
 
 # alias zsh-source-config=zshSourceConfigFile
 # alias zsh-reload-session=zshReloadSession
@@ -240,12 +247,7 @@ alias r='exec zsh'
 
 alias re='removeWsLayout'
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-
-#  TODO: GIT ALIAS
+# GIT ALIAS
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 alias gst='git status'
 alias gco='git checkout'
@@ -308,17 +310,6 @@ addText() {
 copy_last_command () {
   history | tail -n 1 | sed "s/[[:digit:]]*  //" | sed "s/^#//" | xclip
 }
-zle -N copy_last_command
-bindkey '^k' copy_last_command
-
-if [[ -n $DISPLAY ]]; then
-    copy_line_to_x_clipboard() {
-        echo -n $BUFFER | xclip -selection clipboard
-        zle reset-prompt
-    }
-    zle -N copy_line_to_x_clipboard
-    bindkey '^y' copy_line_to_x_clipboard
-fi
 
 # yadm
 function yc() {
@@ -353,50 +344,6 @@ function ranger {
   fi
   command rm -f -- "$tempfile" 2>/dev/null
 }
-
-# +-----------------------+
-# |         $PATH         |
-# +-----------------------+
-
-# the directory must have permissions: chmod -R 755 ~/bin
-if [ -d $HOME/.config/scripts ]; then
-  PATH=$PATH:$HOME/bin
-fi
-
-# export all ~/bin subdirectories
-for dir in $HOME/.config/scripts/*/ ; do
-  export PATH="$PATH:$dir"
-done
-
-
-# sioyek
-# PATH="$HOME/dev/third/sioyek/build${PATH:+:${PATH}}"; export PATH;
-
-# export PATH="$PATH:$HOME/.config/i3/scripts/"
-
-# kitty fix ssh issue
-# https://sw.kovidgoyal.net/kitty/faq/#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-or-functional-keys-like-arrow-keys-don-t-work
-# [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
-#
-# UPD. este puto fix crea nuevo problema - en zellij se queda colgao al conectarse
-# https://github.com/kovidgoyal/kitty/issues/5900
-#
-# UPD. Надо китти на сервак ставить или терминфо как минимум (не пробовал)
-# UPD. в mosh проблем нету
-
-PATH="/home/svonjoi/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/svonjoi/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/svonjoi/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/svonjoi/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/svonjoi/perl5"; export PERL_MM_OPT;
-
-
-# Fix zsh autosuggestions keybind for arrow keys
-# zle-line-init() {}
-# bindkey '\e[A' history-beginning-search-backward
-# bindkey '\e[B' history-beginning-search-forward
-# bindkey "^[[A" history-beginning-search-backward
-# bindkey "^[[B" history-beginning-search-forward
 
 # colored man pager with bat, using bat configured theme
 # just install bat-extras and add this customization
@@ -447,11 +394,9 @@ function removeWsLayout() {
   ~/.config/scripts/i3_scripts/ws/remove_ws_layout.sh
 }
 
-
-FZF_ALIAS_OPTS=${FZF_ALIAS_OPTS:-"--preview-window up:3:hidden:wrap"}
-
-function fzf_alias() {
+function fzfAlias() {
     local selection
+    FZF_ALIAS_OPTS=${FZF_ALIAS_OPTS:-"--preview-window up:3:hidden:wrap"}
     # use sed with column to work around MacOS/BSD column not having a -l option
     if selection=$(alias |
                        sed 's/=/\t/' |
@@ -464,13 +409,72 @@ function fzf_alias() {
     zle redisplay
 }
 
-zle -N fzf_alias
-# bindkey "^a" fzf_alias
-# A-a
-bindkey -M emacs '\ea' fzf_alias
-bindkey -M vicmd '\ea' fzf_alias
-bindkey -M viins '\ea' fzf_alias
+# +-----------------------+
+# |        BINDING        |
+# +-----------------------+
 
+
+# Fix zsh autosuggestions keybind for arrow keys
+# zle-line-init() {}
+# bindkey '\e[A' history-beginning-search-backward
+# bindkey '\e[B' history-beginning-search-forward
+# bindkey "^[[A" history-beginning-search-backward
+# bindkey "^[[B" history-beginning-search-forward
+
+zle -N fzfAlias
+bindkey -M emacs '\ea' fzfAlias
+bindkey -M vicmd '\ea' fzfAlias
+bindkey -M viins '\ea' fzfAlias
+
+bindkey -s "^v" "openNvimWithConfigSelecion2\n"
+
+zle -N copy_last_command
+bindkey '^k' copy_last_command
+
+if [[ -n $DISPLAY ]]; then
+    copy_line_to_x_clipboard() {
+        echo -n $BUFFER | xclip -selection clipboard
+        zle reset-prompt
+    }
+    zle -N copy_line_to_x_clipboard
+    bindkey '^y' copy_line_to_x_clipboard
+fi
+
+
+# +-----------------------+
+# |         $PATH         |
+# +-----------------------+
+
+# the directory must have permissions: chmod -R 755 ~/bin
+if [ -d $HOME/.config/scripts ]; then
+  PATH=$PATH:$HOME/bin
+fi
+
+# export all ~/bin subdirectories
+for dir in $HOME/.config/scripts/*/ ; do
+  export PATH="$PATH:$dir"
+done
+
+# sioyek
+# PATH="$HOME/dev/third/sioyek/build${PATH:+:${PATH}}"; export PATH;
+
+# export PATH="$PATH:$HOME/.config/i3/scripts/"
+
+# kitty fix ssh issue
+# https://sw.kovidgoyal.net/kitty/faq/#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-or-functional-keys-like-arrow-keys-don-t-work
+# [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
+#
+# UPD. este puto fix crea nuevo problema - en zellij se queda colgao al conectarse
+# https://github.com/kovidgoyal/kitty/issues/5900
+#
+# UPD. Надо китти на сервак ставить или терминфо как минимум (не пробовал)
+# UPD. в mosh проблем нету
+
+PATH="/home/svonjoi/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/svonjoi/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/svonjoi/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/svonjoi/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/svonjoi/perl5"; export PERL_MM_OPT;
 
 
 # fzf shell integration
