@@ -49,11 +49,11 @@ P **/.git2/**
 + /.gitconfig
 
 # Tunuve
-+ /dev/repo/sanjuan2/
-+ /dev/repo/sanjuan2/.git/
-+ /dev/repo/sanjuan2/.git/config
-+ /dev/repo/sanjuan2/.vscode/
-+ /dev/repo/sanjuan2/.vscode/**
++ /dev/repo/tunuve/
++ /dev/repo/tunuve/.git/
++ /dev/repo/tunuve/.git/config
++ /dev/repo/tunuve/.vscode/
++ /dev/repo/tunuve/.vscode/**
 
 # Virensis ERP
 + /dev/repo/virensis_erp/
