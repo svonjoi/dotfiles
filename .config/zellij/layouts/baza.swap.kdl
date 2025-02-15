@@ -5,7 +5,7 @@
 // `default_tab_template` node in the main layout file
 // also refers to the default tab;
 
-swap_tiled_layout name="vertical" {
+swap_tiled_layout name="[vertical]" {
     tab max_panes=5 {
         pane split_direction="vertical" {
             pane
@@ -27,7 +27,7 @@ swap_tiled_layout name="vertical" {
     }
 }
 
-swap_tiled_layout name="horizontal" {
+swap_tiled_layout name="[horizontal]" {
     tab max_panes=5 {
         pane
         pane
@@ -47,7 +47,7 @@ swap_tiled_layout name="horizontal" {
     }
 }
 
-swap_tiled_layout name="stacked" {
+swap_tiled_layout name="[stacked]" {
     tab min_panes=5 {
         pane split_direction="vertical" {
             pane
@@ -56,11 +56,11 @@ swap_tiled_layout name="stacked" {
     }
 }
 
-swap_floating_layout name="staggered" {
+swap_floating_layout name="[staggered]" {
     floating_panes
 }
 
-swap_floating_layout name="enlarged" {
+swap_floating_layout name="[enlarged]" {
     floating_panes max_panes=10 {
         pane { x "5%"; y 1; width "90%"; height "90%"; }
         pane { x "5%"; y 2; width "90%"; height "90%"; }
@@ -75,7 +75,7 @@ swap_floating_layout name="enlarged" {
     }
 }
 
-swap_floating_layout name="spread" {
+swap_floating_layout name="[spread]" {
     floating_panes max_panes=1 {
         pane {y "50%"; x "50%"; }
     }

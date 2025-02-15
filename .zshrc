@@ -488,4 +488,6 @@ export FZF_CTRL_T_OPTS="
   --preview 'bat -n --color=always {}'
   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
-
+# zellij cli completions
+# https://zellij.dev/documentation/controlling-zellij-through-cli#completions
+# zellij setup --generate-completion zsh
