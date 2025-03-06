@@ -14,9 +14,9 @@ keybinds {
         // bind "Alt t" { NewTab; }
 
         // FLOATING PANES
-        bind "Alt w" { ToggleFloatingPanes;}
-        bind "Alt e" { NextSwapLayout; }
-        bind "Alt Shift e" { PreviousSwapLayout; }
+        // bind "Alt w" { ToggleFloatingPanes;}
+        // bind "Alt e" { NextSwapLayout; }
+        // bind "Alt Shift e" { PreviousSwapLayout; }
 
         // MOVE BETWEEN PANES
         bind "Alt h" { MoveFocus "Left"; }
@@ -24,8 +24,14 @@ keybinds {
         bind "Alt j" { MoveFocus "Down"; }
         bind "Alt k" { MoveFocus "Up"; }
 
-        // (?)
-        bind "Alt +" { Resize "Increase"; }
+        // MOVE BETWEEN TABS
+        bind "Alt Shift l" { GoToNextTab; }
+        bind "Alt Shift h" { GoToPreviousTab; }
+        bind "Alt Shift j" { GoToTab 1; }
+        // bind "Alt Shift k" { GoToTab 99; }
+
+        // FAST RESIZE PANES
+        bind "Alt Shift =" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
 
         bind "Alt s" { SwitchToMode "Scroll"; }
@@ -57,6 +63,10 @@ keybinds {
         bind "q" { Quit; }
         bind "f" { ToggleFocusFullscreen; }
 
+        bind "Space" { NextSwapLayout; }
+        bind "Shift Space" { PreviousSwapLayout; }
+        bind "w" { ToggleFloatingPanes;SwitchToMode "Normal";}
+
         bind "e" {
             LaunchOrFocusPlugin "file:~/.config/zellij/plugins/zellij-sessionizer.wasm" {
                 floating true
@@ -86,8 +96,6 @@ keybinds {
 
         // bind "\"" { NewPane "Down"; SwitchToMode "Normal"; }
         // bind "%" { NewPane "Right"; SwitchToMode "Normal"; }
-
-        bind "Space" { NextSwapLayout; }
     }
     pane {
         // bind "Ctrl p" { SwitchToMode "Normal"; }
@@ -175,15 +183,13 @@ keybinds {
     tab {
         // bind "Ctrl t" { SwitchToMode "Normal"; }
         bind "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
-        bind "h" "Left" "Up" "k" { GoToPreviousTab; }
-        bind "l" "Right" "Down" "j" { GoToNextTab; }
         bind "n" { NewTab; SwitchToMode "Normal"; }
         bind "x" { CloseTab; SwitchToMode "Normal"; }
         bind "s" { ToggleActiveSyncTab; SwitchToMode "Normal"; }
         bind "]" { BreakPaneRight; SwitchToMode "Normal"; }
         bind "[" { BreakPaneLeft; SwitchToMode "Normal"; }
-        bind "Alt h" { MoveTab "Left"; }
-        bind "Alt l" { MoveTab "Right"; }
+        bind "h" { MoveTab "Left"; }
+        bind "l" { MoveTab "Right"; }
         // bind "b" { BreakPane; SwitchToMode "Normal"; }
         // bind "Tab" { ToggleTab; }
     }

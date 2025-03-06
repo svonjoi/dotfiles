@@ -301,24 +301,24 @@ function main() {
 	#? setup:M
 	if [ $setup_m -eq 1 ]; then
 
-		if ! is_monitor_connected "$outHDMI"; then
-			notify-send "$outHDMI is not fucking plugged"
+		# out_=$out_DP_2
+		out_=$outHDMI
+		mode="1920x1080" # 2560x1440 1920x1080 1600x900
+
+		if ! is_monitor_connected "$out_"; then
+			notify-send "$out_ is not fucking plugged"
 		fi
 
-		# mode="1600x900"
-		mode="1920x1080"
-
 		if [ $apply_xrandr -eq 1 ]; then
-			xrandr --output $outHDMI --primary \
-				--mode $mode \
-				--rate 144 --pos 0x0 --rotate normal \
+			xrandr --output $out_ --primary --mode $mode --rate 144 --pos 0x0 --rotate normal \
 				--output $outLaptop --off \
 				--output $out_DP_2 --off \
-				--output $out_DP_1 --off
+				--output $outHDMI --off
+			# --output $out_DP_1 --off \
 		fi
 
 		if [ $apply_polybar -eq 1 ]; then
-			MONITOR=$outHDMI polybar --reload main &
+			MONITOR=$out_ polybar --reload main &
 		fi
 		xmodmap ~/.Xmodmap
 	fi

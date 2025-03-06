@@ -28,6 +28,10 @@ super + 9
 super + shift + 9
   transset-df -a --inc 0.05
 
+# tab+c
+super + 3
+  ~/.config/scripts/screencast.sh >/dev/null 2>&1
+
 super + F11
   flameshot gui
 
@@ -45,11 +49,8 @@ super + F12
 #echo -n "file://$screenshot_path" | xclip -sel c -t text/uri-list && \
 #notify-send -t 800 "Screenshot take; path copied to 📎"
 
-# screencast
-super + F10
-  ~/.config/scripts/screencast.sh >/dev/null 2>&1
-
-mod3 + o
+# tab+shift+g
+super + shift + F10
   ~/.config/scripts/colorpicker.sh
 
 #? +------------------------------------+

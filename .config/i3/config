@@ -52,7 +52,7 @@ set $scripts ~/.config/scripts
 # TODO: перенести в сышкадыси
 
 # RDP Connection
-bindsym $Y+$S+F12 exec --no-startup-id remmina -c ~/.local/share/remmina/group_rdp_ziggurat_ziggurat.remmina >/dev/null 2>&1
+bindsym $C+F9 exec --no-startup-id ~/.config/scripts/remmina_selector.sh
 
 # emoji picker
 # yay -S x11-emoji-picker-git
@@ -135,8 +135,10 @@ bindsym $M+$S+d exec --no-startup-id rofi -show window
 # +------------------------------------------------+
 
 # fix layout, wallpaper, xmodmap, mouse, polybar, etc
-bindsym $M+Escape exec --no-startup-id $scripts/helpers/i3_restart.sh
-bindsym $A+F1 exec --no-startup-id $scripts/helpers/kostil_reconnect_input_device.sh
+# esc+~
+bindsym $C+$A+F2 exec --no-startup-id $scripts/helpers/i3_restart.sh
+# esc+esc
+bindsym $C+$A+F1 exec --no-startup-id $scripts/helpers/fix_input_device_connection.sh
 
 # fixes (run when i3-msg restart)
 exec_always --no-startup-id fix_xcursor
@@ -526,7 +528,7 @@ bindsym $M+minus scratchpad show
 # https://i3wm.org/docs/userguide.html#command_criteria
 for_window [class="KeePassXC"], move scratchpad, resize set 1300 680
 for_window [class="kate"], move scratchpad, resize set 1300 680
-for_window [class="Gcolor3"], move scratchpad, resize set 1300 680, border pixel 1
+for_window [class="Nl.hjdskes.gcolor3"], move scratchpad, resize set 700 280, border pixel 1
 # for_window [class="TelegramDesktop"], move scratchpad, resize set 1300 680, border pixel 1
 for_window [class="Emacs"], move scratchpad, resize set 1150 670, border pixel 1
 for_window [class="crow"], move scratchpad, resize set 1000 680, border pixel 1
@@ -539,24 +541,28 @@ for_window [class="kitty_alsamixer"] move scratchpad, resize set 1200 680, borde
 # for_window [class="Nm-connection-editor"] move scratchpad, resize set 1200 680, border pixel 1
 for_window [window_type="dialog"], resize set 1000 680, move position center
 
-# crow: main window
-bindsym $M+5 exec --no-startup-id jumpapp crow ;[class="crow"] scratchpad show; move position center
+
+# 1. show & start if not running
+
 # crow: translate selection but in main window
 bindsym $M+6 exec --no-startup-id qdbus org.kde.CrowTranslate /org/kde/CrowTranslate/MainWindow translateSelection; [class="crow"] scratchpad show; move position center
 # crow: speakSelection
 bindsym $M+Shift+6 exec --no-startup-id qdbus org.kde.CrowTranslate /org/kde/CrowTranslate/MainWindow speakSelection
 
-# show & start if not running
-# 1.jumpapp
+# 1.1. jumpapp
+# tab+a; crow: main window
+bindsym $M+5 exec --no-startup-id jumpapp crow ;[class="crow"] scratchpad show; move position center
+# tab+f
 bindsym $M+7 exec --no-startup-id jumpapp keepassxc; [class="KeePassXC"] scratchpad show; move position center
-bindsym $M+q exec --no-startup-id jumpapp kate; [class="kate"] scratchpad show; move position center
-
-# :TODO
-bindsym $Y+$S+o exec --no-startup-id jumpapp gcolor3; [class="Gcolor3"] scratchpad show; move position center
-
+# tab+d
+bindsym $M+F9 exec --no-startup-id jumpapp kate; [class="kate"] scratchpad show; move position center
+# tab+g
+bindsym $M+F10 exec --no-startup-id jumpapp gcolor3; [class="Nl.hjdskes.gcolor3"] scratchpad show; move position center
 # bindsym $C+$A+Next exec --no-startup-id jumpapp TelegramDesktop; [class="TelegramDesktop"] scratchpad show; move position center
+# tab+x
 bindsym $M+4 exec --no-startup-id jumpapp emacs; [class="Emacs"] scratchpad show; move position center
-# 2.jumpterm
+
+# 1.2.jumpterm
 bindsym $M+space exec --no-startup-id ~/.config/scripts/jumpterm.sh alacritty alacritty_ranger ranger; [class="alacritty_ranger"] scratchpad show; move position center
 bindsym $M+$S+Tab exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_scratchterm; [class="kitty_scratchterm"] scratchpad show; move position center
 bindsym $M+n exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_nmtui nmtui ;[class="kitty_nmtui"] scratchpad show; move position center
@@ -697,9 +703,10 @@ bindsym $M+$S+f	mode "$freeze" ;; exec --no-startup-id notify-send "Distraction-
 # +------------------------------------------+
 
 # TODO: блять в рофи гибернации нету
-bindsym $Y+$S+Escape exec --no-startup-id $rofi/powermenu.sh
+# bindsym $C+F4 exec --no-startup-id $rofi/powermenu.sh
 
-bindsym $Y+Escape mode "$wine_system"
+# tab+p
+bindsym $C+F4 mode "$wine_system"
 set $wine_system (l)ock (e)xit switch(u)ser (s)uspend (h)ibernate (r)eboot (S+s)hutdown
 mode "$wine_system" {
 
@@ -725,7 +732,8 @@ bindsym $M+BackSpace exec --no-startup-id $scripts/power.sh lock
 # xautolock -time 50 -locker slock -killtime 10 -killer "systemctl suspend" -corners -+00 -secure
 
 #* [MENU] VPN
-bindsym $Y+F9 mode "$wine_vpn"
+# esc+v
+bindsym $C+F10 mode "$wine_vpn"
 set $wine_vpn [VPN🌍] up|down (h|H)hdt (s|S)office
 mode "$wine_vpn" {
     # hdt
@@ -747,7 +755,8 @@ bindsym $Y+$A+$S+x  exec --no-startup-id dunstctl close-all
 
 # dunstify "Title" "Message" -u critical
 
-bindsym $Y+F10 mode "$wine_notif"
+# esc+n
+bindsym $C+F8 mode "$wine_notif"
 set $wine_notif [Notifications] (w|W)work-mode on|off (d)close-topmost (h)history-pop (c)context
 mode "$wine_notif" {
     bindsym h          exec --no-startup-id dunstctl history-pop
@@ -761,7 +770,7 @@ mode "$wine_notif" {
 
 
 #* [MENU] Monitor control
-bindsym $Y+F11 mode "$wine_monitor_control"
+bindsym $C+F11 mode "$wine_monitor_control"
 set $wine_monitor_control  󰓏 [q|x|X|w|e|r|m|h]:[VM|MV|MH|L|ML|VML|M|H] 󰓏 ws2output [Alt]+[1|2|3]:M|V|L 
 mode "$wine_monitor_control" {
 
@@ -790,7 +799,7 @@ mode "$wine_monitor_control" {
 
 #* [MENU] Control menu
 # bindsym $M+F12 mode "$wine_reload"
-bindsym $Y+F12 mode "$wine_reload"
+bindsym $C+F12 mode "$wine_reload"
 set $wine_reload [] (h)setup_hw (r)rst-i3 (c)rld-config-i3 (s)sxkhd (p)picom (d)dunst (f)setup_hw (o)polybar (e)espanso
 mode "$wine_reload" {
 

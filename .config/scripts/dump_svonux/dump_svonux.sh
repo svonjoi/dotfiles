@@ -1,10 +1,10 @@
 #!/bin/bash
-# ,---- [ Svonux config backup ]
+# ,---- [ kvatch config backup ]
 # |
 # | Why? Collect all important cfg files across system and sync with repo, following directory structure
 # | Template ref https://github.com/ralish/bash-script-template/blob/main/script.sh
 # |
-# | How it works? Rsync files included in home_filter.list to [~/data/svonux/rsync_svonux_backup]
+# | How it works? Rsync files included in home_filter.list to $DST_DIR
 # | and then push to repo with --sync-repo option
 # |
 # | Changes in this script (and all ~/.config/scripts folder) will be sync with this script
@@ -18,8 +18,8 @@ set -e
 # set -x
 
 #? manual-assign variables
-REPO_DIR=$HOME/dev/repo/svonux
-DST_DIR=$REPO_DIR/rsync_svonux_backup
+REPO_DIR=$HOME/dev/repo/kvatch
+DST_DIR=$REPO_DIR/rsync_kvatch_backup
 
 SCRIPT=$(readlink -f "$0")      # Absolute path to this script, e.g. /home/user/bin/foo.sh
 SCRIPTPATH=$(dirname "$SCRIPT") # Absolute path this script is in, thus /home/user/bin
@@ -200,7 +200,7 @@ function main() {
 		}
 
 		# make array with dump paths from copied root files; ie:
-		# /home/svonjoi/repo/svonux/rsync_svonux_backup/root/etc/keyd/default.conf
+		# /home/.../root/etc/keyd/default.conf
 		readarray -t dump_filepaths < <(sudo find "$targetdir_root") || {
 			echo "Error: Failed to read paths from $targetdir_root"
 			exit 1

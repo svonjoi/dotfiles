@@ -1,3 +1,6 @@
+-- exclude for find_files is in .gitignore by default & .ignore - custom
+-- https://github.com/nvim-telescope/telescope.nvim/issues/522
+--
 return {
   {
     "nvim-telescope/telescope.nvim",
@@ -14,12 +17,7 @@ return {
     },
     opts = function()
       local actions = require("telescope.actions")
-
       local lga_actions = require("telescope-live-grep-args.actions")
-
-      -- if opts.extensions == nil then
-      --   opts.extensions = {}
-      -- end
 
       return {
         extensions = {
