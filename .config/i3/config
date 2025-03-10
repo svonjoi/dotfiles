@@ -697,15 +697,12 @@ bindsym $M+f fullscreen toggle
 bindsym $M+$S+f	mode "$freeze" ;; exec --no-startup-id notify-send "Distraction-free mode activated." "Press Super+$S+f to return."
 
 
-
-# +------------------------------------------+
-# 100. POWER
-# +------------------------------------------+
-
-# TODO: блять в рофи гибернации нету
+# INFO: Power
+#
+# в рофи гибернации нету
 # bindsym $C+F4 exec --no-startup-id $rofi/powermenu.sh
-
-# tab+p
+#
+# [MENU] esc+p
 bindsym $C+F4 mode "$wine_system"
 set $wine_system (l)ock (e)xit switch(u)ser (s)uspend (h)ibernate (r)eboot (S+s)hutdown
 mode "$wine_system" {
@@ -731,8 +728,9 @@ bindsym $M+BackSpace exec --no-startup-id $scripts/power.sh lock
 # wait for 50 mins in idle mode then xautolock used to lock the system, then wait for another 10 mins before suspending
 # xautolock -time 50 -locker slock -killtime 10 -killer "systemctl suspend" -corners -+00 -secure
 
-#* [MENU] VPN
-# esc+v
+#INFO: vpn
+#
+# [MENU] esc+v
 bindsym $C+F10 mode "$wine_vpn"
 set $wine_vpn [VPN🌍] up|down (h|H)hdt (s|S)office
 mode "$wine_vpn" {
@@ -746,16 +744,17 @@ mode "$wine_vpn" {
     bindsym Escape mode "default"
 }
 
-#* [MENU] Notifications
+#INFO: Notifications
+#
 # pause dunst notifications
 bindsym $Y+9        exec --no-startup-id dunstctl close-all && notify-send "Dunst enabled 🌀" && dunstctl set-paused toggle
 bindsym $Y+$A+c     exec --no-startup-id dunstctl context
 bindsym $Y+$A+x     exec --no-startup-id dunstctl close
 bindsym $Y+$A+$S+x  exec --no-startup-id dunstctl close-all
-
+#
 # dunstify "Title" "Message" -u critical
-
-# esc+n
+#
+# [MENU] esc+n
 bindsym $C+F8 mode "$wine_notif"
 set $wine_notif [Notifications] (w|W)work-mode on|off (d)close-topmost (h)history-pop (c)context
 mode "$wine_notif" {
@@ -764,19 +763,19 @@ mode "$wine_notif" {
     bindsym $S+w       exec --no-startup-id dunstctl close-all && $scripts/notifications/dunst_manage.sh workmode disable
     bindsym d          exec --no-startup-id dunstctl close
     bindsym c          exec --no-startup-id dunstctl context
-
     bindsym Escape mode "default"
 }
 
-
-#* [MENU] Monitor control
+#INFO: Output
+#
+# [MENU] esc+o
 bindsym $C+F11 mode "$wine_monitor_control"
 set $wine_monitor_control  󰓏 [q|x|X|w|e|r|m|h]:[VM|MV|MH|L|ML|VML|M|H] 󰓏 ws2output [Alt]+[1|2|3]:M|V|L 
 mode "$wine_monitor_control" {
 
     # reaply xrandr configuration & reload polybar & apply xmodmap
 
-    set $log "/tmp/display.log"
+    set $log "/tmp/output.log"
 
     bindsym q exec --no-startup-id $scripts/output.sh --setup_vm > $log 2>&1; mode "default"
 
@@ -797,8 +796,9 @@ mode "$wine_monitor_control" {
     bindsym Escape mode "default"
 }
 
-#* [MENU] Control menu
-# bindsym $M+F12 mode "$wine_reload"
+#INFO: Reload
+#
+# [MENU] esc+l
 bindsym $C+F12 mode "$wine_reload"
 set $wine_reload [] (h)setup_hw (r)rst-i3 (c)rld-config-i3 (s)sxkhd (p)picom (d)dunst (f)setup_hw (o)polybar (e)espanso
 mode "$wine_reload" {

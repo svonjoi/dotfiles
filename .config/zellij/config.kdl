@@ -190,6 +190,13 @@ keybinds {
         bind "[" { BreakPaneLeft; SwitchToMode "Normal"; }
         bind "h" { MoveTab "Left"; }
         bind "l" { MoveTab "Right"; }
+
+        unbind "Alt l";
+        unbind "Alt h";
+
+        bind "Alt Shift l" { GoToNextTab; }
+        bind "Alt Shift h" { GoToPreviousTab; }
+        bind "Alt Shift j" { GoToTab 1; }
         // bind "b" { BreakPane; SwitchToMode "Normal"; }
         // bind "Tab" { ToggleTab; }
     }

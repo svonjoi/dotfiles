@@ -265,6 +265,7 @@ alias gpd='git push --dry-run'
 alias gpv='git push --verbose'
 alias grm='git rm'
 alias rmc='git rm --cached'
+alias notify-pipe='~/.config/scripts/helpers/notify-pipe.sh'
 
 # he instalado esto pero tira de su propia bdd asi que he vuelto con zsh-z para
 # no volver a completar la bdd, xq tampoco he visto ninguna mejora

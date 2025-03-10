@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # TODO: check similar implementation https://github.com/davatorium/rofi-scripts
 
@@ -112,7 +112,6 @@ function main() {
 
 	parse_params "$@"
 
-	# Terminate already running bar instances
 	killall -q -9 polybar
 
 	# Wait until the processes have been shut down
@@ -157,23 +156,23 @@ function main() {
 			notify-send "$outHDMI is not fucking pluged"
 		fi
 
-		if ! is_monitor_connected "$out_DP_1"; then
-			notify-send "$out_DP_1 is not fucking pluged"
+		if ! is_monitor_connected "$out_DP_2"; then
+			notify-send "$out_DP_2 is not fucking pluged"
 		fi
 
 		if [ $apply_xrandr -eq 1 ]; then
 
 			xrandr \
 				--output $outHDMI --primary --mode 1920x1080 --rate 144 --pos 0x420 --rotate normal \
-				--output $out_DP_1 --mode 1920x1080 --pos 1920x0 --rotate right \
-				--output $out_DP_2 --off \
+				--output $out_DP_2 --mode 1680x1050 --rate 144 --pos 1920x0 --rotate right \
+				--output $out_DP_1 --off \
 				--output $outLaptop --off
 
 		fi
 
 		if [ $apply_polybar -eq 1 ]; then
 			MONITOR=$outHDMI polybar --reload main 2>/tmp/polybar.log &
-			MONITOR=$out_DP_1 polybar --reload secondary &
+			MONITOR=$out_DP_2 polybar --reload secondary &
 		fi
 		xmodmap ~/.Xmodmap
 	fi
@@ -201,38 +200,38 @@ function main() {
 		xmodmap ~/.Xmodmap
 	fi
 
-	#? setup:MH
+	# INFO: setup:MH
 	if [ $setup_mh -eq 1 ]; then
 
-		# [M] (left-positioned) connected via HDMI port (144hz)
-		# [H] (right-positioned) horizontal; connected dp-2 (60hz)
+		FST=$outHDMI
+		SEC=$out_DP_2
 
-		if ! is_monitor_connected "$outHDMI"; then
-			notify-send "$outHDMI is not fucking pluged"
+		if ! is_monitor_connected "$FST"; then
+			notify-send "$FST is not fucking pluged"
 		fi
 
-		if ! is_monitor_connected "$out_DP_1"; then
-			notify-send "$out_DP_1 is not fucking pluged"
+		if ! is_monitor_connected "$SEC"; then
+			notify-send "$SEC is not fucking pluged"
 		fi
 
 		if [ $apply_xrandr -eq 1 ]; then
-
 			xrandr \
-				--output $outHDMI --primary --mode 1920x1080 --rate 144 --pos 0x420 --rotate normal \
-				--output $out_DP_1 --mode 1920x1080 --pos 1920x0 \
-				--output $out_DP_2 --off \
-				--output $outLaptop --off
-
+				--output $FST --primary --mode 1920x1080 --rate 144 --rotate normal --pos 176x1050 \
+				--output $SEC --mode 1680x1050 --rate 144 --rotate normal --pos 296x0 \
+				--output $out_DP_1 --off \
+				--output $outLaptop --off \
+				2>&1 | ~/.config/scripts/helpers/notify-pipe.sh
 		fi
 
 		if [ $apply_polybar -eq 1 ]; then
-			MONITOR=$outHDMI polybar --reload main 2>/tmp/polybar.log &
-			MONITOR=$out_DP_1 polybar --reload secondary &
+			MONITOR=$FST polybar --reload main 2>/tmp/polybar.log &
+			MONITOR=$SEC polybar --reload secondary &
 		fi
+
 		xmodmap ~/.Xmodmap
 	fi
 
-	#? setup:ML
+	# INFO: setup:ML
 	if [ $setup_ml -eq 1 ]; then
 
 		if ! is_monitor_connected "$outHDMI"; then
