@@ -135,8 +135,8 @@ bindsym $M+$S+d exec --no-startup-id rofi -show window
 # +------------------------------------------------+
 
 # fix layout, wallpaper, xmodmap, mouse, polybar, etc
-# esc+~
-bindsym $C+$A+F2 exec --no-startup-id $scripts/helpers/i3_restart.sh
+# esc+3
+bindsym $C+F12 exec --no-startup-id i3-msg restart
 # esc+esc
 bindsym $C+$A+F1 exec --no-startup-id $scripts/helpers/fix_input_device_connection.sh
 
@@ -702,7 +702,7 @@ bindsym $M+$S+f	mode "$freeze" ;; exec --no-startup-id notify-send "Distraction-
 # в рофи гибернации нету
 # bindsym $C+F4 exec --no-startup-id $rofi/powermenu.sh
 #
-# [MENU] esc+p
+# [MENU] esc+q
 bindsym $C+F4 mode "$wine_system"
 set $wine_system (l)ock (e)xit switch(u)ser (s)uspend (h)ibernate (r)eboot (S+s)hutdown
 mode "$wine_system" {
@@ -798,37 +798,26 @@ mode "$wine_monitor_control" {
 
 #INFO: Reload
 #
-# [MENU] esc+l
-bindsym $C+F12 mode "$wine_reload"
-set $wine_reload [] (h)setup_hw (r)rst-i3 (c)rld-config-i3 (s)sxkhd (p)picom (d)dunst (f)setup_hw (o)polybar (e)espanso
+# [MENU] esc+space
+bindsym $C+$A+F2 mode "$wine_reload"
+set $wine_reload (3)i3 (s)sxkhd (p)picom (n)dunst (P)polybar (e)espanso
 mode "$wine_reload" {
 
-    # bindsym m exec --no-startup-id $scripts/hardware/mouse.sh, mode "default"
-
-    # setup hardware
-    # bindsym h exec --no-startup-id $scripts/hardware/setup_hw.sh, mode "default"
+    bindsym 3 exec --no-startup-id i3-msg restart
 
     # reload sxkhd
     bindsym s exec --no-startup-id killall sxhkd && setsid -f sxhkd && notify-send "[sxhkd] reloaded", mode "default"
 
     # reload the configuration file
     # bindsym 2 reload && notify-send "[i3] reload the configuration file"
-    bindsym c exec --no-startup-id i3-msg reload && notify-send "[i3] reload the configuration file", mode "default"
+    # bindsym c exec --no-startup-id i3-msg reload && notify-send "[i3] reload the configuration file", mode "default"
 
-    # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-    # bindsym r restart && notify-send "[i3] restart i3"
-    bindsym r exec --no-startup-id i3-msg restart && notify-send "[i3] restart i3 inplace", mode "default"
+    # TODO:
+    bindsym p exec --no-startup-id killall picom && picom -b && notify-send "[picom] reloaded", mode "default"
 
-    # other
-    bindsym p exec --no-startup-id picom -b && notify-send "[picom] reloaded", mode "default"
-    bindsym d exec killall dunst && notify-send "[dunst] reloaded", mode "default"
-    bindsym o polybar-msg cmd restart && notify-send "[polybar] reloaded", mode "default"
+    bindsym n exec --no-startup-id killall dunst && notify-send "[dunst] reloaded", mode "default"
+    bindsym shift+p exec --no-startup-id polybar-msg cmd restart && notify-send "[polybar] reloaded", mode "default"
     bindsym e exec --no-startup-id espanso restart && notify-send "[espanso] restarted", mode "default"
-
-    # wifi, vpn, etc
-    #bindsym n exec --no-startup-id kitty --class=kitty_nmtui -e nmtui, mode "default"
-    #bindsym n exec --no-startup-id alacritty -e nmtui, mode "default"
-    #bindsym n exec terminal -e 'nmtui', mode "default"
 
     bindsym Escape mode "default"
 }
