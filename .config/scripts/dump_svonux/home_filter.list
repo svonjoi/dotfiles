@@ -153,18 +153,27 @@ P **/.git2/**
 + /.config/qutebrowser/quickmarks
 # + /.config/qutebrowser/autoconfig.yml
 
+# [[ SIOYEK ]]
+#
 + /.config/sioyek/
 + /.config/sioyek/**
+#
+# export and import reference:
+# https://github.com/ahrm/sioyek/issues/977#issuecomment-2397256023
+#
+# if pdf path or contents changes:
+# export json file, modify path (if path is changed) and checksum (if pdf contents changes)
+# and import into sioyek; it will change local.db and shared.db; probably i will have to remove *.db previously
 + /.local/share/sioyek/
 + /.local/share/sioyek/**
 
-
-# nvim
+# [[ NEOVIM ]]
+#
 + /.config/nvim-lazyvim/
 + /.config/nvim-lazyvim/**
 + /.config/nvim-kickstart/
 + /.config/nvim-kickstart/**
-
+#
 # nvim sessions
 + /.local/share/nvim-kickstart/
 + /.local/share/nvim-kickstart/sessions/

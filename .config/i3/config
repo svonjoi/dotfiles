@@ -135,9 +135,9 @@ bindsym $M+$S+d exec --no-startup-id rofi -show window
 # +------------------------------------------------+
 
 # fix layout, wallpaper, xmodmap, mouse, polybar, etc
-# esc+3
+# E-3
 bindsym $C+F12 exec --no-startup-id i3-msg restart
-# esc+esc
+# EE
 bindsym $C+$A+F1 exec --no-startup-id $scripts/helpers/fix_input_device_connection.sh
 
 # fixes (run when i3-msg restart)
@@ -145,6 +145,32 @@ exec_always --no-startup-id fix_xcursor
 # exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id /usr/bin/dwall -s bitday
 exec_always --no-startup-id polybar-msg cmd restart
+
+#INFO: RELOAD MENU
+#
+# [MENU] esc+space
+bindsym $C+$A+F2 mode "$wine_reload"
+set $wine_reload (3)i3 (s)sxkhd (p)picom (n)dunst (P)polybar (e)espanso
+mode "$wine_reload" {
+
+    bindsym 3 exec --no-startup-id i3-msg restart
+
+    # reload sxkhd
+    bindsym s exec --no-startup-id killall sxhkd && setsid -f sxhkd && notify-send "[sxhkd] reloaded", mode "default"
+
+    # reload the configuration file
+    # bindsym 2 reload && notify-send "[i3] reload the configuration file"
+    # bindsym c exec --no-startup-id i3-msg reload && notify-send "[i3] reload the configuration file", mode "default"
+
+    # TODO:
+    bindsym p exec --no-startup-id killall picom && picom -b && notify-send "[picom] reloaded", mode "default"
+
+    bindsym n exec --no-startup-id killall dunst && notify-send "[dunst] reloaded", mode "default"
+    bindsym shift+p exec --no-startup-id polybar-msg cmd restart && notify-send "[polybar] reloaded", mode "default"
+    bindsym e exec --no-startup-id espanso restart && notify-send "[espanso] restarted", mode "default"
+
+    bindsym Escape mode "default"
+}
 
 # +------------------------------------------+
 # 15. Autostart
@@ -173,7 +199,7 @@ exec --no-startup-id picom -b
 
 #? scratchpad application
 exec --no-startup-id kitty --class=kitty_scratchterm
-exec --no-startup-id kitty --class=kitty_ranger -e ranger
+# exec --no-startup-id kitty --class=kitty_ranger -e ranger
 exec --no-startup-id kitty --class=kitty_nmtui -e nmtui
 exec --no-startup-id alacritty --class alacritty_ranger -e ranger
 exec --no-startup-id keepassxc
@@ -535,7 +561,8 @@ for_window [class="crow"], move scratchpad, resize set 1000 680, border pixel 1
 # for_window [class="copyq"], move scratchpad, resize set 1000 680, border pixel 1
 for_window [class="alacritty_ranger"], move scratchpad, resize set 1200 680, border pixel 1
 for_window [class="kitty_scratchterm"], move scratchpad, resize set 1200 680, border pixel 1
-for_window [class="kitty_zel"], move scratchpad, resize set 1200 680, border pixel 1
+for_window [class="kitty_zellij_master"], move scratchpad, resize set 1200 680, border pixel 1
+for_window [class="kitty_zellij_notepad"], move scratchpad, resize set 1200 680, border pixel 1
 for_window [class="kitty_nmtui"] move scratchpad, resize set 1200 680, border pixel 1
 for_window [class="kitty_alsamixer"] move scratchpad, resize set 1200 680, border pixel 1
 # for_window [class="Nm-connection-editor"] move scratchpad, resize set 1200 680, border pixel 1
@@ -543,26 +570,23 @@ for_window [window_type="dialog"], resize set 1000 680, move position center
 
 
 # 1. show & start if not running
-
+# 1.1 show/start gui
 # crow: translate selection but in main window
-bindsym $M+6 exec --no-startup-id qdbus org.kde.CrowTranslate /org/kde/CrowTranslate/MainWindow translateSelection; [class="crow"] scratchpad show; move position center
+bindsym $M+6 exec --no-startup-id $scripts/translate/crow.sh; [class="crow"] scratchpad show; move position center
 # crow: speakSelection
-bindsym $M+Shift+6 exec --no-startup-id qdbus org.kde.CrowTranslate /org/kde/CrowTranslate/MainWindow speakSelection
+# bindsym $M+Shift+6 exec --no-startup-id qdbus org.kde.CrowTranslate /org/kde/CrowTranslate/MainWindow speakSelection
 
-# 1.1. jumpapp
-# tab+a; crow: main window
-bindsym $M+5 exec --no-startup-id jumpapp crow ;[class="crow"] scratchpad show; move position center
-# tab+f
+# tab+space+f
 bindsym $M+7 exec --no-startup-id jumpapp keepassxc; [class="KeePassXC"] scratchpad show; move position center
-# tab+d
-bindsym $M+F9 exec --no-startup-id jumpapp kate; [class="kate"] scratchpad show; move position center
-# tab+g
+# tab+space+d
+# bindsym $M+F9 exec --no-startup-id jumpapp kate; [class="kate"] scratchpad show; move position center
+# tab+space+g
 bindsym $M+F10 exec --no-startup-id jumpapp gcolor3; [class="Nl.hjdskes.gcolor3"] scratchpad show; move position center
 # bindsym $C+$A+Next exec --no-startup-id jumpapp TelegramDesktop; [class="TelegramDesktop"] scratchpad show; move position center
-# tab+x
+# tab+space+x
 bindsym $M+4 exec --no-startup-id jumpapp emacs; [class="Emacs"] scratchpad show; move position center
 
-# 1.2.jumpterm
+# 1.2 show/start terminal based apps
 bindsym $M+space exec --no-startup-id ~/.config/scripts/jumpterm.sh alacritty alacritty_ranger ranger; [class="alacritty_ranger"] scratchpad show; move position center
 bindsym $M+$S+Tab exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_scratchterm; [class="kitty_scratchterm"] scratchpad show; move position center
 bindsym $M+n exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_nmtui nmtui ;[class="kitty_nmtui"] scratchpad show; move position center
@@ -570,9 +594,10 @@ bindsym $M+m exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_alsa
 # with this output redirection i was able to see that the ~/.config/scripts/ is not on PATH <from i3>
 # conclusion; in some point of time, my PATH environment var was stopped being read within i3 execution
 # if zellij session dont exists, strange behaviour
-bindsym $M+Tab exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zel "zellij attach master" > /tmp/rubin 2>&1; [class="kitty_zel"] scratchpad show; move position center
-bindsym $A+Tab exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zel "zellij attach master" > /tmp/rubin 2>&1; [class="kitty_zel"] scratchpad show; move position center
-bindsym $M+0 exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zel "zellij attach master" > /tmp/rubin 2>&1; [class="kitty_zel"] scratchpad show; move position center
+# tab+space+space
+bindsym $M+0 exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zellij_master "zellij attach master" > /tmp/rubin 2>&1; [class="kitty_zellij_master"] scratchpad show; move position center
+# tab+space+d
+bindsym $M+F9 exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zellij_notepad "zellij attach notepad" > /tmp/rubin 2>&1; [class="kitty_zellij_notepad"] scratchpad show; move position center
 
 # +------------------------------------------+
 # 80. Window customization
@@ -747,10 +772,15 @@ mode "$wine_vpn" {
 #INFO: Notifications
 #
 # pause dunst notifications
-bindsym $Y+9        exec --no-startup-id dunstctl close-all && notify-send "Dunst enabled 🌀" && dunstctl set-paused toggle
+# bindsym $Y+9        exec --no-startup-id dunstctl close-all && notify-send "Dunst enabled 🌀" && dunstctl set-paused toggle
 bindsym $Y+$A+c     exec --no-startup-id dunstctl context
+
+# T-x
 bindsym $Y+$A+x     exec --no-startup-id dunstctl close
+# T-S-x
 bindsym $Y+$A+$S+x  exec --no-startup-id dunstctl close-all
+# T-C-x
+bindsym $Y+$A+$C+x  exec --no-startup-id dunstctl history-pop
 #
 # dunstify "Title" "Message" -u critical
 #
@@ -758,10 +788,8 @@ bindsym $Y+$A+$S+x  exec --no-startup-id dunstctl close-all
 bindsym $C+F8 mode "$wine_notif"
 set $wine_notif [Notifications] (w|W)work-mode on|off (d)close-topmost (h)history-pop (c)context
 mode "$wine_notif" {
-    bindsym h          exec --no-startup-id dunstctl history-pop
     bindsym w          exec --no-startup-id dunstctl close-all && $scripts/notifications/dunst_manage.sh workmode enable
     bindsym $S+w       exec --no-startup-id dunstctl close-all && $scripts/notifications/dunst_manage.sh workmode disable
-    bindsym d          exec --no-startup-id dunstctl close
     bindsym c          exec --no-startup-id dunstctl context
     bindsym Escape mode "default"
 }
@@ -796,30 +824,5 @@ mode "$wine_monitor_control" {
     bindsym Escape mode "default"
 }
 
-#INFO: Reload
-#
-# [MENU] esc+space
-bindsym $C+$A+F2 mode "$wine_reload"
-set $wine_reload (3)i3 (s)sxkhd (p)picom (n)dunst (P)polybar (e)espanso
-mode "$wine_reload" {
-
-    bindsym 3 exec --no-startup-id i3-msg restart
-
-    # reload sxkhd
-    bindsym s exec --no-startup-id killall sxhkd && setsid -f sxhkd && notify-send "[sxhkd] reloaded", mode "default"
-
-    # reload the configuration file
-    # bindsym 2 reload && notify-send "[i3] reload the configuration file"
-    # bindsym c exec --no-startup-id i3-msg reload && notify-send "[i3] reload the configuration file", mode "default"
-
-    # TODO:
-    bindsym p exec --no-startup-id killall picom && picom -b && notify-send "[picom] reloaded", mode "default"
-
-    bindsym n exec --no-startup-id killall dunst && notify-send "[dunst] reloaded", mode "default"
-    bindsym shift+p exec --no-startup-id polybar-msg cmd restart && notify-send "[polybar] reloaded", mode "default"
-    bindsym e exec --no-startup-id espanso restart && notify-send "[espanso] restarted", mode "default"
-
-    bindsym Escape mode "default"
-}
 
 

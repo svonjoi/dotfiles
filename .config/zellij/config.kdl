@@ -5,7 +5,7 @@
 
 keybinds {
     normal clear-defaults=true {
-        bind "Ctrl f" { SwitchToMode "Tmux"; }
+        bind "Alt Shift f" { SwitchToMode "Tmux"; }
         // unbind "Ctrl d"
 
         // bind "Alt n" { NewPane; }
@@ -31,8 +31,8 @@ keybinds {
         // bind "Alt Shift k" { GoToTab 99; }
 
         // FAST RESIZE PANES
-        bind "Alt Shift =" { Resize "Increase"; }
-        bind "Alt -" { Resize "Decrease"; }
+        // bind "Alt Shift =" { Resize "Increase"; }
+        // bind "Alt -" { Resize "Decrease"; }
 
         bind "Alt s" { SwitchToMode "Scroll"; }
 
@@ -56,26 +56,27 @@ keybinds {
         bind "g" { SwitchToMode "Locked"; }
         bind "p" { SwitchToMode "Pane"; }
         bind "a" { SwitchToMode "Tab"; }
-        bind "r" { SwitchToMode "Resize"; }
-        bind "l" { SwitchToMode "Move"; }
         bind "o" { SwitchToMode "Session"; }
         bind "z" { SwitchToMode "Entersearch"; }
         bind "q" { Quit; }
         bind "f" { ToggleFocusFullscreen; }
 
+        // bind "r" { SwitchToMode "Resize"; }
+        bind "e" { SwitchToMode "Move"; }
+
         bind "Space" { NextSwapLayout; }
         bind "Shift Space" { PreviousSwapLayout; }
         bind "w" { ToggleFloatingPanes;SwitchToMode "Normal";}
 
-        bind "e" {
-            LaunchOrFocusPlugin "file:~/.config/zellij/plugins/zellij-sessionizer.wasm" {
-                floating true
-                move_to_focused_tab true
-                cwd "/"
-                root_dirs "/home/svonjoi/dev/repo"
-                session_layout ":default"
-            }; SwitchToMode "Normal";
-        }
+        // bind "e" {
+        //     LaunchOrFocusPlugin "file:~/.config/zellij/plugins/zellij-sessionizer.wasm" {
+        //         floating true
+        //         move_to_focused_tab true
+        //         cwd "/"
+        //         root_dirs "/home/svonjoi/dev/repo"
+        //         session_layout ":default"
+        //     }; SwitchToMode "Normal";
+        // }
 
         // NOTE: not working selection
         bind "s" {
@@ -119,7 +120,7 @@ keybinds {
         bind "r" { SwitchToMode "RenamePane"; }
 
         // bind "w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
-        // bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
+        bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
     }
     renamepane {
         bind "Ctrl c" { SwitchToMode "Normal"; }
@@ -128,11 +129,22 @@ keybinds {
     move {
         // bind "Ctrl h" { SwitchToMode "Normal"; }
         bind "n" "Tab" { MovePane; }
-        bind "p" { MovePaneBackwards; }
-        bind "h" "Left" { MovePane "Left"; }
-        bind "j" "Down" { MovePane "Down"; }
-        bind "k" "Up" { MovePane "Up"; }
-        bind "l" "Right" { MovePane "Right"; }
+        bind "Ctrl p" { MovePaneBackwards; }
+        bind "Ctrl h" { MovePane "Left"; }
+        bind "Ctrl j" { MovePane "Down"; }
+        bind "Ctrl k" { MovePane "Up"; }
+        bind "Ctrl l" { MovePane "Right"; }
+
+        bind "h" "Left" { Resize "Increase Left"; }
+        bind "j" "Down" { Resize "Increase Down"; }
+        bind "k" "Up" { Resize "Increase Up"; }
+        bind "l" "Right" { Resize "Increase Right"; }
+        bind "H" { Resize "Decrease Left"; }
+        bind "J" { Resize "Decrease Down"; }
+        bind "K" { Resize "Decrease Up"; }
+        bind "L" { Resize "Decrease Right"; }
+        bind "=" "+" { Resize "Increase"; }
+        bind "-" { Resize "Decrease"; }
     }
     resize {
         // bind "Ctrl n" { SwitchToMode "Normal"; }

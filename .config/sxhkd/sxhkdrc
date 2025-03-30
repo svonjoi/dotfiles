@@ -53,6 +53,28 @@ super + F12
 super + shift + F10
   ~/.config/scripts/colorpicker.sh
 
+
+# ff bookmarks; tab+z->b->a|t
+super + F8
+  rofi -show bookmarks -modi 'bookmarks: /home/svonjoi/.config/scripts/ff/rofi_bookmarks.py'
+
+super + F6
+  rofi -show bookmarks -modi 'bookmarks: /home/svonjoi/.config/scripts/ff/rofi_bookmarks.py toolbar/tunuve'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #? +------------------------------------+
 #? | OLD SHIT
 #? +------------------------------------+
