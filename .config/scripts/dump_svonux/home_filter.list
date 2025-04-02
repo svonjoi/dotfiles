@@ -188,8 +188,8 @@ P **/.git2/**
 
 + /.config/lazydocker/
 + /.config/lazydocker/**
-+ /.config/lazyvim/
-+ /.config/lazyvim/**
++ /.config/lazygit/
++ /.config/lazygit/**
 
 #?+----------------------------------------------+
 #?| GUI Software                                 |

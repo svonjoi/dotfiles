@@ -45,4 +45,5 @@
 (savehist-mode 1)
 (add-to-list 'savehist-additional-variables 'kill-ring) ;; for example
 
+(set-face-attribute 'default nil :font "Monospace" :height 120)
 

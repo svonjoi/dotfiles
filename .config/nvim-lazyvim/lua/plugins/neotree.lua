@@ -98,6 +98,8 @@ return {
           "*/.config/sioyek",
           "*/.config/sioyek/*",
           "*/.config/picom.conf",
+          "*/.config/lazydocker/*",
+          "*/.config/lazygit/*",
           ".emacs",
           ".zshrc",
           -- "README.md",

@@ -212,17 +212,17 @@ return {
               -- "pwa-msedge",
               -- "pwa-extensionHost",
               -- "node-terminal",
-              -- "chrome",
+              "chrome",
             },
 
             -- Path for file logging
-            -- log_file_path = "(stdpath cache)/dap_vscode_js.log",
+            log_file_path = "(stdpath cache)/dap_vscode_js.log",
 
             -- Logging level for output to file. Set to false to disable logging.
-            -- log_file_level = false,
+            -- log_file_level = true,
 
             -- Logging level for output to console. Set to false to disable console output.
-            -- log_console_level = vim.log.levels.ERROR,
+            -- log_console_level = vim.log.levels.DEBUG,
           })
         end,
       },
