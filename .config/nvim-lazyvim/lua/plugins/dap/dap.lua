@@ -14,26 +14,26 @@ vim.keymap.set("n", "<F12>", function()
   require("dap").step_out()
 end)
 
+--- Gets a path to a package in the Mason registry.
+--- Prefer this to `get_package`, since the package might not always be
+--- available yet and trigger errors.
+---@param pkg string
+---@param path? string
+local function get_pkg_path(pkg, path)
+  pcall(require, "mason")
+  local root = vim.env.MASON or (vim.fn.stdpath("data") .. "/mason")
+  path = path or ""
+  local ret = root .. "/packages/" .. pkg .. "/" .. path
+  return ret
+end
+
 return {
-  -- { import = "lazyvim.plugins.extras.dap.core" },
   {
     "mfussenegger/nvim-dap",
     opts = function()
-      -- спизжено со внутрянки lazyvim
       local dap = require("dap")
-      --
+
       -- dap.set_log_level("trace")
-      --
-      -- local Config = require("lazyvim.config")
-      -- vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
-      --
-      -- for name, sign in pairs(Config.icons.dap) do
-      --   sign = type(sign) == "table" and sign or { sign }
-      --   vim.fn.sign_define(
-      --     "Dap" .. name,
-      --     { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
-      --   )
-      -- end
 
       -- конфиг для php
       local registry = require("mason-registry")
@@ -60,6 +60,30 @@ return {
       }
 
       -- конфиг для js
+      require("dap").adapters["pwa-chrome"] = {
+        type = "server",
+        host = "localhost",
+        port = "${port}",
+        executable = {
+          command = "node",
+          args = {
+            get_pkg_path("js-debug-adapter", "/js-debug/src/dapDebugServer.js"),
+            "${port}",
+          },
+        },
+      }
+
+      require("dap").adapters["chrome"] = {
+        type = "chrome",
+        executable = {
+          command = "node",
+          args = {
+            get_pkg_path("chrome-debug-adapter", "/src/chromeDebug.js"),
+            -- "9222",
+          },
+        },
+      }
+
       local js_based_languages = {
         "typescript",
         "javascript",
@@ -69,11 +93,25 @@ return {
       }
       for _, language in ipairs(js_based_languages) do
         dap.configurations[language] = {
-          -- Debug web applications (client side)
+          -- Attach chrome
+          -- google-chrome-stable --remote-debugging-port=9222 --no-first-run --no-default-browser-check --user-data-dir="/tmp/vscode-chrome-debug" --disable-extensions
+          -- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#javascript-chrome
+          {
+            type = "chrome",
+            request = "attach",
+            program = "${file}",
+            cwd = vim.fn.getcwd(),
+            name = "attach chrome",
+            protocol = "inspector",
+            sourceMaps = true,
+            port = 9222,
+            webRoot = "${workspaceFolder}",
+          },
+          -- Launch chrome
           {
             type = "pwa-chrome",
             request = "launch",
-            name = "ебучий хром",
+            name = "pwa-chrome ебучий хром",
             url = function()
               local co = coroutine.running()
               return coroutine.create(function()
@@ -125,113 +163,28 @@ return {
             },
           },
           -- Debug single nodejs files
-          -- {
-          --   type = "pwa-node",
-          --   request = "launch",
-          --   name = "Launch file",
-          --   program = "${file}",
-          --   cwd = vim.fn.getcwd(),
-          --   sourceMaps = true,
-          --   repl_lang = "javascript",
-          -- },
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "node launch file",
+            program = "${file}",
+            cwd = vim.fn.getcwd(),
+            sourceMaps = true,
+            repl_lang = "javascript",
+          },
           -- Debug nodejs processes (make sure to add --inspect when you run the process)
-          -- {
-          --   type = "pwa-node",
-          --   request = "attach",
-          --   name = "Attach",
-          --   processId = require("dap.utils").pick_process,
-          --   cwd = vim.fn.getcwd(),
-          --   sourceMaps = true,
-          --   repl_lang = "javascript",
-          -- },
-          -- Divider for the launch.json derived configs
-          -- {
-          --   name = "----- ↓ launch.json configs ↓ -----",
-          --   type = "",
-          --   request = "launch",
-          -- },
+          {
+            type = "pwa-node",
+            request = "attach",
+            name = "node attach",
+            processId = require("dap.utils").pick_process,
+            cwd = vim.fn.getcwd(),
+            sourceMaps = true,
+            repl_lang = "javascript",
+          },
         }
       end
     end,
-    dependencies = {
-      -- INFO: вроде через масон устанавливается
-      {
-        "microsoft/vscode-js-debug",
-        -- version = "1.x",
-        -- After install, build it and rename the dist directory to out
-        build = "npm install --legacy-peer-deps --no-save && npx gulp vsDebugServerBundle && rm -rf out && mv dist out",
-      },
-
-      -- {
-      --   "mxsdev/nvim-dap-vscode-js",
-      --   config = function()
-      --     ---@diagnostic disable-next-line: missing-fields
-      --     require("dap-vscode-js").setup({
-      --       -- Path of node executable. Defaults to $NODE_PATH, and then "node"
-      --       -- node_path = "node",
-      --
-      --       -- Path to vscode-js-debug installation.
-      --       debugger_path = vim.fn.resolve(vim.fn.stdpath("data") .. "/lazy/vscode-js-debug"),
-      --
-      --       -- Command to use to launch the debug server. Takes precedence over "node_path" and "debugger_path"
-      --       -- debugger_cmd = { "js-debug-adapter" },
-      --
-      --       -- which adapters to register in nvim-dap
-      --       adapters = {
-      --         "pwa-node",
-      --         "pwa-chrome",
-      --         -- "pwa-msedge",
-      --         -- "pwa-extensionHost",
-      --         -- "node-terminal",
-      --         "chrome",
-      --       },
-      --
-      --       -- Path for file logging
-      --       log_file_path = "(stdpath cache)/dap_vscode_js.log",
-      --
-      --       -- Logging level for output to file. Set to false to disable logging.
-      --       -- log_file_level = true,
-      --
-      --       -- Logging level for output to console. Set to false to disable console output.
-      --       log_console_level = vim.log.levels.DEBUG,
-      --     })
-      --   end,
-      -- },
-      -- {
-      --   "Joakker/lua-json5",
-      --   lazy = false,
-      --   build = "./install.sh",
-      -- },
-    },
-  },
-  -- nvim-dap adapter for vscode-js-debug
-  {
-    "mxsdev/nvim-dap-vscode-js",
-    opts = {
-      -- ~/.local/share/nvim-lazyvim/mason/packages/js-debug-adapter/
-      -- debugger_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter",
-      -- debugger_path = vim.fn.resolve(
-      --   vim.fn.stdpath("data") .. "/mason/js-debug-adapter/js-debug/src/dapDebugServer.js"
-      -- ),
-
-      -- dap.adapters["pwa-chrome"] = {
-      --   type = "server",
-      --   host = "localhost",
-      --   port = "${port}",
-      --   executable = {
-      --     command = "node",
-      --     args = {
-      --       vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
-      --       "${port}",
-      --     },
-      --   },
-      -- }
-
-      -- ~/.local/share/nvim-lazyvim/lazy/vscode-js-debug
-      debugger_path = vim.fn.resolve(vim.fn.stdpath("data") .. "/lazy/vscode-js-debug"),
-      adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
-    },
-    dependencies = { "mfussenegger/nvim-dap" },
   },
   -- fancy UI for the debugger
   {
