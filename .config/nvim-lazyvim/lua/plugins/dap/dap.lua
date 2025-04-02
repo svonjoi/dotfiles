@@ -93,20 +93,6 @@ return {
       }
       for _, language in ipairs(js_based_languages) do
         dap.configurations[language] = {
-          -- Attach chrome
-          -- google-chrome-stable --remote-debugging-port=9222 --no-first-run --no-default-browser-check --user-data-dir="/tmp/vscode-chrome-debug" --disable-extensions
-          -- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#javascript-chrome
-          {
-            type = "chrome",
-            request = "attach",
-            program = "${file}",
-            cwd = vim.fn.getcwd(),
-            name = "attach chrome",
-            protocol = "inspector",
-            sourceMaps = true,
-            port = 9222,
-            webRoot = "${workspaceFolder}",
-          },
           -- Launch chrome
           {
             type = "pwa-chrome",
@@ -162,6 +148,20 @@ return {
               -- "${workspaceFolder}/js/app/app.js",
             },
           },
+          -- Attach chrome
+          -- google-chrome-stable --remote-debugging-port=9222 --no-first-run --no-default-browser-check --user-data-dir="/tmp/vscode-chrome-debug" --disable-extensions
+          -- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#javascript-chrome
+          {
+            type = "chrome",
+            request = "attach",
+            program = "${file}",
+            cwd = vim.fn.getcwd(),
+            name = "attach chrome",
+            protocol = "inspector",
+            sourceMaps = true,
+            port = 9222,
+            webRoot = "${workspaceFolder}",
+          },
           -- Debug single nodejs files
           {
             type = "pwa-node",
@@ -185,6 +185,12 @@ return {
         }
       end
     end,
+  },
+  {
+    "nvim-telescope/telescope-dap.nvim",
+    keys = {
+      { "<leader>dE", "<cmd>Telescope dap list_breakpoints<cr>", desc = "list breakpoints" },
+    },
   },
   -- fancy UI for the debugger
   {
