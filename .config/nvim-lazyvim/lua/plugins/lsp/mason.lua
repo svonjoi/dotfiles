@@ -54,7 +54,7 @@ return {
   --
   -- lua lsp?
   -- https://neovim.discourse.group/t/how-to-suppress-warning-undefined-global-vim/1882/13
-  { "folke/neodev.nvim", opts = {} },
+  -- { "folke/neodev.nvim", opts = {} },
   -- install phpactor as standalone nvim plugin
   -- https://github.com/gbprod/phpactor.nvim/issues/13
   -- {
