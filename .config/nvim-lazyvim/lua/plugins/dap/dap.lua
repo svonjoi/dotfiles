@@ -1,6 +1,7 @@
 -- js and php dap configuration from calebdv
 -- https://github.com/calebdw/dotfiles/blob/master/.config/nvim/lua/calebdw/plugins/dap.lua
 
+-- TODO: put in keys {}
 vim.keymap.set("n", "<F5>", function()
   require("dap").continue()
 end)
@@ -30,36 +31,18 @@ end
 return {
   {
     "mfussenegger/nvim-dap",
-    opts = function()
+    config = function()
       local dap = require("dap")
 
       -- dap.set_log_level("trace")
 
-      -- конфиг для php
+      -- ADAPTERS
       local registry = require("mason-registry")
       dap.adapters.php = {
         type = "executable",
         command = registry.get_package("php-debug-adapter"):get_install_path() .. "/php-debug-adapter",
       }
-      dap.configurations.php = {
-        {
-          type = "php",
-          request = "launch",
-          name = "Listen for Xdebug in Docker",
-          pathMappings = {
-            ["/var/www/html"] = "${workspaceFolder}",
-          },
-          repl_lang = "php_only",
-        },
-        {
-          type = "php",
-          request = "launch",
-          name = "Listen for Xdebug locally",
-          repl_lang = "php_only",
-        },
-      }
 
-      -- конфиг для js
       require("dap").adapters["pwa-chrome"] = {
         type = "server",
         host = "localhost",
@@ -84,20 +67,32 @@ return {
         },
       }
 
-      local js_based_languages = {
+      local my_fucking_stack = {
         "typescript",
         "javascript",
         "typescriptreact",
         "javascriptreact",
         "vue",
+        "php",
       }
-      for _, language in ipairs(js_based_languages) do
+
+      for _, language in ipairs(my_fucking_stack) do
         dap.configurations[language] = {
+          -- XDebug
+          {
+            type = "php",
+            request = "launch",
+            name = "XDebug",
+            pathMappings = {
+              ["/var/www/html"] = "${workspaceFolder}",
+            },
+            repl_lang = "php_only",
+          },
           -- Launch chrome
           {
             type = "pwa-chrome",
             request = "launch",
-            name = "pwa-chrome ебучий хром",
+            name = "pwa-chrome",
             url = function()
               local co = coroutine.running()
               return coroutine.create(function()
@@ -162,6 +157,12 @@ return {
             port = 9222,
             webRoot = "${workspaceFolder}",
           },
+          {
+            type = "php",
+            request = "launch",
+            name = "Listen for Xdebug locally",
+            repl_lang = "php_only",
+          },
           -- Debug single nodejs files
           {
             type = "pwa-node",
@@ -185,6 +186,15 @@ return {
         }
       end
     end,
+    keys = {
+      {
+        "<leader>d.",
+        function()
+          ShowActiveDebugSessions()
+        end,
+        desc = "list breakpoints",
+      },
+    },
   },
   {
     "nvim-telescope/telescope-dap.nvim",

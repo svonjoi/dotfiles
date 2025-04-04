@@ -40,10 +40,10 @@ return {
         },
         {
           function()
-            return " " .. require("dap").status()
+            return " " .. table.concat(StatusActiveDebugSessions(), " |  ")
           end,
           cond = function()
-            return package.loaded["dap"] and require("dap").status() ~= ""
+            return package.loaded["dap"] and StatusActiveDebugSessions() ~= ""
           end,
           color = function()
             return { fg = "orange" }

@@ -17,3 +17,22 @@ function Print2buffer(something)
 end
 
 -- vim.api.nvim_set_keymap("n", "gm", "<cmd>lua format_range_operator()<CR>", {noremap = true})
+
+-- print table
+P = function(v)
+  print(vim.inspect(v))
+  return v
+end
+
+function ShowActiveDebugSessions()
+  local w = require("dap.ui.widgets")
+  w.sidebar(w.sessions, {}, "5 sp | setl winfixheight").toggle()
+end
+
+function StatusActiveDebugSessions()
+  local r = {}
+  for i, v in pairs(require("dap").sessions()) do
+    table.insert(r, v.config.name)
+  end
+  return r
+end
