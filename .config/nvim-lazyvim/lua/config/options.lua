@@ -11,3 +11,10 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.opt.background = "dark" -- set this to dark or light
 -- vim.cmd("colorscheme oxocarbon")
 -- vim.cmd.colorscheme("oxocarbon")
+
+-- https://github.com/jedrzejboczar/possession.nvim/issues/19
+-- vim.o.sessionoptions = "buffers,curdir,tabpages,winsize,help,globals,skiprtp,folds"
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = { "*" },
+  command = "normal zx",
+})

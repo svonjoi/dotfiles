@@ -192,6 +192,7 @@ return {
       { "<leader>dE", "<cmd>Telescope dap list_breakpoints<cr>", desc = "list breakpoints" },
     },
   },
+  -- TODO: https://github.com/igorlfs/nvim-dap-view
   -- fancy UI for the debugger
   {
     "rcarriga/nvim-dap-ui",

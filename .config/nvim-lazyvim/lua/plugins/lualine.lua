@@ -1,18 +1,3 @@
---TODO: FUCKING LUALING CONFIG IS BEING IGNORED WTF
--- return {
---   "nvim-lualine/lualine.nvim",
---
---   opts = function(_, opts)
---     table.insert(opts.extensions, "fugitive")
---     table.insert(opts.extensions, "man")
---     table.insert(opts.extensions, "nvim-dap-ui")
---     table.insert(opts.extensions, "nvim-tree")
---     table.insert(opts.extensions, "quickfix")
---     table.insert(opts.extensions, "toggleterm")
---
---     opts.options.theme = "16color"
---   end,
--- }
 return {
   "nvim-lualine/lualine.nvim",
   opts = {

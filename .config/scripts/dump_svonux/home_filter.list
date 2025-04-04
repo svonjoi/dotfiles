@@ -1,9 +1,9 @@
-# ,---- [home]
-# | 
+# ,---- [home filter list]
+# |
 # | si indicamos /dev/ va a buscar dir "dev" inmediatamente desde el home. Si no, buscara en el home y en subdirs.
 # | Prueba ejecutar this script con /bin/ y con bin/. Vas a ver lo q pasa.
-# | 
-# `----
+# |
+# @╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌@
 
 - nohup.out
 + /.config/
@@ -153,35 +153,6 @@ P **/.git2/**
 + /.config/qutebrowser/quickmarks
 # + /.config/qutebrowser/autoconfig.yml
 
-# [[ SIOYEK ]]
-#
-+ /.config/sioyek/
-+ /.config/sioyek/**
-#
-# export and import reference:
-# https://github.com/ahrm/sioyek/issues/977#issuecomment-2397256023
-#
-# if pdf path or contents changes:
-# export json file, modify path (if path is changed) and checksum (if pdf contents changes)
-# and import into sioyek; it will change local.db and shared.db; probably i will have to remove *.db previously
-+ /.local/share/sioyek/
-+ /.local/share/sioyek/**
-
-# [[ NEOVIM ]]
-#
-+ /.config/nvim-lazyvim/
-+ /.config/nvim-lazyvim/**
-+ /.config/nvim-kickstart/
-+ /.config/nvim-kickstart/**
-#
-# nvim sessions
-+ /.local/share/nvim-kickstart/
-+ /.local/share/nvim-kickstart/sessions/
-+ /.local/share/nvim-kickstart/sessions/**
-+ /.local/share/nvim-lazyvim/
-+ /.local/share/nvim-lazyvim/sessions/
-+ /.local/share/nvim-lazyvim/sessions/**
-
 + /.emacs
 
 + /.config/yadm/config
@@ -237,6 +208,46 @@ P **/.git2/**
 
 + /.config/screenkey.json
 
+# ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+# ┊                          NEOVIM                          ┊
+# └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+#
++ /.config/nvim-lazyvim/
++ /.config/nvim-lazyvim/**
++ /.config/nvim-kickstart/
++ /.config/nvim-kickstart/**
+#
+# nvim sessions
++ /.local/share/nvim-kickstart/
++ /.local/share/nvim-kickstart/sessions/
++ /.local/share/nvim-kickstart/sessions/**
++ /.local/share/nvim-lazyvim/
++ /.local/share/nvim-lazyvim/sessions/
++ /.local/share/nvim-lazyvim/sessions/**
 
-#? la exclusion general tiene k ir al final
+# ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+# ┊                          SIOYEK                          ┊
+# └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+#
++ /.config/sioyek/
++ /.config/sioyek/**
+#
+# NOTE: export and import reference
+# https://github.com/ahrm/sioyek/issues/977#issuecomment-2397256023
+#
+# NOTE: update bookmarks and highlights if pdf path or contents changes
+# export json file, modify path (if path is changed) and checksum (if pdf contents changes)
+# and import into sioyek; it will change local.db and shared.db; probably i will have to remove *.db previously
+# upd. local.db кал какой то. Решает shared.db, а локалка сама генерится и не ебет
+#
+# NOTE: script for update *.db to new version
+# https://github.com/ahrm/sioyek/discussions/1156#discussioncomment-10614340
+# Context: i had... error while loading shared libraries: libmupdf.so.25.1: cannot open shared object file: No such file or directory
+# https://github.com/ahrm/sioyek/issues/1040
+# due to this error I switched to dev branch (aur sioyek-git) that uses lates libmupdf but there was no backward compatibility with *.db files
+# upd. допилил скрипт
++ /.local/share/sioyek/
++ /.local/share/sioyek/**
+
+# @╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌@ la exclusion general tiene k ir al final @╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌@
 - /**
