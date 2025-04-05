@@ -194,6 +194,11 @@ return {
         end,
         desc = "list breakpoints",
       },
+      {
+        "<leader>dA",
+        "<cmd>DapNew<cr>",
+        desc = "New session",
+      },
     },
   },
   {
