@@ -13,7 +13,7 @@
 + /dev/repo/
 
 #?+----------------------------------------------+
-#?| Personal                                     |
+#?| ⚡ Personal                                  |
 #?+----------------------------------------------+
 
 + /.config/scripts/
@@ -217,14 +217,19 @@ P **/.git2/**
 + /.config/nvim-kickstart/
 + /.config/nvim-kickstart/**
 #
-# nvim sessions
-+ /.local/share/nvim-kickstart/
-+ /.local/share/nvim-kickstart/sessions/
-+ /.local/share/nvim-kickstart/sessions/**
 + /.local/share/nvim-lazyvim/
-+ /.local/share/nvim-lazyvim/sessions/
-+ /.local/share/nvim-lazyvim/sessions/**
-
++ /.local/share/nvim-kickstart/
+#
+# Sessions
++ /.local/share/nvim-lazyvim/possession/
++ /.local/share/nvim-lazyvim/possession/**
++ /.local/share/nvim-kickstart/possession/
++ /.local/share/nvim-kickstart/possession/**
+#
+# Database
++ /.local/share/db_ui/
++ /.local/share/db_ui/**
+#
 # ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
 # ┊                          SIOYEK                          ┊
 # └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
@@ -248,6 +253,6 @@ P **/.git2/**
 # upd. допилил скрипт
 + /.local/share/sioyek/
 + /.local/share/sioyek/**
-
+#
 # @╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌@ la exclusion general tiene k ir al final @╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌@
 - /**
