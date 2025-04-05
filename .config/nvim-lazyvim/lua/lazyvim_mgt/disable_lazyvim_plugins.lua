@@ -1,13 +1,4 @@
 return {
-  {
-    "saghen/blink.cmp",
-    opts = {
-      -- https://github.com/Saghen/blink.cmp/issues/1412
-      fuzzy = {
-        implementation = "lua",
-      },
-    },
-  },
   { "stevearc/dressing.nvim", enabled = false },
   -- folke
   { "folke/lazy.nvim", enabled = true },

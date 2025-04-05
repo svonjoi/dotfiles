@@ -99,7 +99,7 @@ return {
       "<Leader>ia",
       ":PossessionSave <CR>",
       { silent = true, noremap = true },
-      desc = "list sessions",
+      desc = "add session",
     },
     {
       "<Leader>ie",
