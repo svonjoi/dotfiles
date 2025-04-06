@@ -4,7 +4,6 @@ return {
     enabled = true,
     opts = {
       -- https://github.com/Saghen/blink.cmp/issues/1412
-      --
       fuzzy = {
         implementation = "lua",
       },

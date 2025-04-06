@@ -5,6 +5,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     keys = {
+      { "<leader>sG", false },
       { "<leader>sg", "<cmd>Telescope live_grep_args<cr>", desc = "Grep (with args)" },
     },
     dependencies = {
