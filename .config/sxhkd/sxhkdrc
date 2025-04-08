@@ -1,10 +1,9 @@
-# ,---- [sxhkdrc]
+# @___[sxhkdrc]_____________________________.
 # |
-# | where is executable file of program: which <package>
+# | NOTE:(?)keysym used here is case sensitive
+# | instead of alt modifier use mod1; idk why alt dont work
 # |
-# |
-
-# NOTE:(?)keysym used here is case sensitive
+# @_________________________________________.
 
 #super + F2; v; s
 #  ~/.config/scripts/vpn/vpn_handler.sh up office
@@ -15,11 +14,24 @@
 #ctrl + f
 #  xkb-switch -s us && xmodmap ~/.Xmodmap >/dev/null 2>&1
 
+#screenshot_path="$(xdg-user-dir PICTURES)/ss/$(date +%d_%b_%H%M%S).png" && \
+#maim | tee "$screenshot_path" | xclip -sel c -t image/png && \
+#echo -n "file://$screenshot_path" | xclip -sel c -t text/uri-list && \
+#notify-send -t 800 "Screenshot take; path copied to 📎"
+
+# ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+# ┊                           HYP                            ┊
+# └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
 mod3 + 0
   xdotool key Caps_Lock
 
 mod3 + 6
   xdotool key Num_Lock
+
+# ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+# ┊                           TAB                            ┊
+# └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
 
 # window transparency
 super + 9
@@ -36,7 +48,7 @@ super + F11
   flameshot gui
 
 super + ctrl + F11
-  flameshot creen
+  flameshot screen
 
 super + shift + F11
   flameshot gui -d 2000 >/dev/null 2>&1
@@ -44,15 +56,9 @@ super + shift + F11
 super + F12
   ~/.config/scripts/identify_process.sh
 
-#screenshot_path="$(xdg-user-dir PICTURES)/ss/$(date +%d_%b_%H%M%S).png" && \
-#maim | tee "$screenshot_path" | xclip -sel c -t image/png && \
-#echo -n "file://$screenshot_path" | xclip -sel c -t text/uri-list && \
-#notify-send -t 800 "Screenshot take; path copied to 📎"
-
 # tab+shift+g
 super + shift + F10
   ~/.config/scripts/colorpicker.sh
-
 
 # ff bookmarks; tab+z->b->a|t
 super + F8
@@ -61,190 +67,15 @@ super + F8
 super + F6
   rofi -show bookmarks -modi 'bookmarks: /home/svonjoi/.config/scripts/ff/rofi_bookmarks.py toolbar/tunuve'
 
+# ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+# ┊                           ESC                            ┊
+# └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
 
+# E-3
+# ctrl + F12
+#  i3-msg restart
 
+# EE
+ctrl + shift + mod1 + F12
+  ~/.config/scripts/helpers/fix_input_device_connection.sh
 
-
-
-
-
-
-
-
-
-
-
-
-#? +------------------------------------+
-#? | OLD SHIT
-#? +------------------------------------+
-
-# hyper + F8
-# 	killall sxhkd && setsid -f sxhkd && notify-send "[sxhkd] reloaded"
-
-# # reload the configuration file
-# hyper + F7
-# 	i3-msg reload >/dev/null 2>&1 && notify-send "[i3] reload the configuration file"
-	
-# # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-# hyper + F6
-# 	i3-msg restart && notify-send "[i3] restart i3"
-
-# sudo apt install xdotool
-# hyper + 0
-# 	xdotool key Caps_Lock
-
-# hyper + i
-# 	~/bin/identify_process.sh
-
-# hyper + F8
-# 	nitrogen --restore && notify-send "nitrogen --restore"
-
-# hyper + F4
-# 	i3-nagbar -t warning -m 'Exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'
-
-# hyper + shift + 7
-# 	killall plasmashell && kstart plasmashell && notify-send " plasma reloaded"
-
-# hyper + shift + 6
-# 	code -r ~/.config/plasma-org.kde.plasma.desktop-appletsrc
-
-# hyper + shift + 8
-# 	echo :Fq_ | sudo -S systemctl restart display-manager && notify-send "🗡 display-manager reloaded"
-
-#* Layout
-# hyper + {1,2,3}
-# 	xkb-switch -s {us,ru,es} && notify-send "layout changed" && xmodmap ~/.Xmodmap >/dev/null 2>&1
-
-# [old]
-# setxkbmap -layout {us,ru,es} && xmodmap ~/.Xmodmap >/dev/null 2>&1
-# qdbus org.kde.keyboard /Layouts org.kde.KeyboardLayouts.setLayout "{0,1,2}" >/dev/null 2>&1
-# ha aparecido de repente ibus y empezo a aparecer en el tray otro layout mas q no se cambiaba --> sudo apt remove ibus
-# qdbus org.kde.keyboard /Layouts org.kde.KeyboardLayouts.getLayout
-
-#? +------------------------------------+
-#? | 	  	    Virtual Desktops        |
-#? +------------------------------------+
-
-# # qdbus org.kde.KWin /KWin {previousDesktop,nextDesktop}
-# hyper + {z,x}
-# 	wmctrl -s {0,1}
-
-# move active window to desktop n
-	# https://askubuntu.com/questions/31240/how-to-shift-applications-from-workspace-1-to-2-using-command
-
-# hay veces q no funciona hyper+ctrl+Z (con X si funciona) - npi
-# hyper + shift + {z,x}
-# 	wmctrl -r :ACTIVE: -t {0,1}
-
-#? +------------------------------------+
-#? | 	  	    Applications   		    |
-#? +------------------------------------+
-
-# hyper + {e,t,f}
-# 	jumpapp {dolphin,thunderbird,keepassxc} >/dev/null 2>&1
-
-# hyper + space
-# 	jumpapp obsidian >/dev/null 2>&1 || (flatpak run md.obsidian.Obsidian --disable-smooth-scrolling &) >/dev/null 2>&1
-
-# hyper + p
-# 	jumpapp postman >/dev/null 2>&1 || (flatpak run com.getpostman.Postman &) >/dev/null 2>&1
-
-#* documents
-# hyper + grave
-# 	jumpapp libreoffice >/dev/null 2>&1
-
-# alt + hyper + grave
-# 	jumpapp okular >/dev/null 2>&1
-
-#* editor
-# hyper + c
-# 	jumpapp {code} >/dev/null 2>&1
-
-# hyper + ctrl + c
-# 	jumpapp {kate} >/dev/null 2>&1
-
-#* database
-# hyper + d
-# 	jumpapp dbeaver >/dev/null 2>&1 || (flatpak run io.dbeaver.DBeaverCommunity &) >/dev/null 2>&1
-
-#* virtualization
-# docker issues to start docker-desktop
-# https://stackoverflow.com/questions/74777469/systemctl-user-start-docker-desktop-doesnt-launch-docker-desktop-docker-desk
-# hyper + v
-# 	jumpapp docker >/dev/null 2>&1
-
-#* Screen capture
-# Print
-# 	flameshot screen
-
-# hyper + y
-# 	flameshot gui
-
-# # Capture with GUI after 2 seconds delay (can be useful to take screenshots of mouse hover tooltips, etc.)
-# hyper + shift + y
-# 	flameshot gui -d 2000 >/dev/null 2>&1
-
-#* Remote
-# hyper + r
-# 	jumpapp remmina >/dev/null 2>&1
-
-# hyper + ctrl + r
-# 	jumpapp teamviewer >/dev/null 2>&1 || /usr/bin/teamviewer >/dev/null 2>&1
-
-# parsec intalled with flatpak does not have PARSEC command blya
-# hyper + shift + r
-# 	wmctrl -a "parsec" >/dev/null 2>&1 || (flatpak run com.parsecgaming.parsec &) >/dev/null 2>&1
-
-#* direct connection
-# hyper + shift + F12
-# 	terminal -e "~/bin/nameserver.sh" && remmina -c ~/.local/share/remmina/group_rdp_ziggurat_ziggurat.remmina >/dev/null 2>&1
-
-#* terminal
-# hyper + shift + Return
-# 	jumpapp konsole >/dev/null 2>&1
-
-# hyper + Return
-# 	jumpapp kitty >/dev/null 2>&1
-
-#* Browser
-# nofurula: hyper + alt + q
-# hyper + q
-# 	jumpapp firefox >/dev/null 2>&1
-
-# hyper + shift + q
-# 	jumpapp brave-browser --incognito >/dev/null 2>&1
-
-# hyper + shift + alt + q
-# 	jumpapp Tor Browser >/dev/null 2>&1 || (cd ~/data/self-contained-apps/tor-browser/ && ./start-tor-browser.desktop >/dev/null 2>&1)
-
-# hyper + w
-# 	jumpapp google-chrome >/dev/null 2>&1
-
-#* Social
-# hyper + s
-# 	jumpapp telegram-desktop >/dev/null 2>&1
-
-# hyper + alt + s
-# 	jumpapp whatsdesk >/dev/null 2>&1
-
-# hyper + ctrl + alt + s
-# 	jumpapp discord >/dev/null 2>&1
-
-# https://github.com/mkropat/jumpapp/issues/42#issuecomment-496418567
-# hyper + ctrl + s
-#  wmctrl -a "teams" >/dev/null 2>&1 || /snap/bin/teams >/dev/null 2>&1
-
-# this way appear delay + dont switch from another vdesktop
-# hyper + ctrl + l
-#  teams & >/dev/null 2>&1 || wmctrl -a "teams" >/dev/null 2>&1
-
-#todo: wtf?
-# Could not grab key 61 with modfield 80: the combination is already grabbed.
-# Could not grab key 61 with modfield 66: the combination is already grabbed.
-# Could not grab key 61 with modfield 82: the combination is already grabbed.
-# super + period
-# 	emoji-picker
-
-# alt + grave
-# 	rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
