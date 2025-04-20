@@ -28,13 +28,17 @@ return {
   { "bluz71/vim-nightfly-colors", name = "nightfly", lazy = false, priority = 1000 },
   -- { "pineapplegiant/spaceduck", priority = 1000, config = true, opts = {} },
   {
-    "water-sucks/darkrose.nvim",
+    -- "water-sucks/darkrose.nvim",
+    "svonjoi/dark.nvim",
+    dev = true,
     lazy = false,
     priority = 1000,
     opts = {
       -- Override colors
       colors = {
-        orange = "#F87757",
+        -- orange = "#F87757",
+        -- pink = "red",
+        -- dark_red = "#fff",
       },
       -- Override existing or add new highlight groups
       overrides = function(c)

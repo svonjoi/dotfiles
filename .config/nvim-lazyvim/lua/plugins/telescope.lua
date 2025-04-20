@@ -23,8 +23,19 @@ return {
       return {
         extensions = {
           live_grep_args = {
+            additional_args = {
+              -- if a hidden file or a directory is whitelisted in an ignore file,
+              -- then it will be  searched even  if  this flag isn't provided
+              -- "--hidden",
+              "--ignore-case",
+              "--type-add=web:*.{php,blade,html,css,js}*",
+              "--type-add=php:*.{php,blade}*",
+            },
             mappings = {
-              i = { ["<c-k>"] = lga_actions.quote_prompt({ postfix = " --iglob *" }) },
+              i = {
+                ["<M-a>"] = lga_actions.quote_prompt({ postfix = "-g *" }),
+                ["<M-s>"] = lga_actions.quote_prompt({ postfix = "-tphp *" }),
+              },
             },
           },
         },

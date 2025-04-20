@@ -492,3 +492,6 @@ export FZF_CTRL_T_OPTS="
 # zellij cli completions
 # https://zellij.dev/documentation/controlling-zellij-through-cli#completions
 # zellij setup --generate-completion zsh
+
+export RIPGREP_CONFIG_PATH="${HOME}/.config/.ripgreprc"
+

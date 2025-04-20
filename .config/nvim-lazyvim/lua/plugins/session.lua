@@ -15,7 +15,7 @@ return {
       on_load = true,
       on_quit = true,
     },
-    autoload = false, -- or 'last' or 'auto_cwd' or 'last_cwd' or fun(): string
+    autoload = "auto_cwd", -- or 'last' or 'auto_cwd' or 'last_cwd' or fun(): string
     commands = {
       save = "PossessionSave",
       load = "PossessionLoad",

@@ -23,6 +23,7 @@ return {
           -- [".guix-channel"] = "scheme",
           -- ["flake.lock"] = "json",
           -- ["run"] = "sh",
+          -- [".kdl"] = "kdl",
           [".envrc"] = "sh",
           [".txt"] = "sh",
           ["sxhkdrc"] = "sxhkdrc",
