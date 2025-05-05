@@ -1,9 +1,8 @@
-# @___[sxhkdrc]_____________________________.
+# @___[sxhkdrc]_________________________________________________.
 # |
-# | NOTE:(?)keysym used here is case sensitive
+# | NOTE:(?)keysym used here are case sensitive
 # | instead of alt modifier use mod1; idk why alt dont work
-# |
-# @_________________________________________.
+# @_____________________________________________________________.
 
 #super + F2; v; s
 #  ~/.config/scripts/vpn/vpn_handler.sh up office
@@ -62,10 +61,10 @@ super + shift + F10
 
 # ff bookmarks; tab+z->b->a|t
 super + F8
-  rofi -show bookmarks -modi 'bookmarks: /home/svonjoi/.config/scripts/ff/rofi_bookmarks.py'
+    rofi -kb-custom-1 'Alt+1' -kb-custom-2 'Alt-2' -show bookmarks -modi 'bookmarks: /home/svonjoi/.config/scripts/ff/rofi_bookmarks.py'
 
 super + F6
-  rofi -show bookmarks -modi 'bookmarks: /home/svonjoi/.config/scripts/ff/rofi_bookmarks.py toolbar/tunuve'
+    rofi -kb-custom-1 'Alt+1' -kb-custom-2 'Alt-2' -show bookmarks -modi 'bookmarks: /home/svonjoi/.config/scripts/ff/rofi_bookmarks.py toolbar/tunuve'
 
 # ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
 # ┊                           ESC                            ┊
