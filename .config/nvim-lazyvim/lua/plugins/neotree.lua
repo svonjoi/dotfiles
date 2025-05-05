@@ -1,19 +1,6 @@
--- спиздил с внутрянки и чуть подправил
--- пришлось поеботину утиль подключать, хз нахуя. в ридми неотри нету никаких утиль
-local Util = require("lazyvim.util")
-
 return {
   "nvim-neo-tree/neo-tree.nvim",
-  branch = "v3.x",
-  cmd = "Neotree",
   keys = {
-    {
-      "<leader>e",
-      function()
-        require("neo-tree.command").execute({ toggle = true, dir = Util.root() })
-      end,
-      desc = "Explorer NeoTree (root dir)",
-    },
     {
       "<leader>E",
       "<cmd>Neotree reveal<cr>",
@@ -34,17 +21,6 @@ return {
       desc = "Buffer explorer",
     },
   },
-  deactivate = function()
-    vim.cmd([[Neotree close]])
-  end,
-  init = function()
-    if vim.fn.argc(-1) == 1 then
-      local stat = vim.loop.fs_stat(vim.fn.argv(0))
-      if stat and stat.type == "directory" then
-        require("neo-tree")
-      end
-    end
-  end,
   opts = {
     sources = { "filesystem", "buffers", "git_status", "document_symbols" },
     open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
@@ -113,18 +89,51 @@ return {
         },
       },
     },
+    commands = {
+      -- спиздил https://github.com/AstroNvim/AstroNvim/blob/6d5750bb4fbefeb816bf6d9d088df72dfefb9724/lua/plugins/neo-tree.lua#L73-L105
+      copy_selector = function(state)
+        local node = state.tree:get_node()
+        local filepath = node:get_id()
+        local filename = node.name
+        local modify = vim.fn.fnamemodify
+
+        local vals = {
+          ["BASENAME"] = modify(filename, ":r"),
+          ["EXTENSION"] = modify(filename, ":e"),
+          ["FILENAME"] = filename,
+          ["PATH (CWD)"] = modify(filepath, ":."),
+          ["PATH (HOME)"] = modify(filepath, ":~"),
+          ["PATH"] = filepath,
+          ["URI"] = vim.uri_from_fname(filepath),
+        }
+
+        local options = vim.tbl_filter(function(val)
+          return vals[val] ~= ""
+        end, vim.tbl_keys(vals))
+        if vim.tbl_isempty(options) then
+          -- utils.notify("No values to copy", vim.log.levels.WARN)
+          return
+        end
+        table.sort(options)
+        vim.ui.select(options, {
+          prompt = "Choose to copy to clipboard:",
+          format_item = function(item)
+            return ("%s: %s"):format(item, vals[item])
+          end,
+        }, function(choice)
+          local result = vals[choice]
+          if result then
+            -- utils.notify(("Copied: `%s`"):format(result))
+            vim.fn.setreg("+", result)
+          end
+        end)
+      end,
+    },
     window = {
       position = "float",
       mappings = {
         ["<space>"] = "none",
-        ["Y"] = {
-          function(state)
-            local node = state.tree:get_node()
-            local path = node:get_id()
-            vim.fn.setreg("+", path, "c")
-          end,
-          desc = "copy path to clipboard",
-        },
+        ["Y"] = "copy_selector",
       },
     },
     default_component_configs = {

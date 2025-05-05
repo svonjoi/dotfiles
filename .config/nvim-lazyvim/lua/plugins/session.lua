@@ -1,3 +1,8 @@
+require("which-key").add({
+  mode = { "n", "v" },
+  { "<Leader>i", group = "session" },
+})
+
 return {
   "jedrzejboczar/possession.nvim",
   opts = {
@@ -37,7 +42,15 @@ return {
       before_load = function(name, user_data)
         return user_data
       end,
-      after_load = function(name, user_data) end,
+      after_load = function(name, user_data)
+        if name == "tunuve" then
+          -- TODO: :help indentexpr
+          vim.cmd("TSDisable indent javascript")
+          print("TS indentation for js: DISABLED")
+          vim.cmd("TSEnable indent php")
+          print("TS indentation for php: ENABLED")
+        end
+      end,
     },
     plugins = {
       close_windows = {
@@ -106,6 +119,12 @@ return {
       ":Telescope possession list <CR>",
       { silent = true, noremap = true },
       desc = "list sessions",
+    },
+    {
+      "<Leader>ii",
+      ":PossessionLoadCwd<CR>",
+      { silent = true, noremap = true },
+      desc = "load cwd",
     },
   },
 }

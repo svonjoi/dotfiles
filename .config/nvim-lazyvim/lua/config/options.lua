@@ -22,3 +22,15 @@ vim.o.sessionoptions = "buffers,curdir,tabpages,winsize,help,globals,skiprtp"
 --   pattern = { "*" },
 --   command = "normal zx",
 -- })
+
+-- configured through nvim-lspconfig
+-- vim.diagnostic.config({
+--   virtual_text = false,
+--   underline = false,
+--   -- virtual_text = { severity = { min = vim.diagnostic.severity.ERROR } },
+--   signs = { severity = { min = vim.diagnostic.severity.ERROR } },
+--   underline = { severity = { min = vim.diagnostic.severity.ERROR } },
+--   float = {
+--     severity = { min = vim.diagnostic.severity.WARN },
+--   },
+-- })

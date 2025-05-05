@@ -1,4 +1,3 @@
-vim.print("zaloopa inside lsp")
 return {
   {
     "jwalton512/vim-blade",
@@ -9,6 +8,9 @@ return {
       -- @type lspconfig.options
       servers = {
         intelephense = {
+          -- format = {
+          --   enable = false,
+          -- },
           filetypes = { "php", "blade" },
           settings = {
             intelephense = {

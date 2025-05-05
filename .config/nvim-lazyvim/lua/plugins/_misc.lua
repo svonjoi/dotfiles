@@ -1,17 +1,9 @@
 return {
-  { "wakatime/vim-wakatime", lazy = false },
   {
-    "tpope/vim-rsi",
+    "wakatime/vim-wakatime",
+    lazy = false,
   },
   {
-    "almo7aya/openingh.nvim",
-    keys = {
-      {
-        "<Leader>go",
-        ":OpenInGHFileLines <CR>",
-        { silent = true, noremap = true },
-        desc = "open line in gh",
-      },
-    },
+    "tpope/vim-rsi",
   },
 }

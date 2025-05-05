@@ -1,12 +1,18 @@
+local actions = require("telescope.actions")
+local open_with_trouble = require("trouble.sources.telescope").open
+
+-- Use this to add more results without clearing the trouble list
+local add_to_trouble = require("trouble.sources.telescope").add
+
 -- exclude for find_files is in .gitignore by default & .ignore - custom
 -- https://github.com/nvim-telescope/telescope.nvim/issues/522
---
 return {
   {
     "nvim-telescope/telescope.nvim",
     keys = {
       { "<leader>sG", false },
       { "<leader>sg", "<cmd>Telescope live_grep_args<cr>", desc = "Grep (with args)" },
+      { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "find files" },
     },
     dependencies = {
       {
@@ -30,11 +36,13 @@ return {
               "--ignore-case",
               "--type-add=web:*.{php,blade,html,css,js}*",
               "--type-add=php:*.{php,blade}*",
+              "--type-add=lua:*.{lua}*",
             },
             mappings = {
               i = {
-                ["<M-a>"] = lga_actions.quote_prompt({ postfix = "-g *" }),
-                ["<M-s>"] = lga_actions.quote_prompt({ postfix = "-tphp *" }),
+                ["<M-a>"] = lga_actions.quote_prompt({ postfix = " -g *" }),
+                ["<M-s>"] = lga_actions.quote_prompt({ postfix = " -tphp " }),
+                ["<M-i>"] = lga_actions.quote_prompt({ postfix = " -tlua lazy/LazyVim/" }),
               },
             },
           },
@@ -48,9 +56,16 @@ return {
               ["<C-a>"] = actions.results_scrolling_left,
               ["<C-e>"] = actions.results_scrolling_right,
               -- https://github.com/nvim-telescope/telescope.nvim/issues/3110#issuecomment-2395242266
-              -- will be available on 2.0
-              -- ["<C-f>"] = actions.preview_scrolling_left,
-              -- ["<C-k>"] = actions.preview_scrolling_right,
+              -- will be available on 2.0; UPD. Why this working?
+              ["<C-f>"] = actions.preview_scrolling_left,
+              ["<C-k>"] = actions.preview_scrolling_right,
+
+              ["<C-t>"] = open_with_trouble,
+              ["<C-y>"] = add_to_trouble,
+            },
+            n = {
+              ["<C-t>"] = open_with_trouble,
+              ["<C-y>"] = add_to_trouble,
             },
           },
         },

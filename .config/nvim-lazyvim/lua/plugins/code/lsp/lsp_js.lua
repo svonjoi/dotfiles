@@ -1,13 +1,24 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    -- enabled = false,
     opts = {
-      -- make sure mason installs the server
+      -- autoformat = false,
+      -- make sure the servers are installed with mason
       servers = {
         tsserver = {
           enabled = false,
         },
+        biome = {
+          enabled = true,
+          -- single_file_support = true,
+        },
+        tailwindcss = {
+          enabled = false,
+        },
         vtsls = {
+          -- enabled = false,
+
           -- explicitly add default filetypes, so that we can extend
           -- them in related extras
           filetypes = {

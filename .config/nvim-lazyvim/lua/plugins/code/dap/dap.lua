@@ -1,4 +1,4 @@
--- js and php dap configuration from calebdv
+-- ref
 -- https://github.com/calebdw/dotfiles/blob/master/.config/nvim/lua/calebdw/plugins/dap.lua
 
 -- TODO: put in keys {}
@@ -66,6 +66,11 @@ return {
           },
         },
       }
+
+      vim.fn.sign_define("DapBreakpoint", { text = "󱐋", texthl = "", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapBreakpointRejected", { text = "󱐋?", texthl = "", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapConditionalBreakpoint", { text = "󱐋*", texthl = "", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapStopped", { text = "󱞩", texthl = "", linehl = "", numhl = "" })
 
       local my_fucking_stack = {
         "typescript",
