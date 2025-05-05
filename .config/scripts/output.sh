@@ -215,9 +215,18 @@ function main() {
 		fi
 
 		if [ $apply_xrandr -eq 1 ]; then
+            # main + slave horizontal above
+			# xrandr \
+			# 	--output $FST --primary --mode 1920x1080 --rate 144 --rotate normal --pos 176x1050 \
+			# 	--output $SEC --mode 1680x1050 --rate 144 --rotate normal --pos 296x0 \
+			# 	--output $out_DP_1 --off \
+			# 	--output $outLaptop --off \
+			# 	2>&1 | ~/.config/scripts/helpers/notify-pipe.sh
+
+            # main + slave horizontal right
 			xrandr \
-				--output $FST --primary --mode 1920x1080 --rate 144 --rotate normal --pos 176x1050 \
-				--output $SEC --mode 1680x1050 --rate 144 --rotate normal --pos 296x0 \
+				--output $FST --primary --mode 1920x1080 --rate 144 --rotate normal --pos 0x0 \
+				--output $SEC --mode 1280x720 --rate 144 --rotate normal --pos 1920x423 \
 				--output $out_DP_1 --off \
 				--output $outLaptop --off \
 				2>&1 | ~/.config/scripts/helpers/notify-pipe.sh
