@@ -7,5 +7,11 @@ personal dotfiles managed with yadm
 - filemanager: ranger, cli
 - browser: qutebrowser, firefox; bookmarks: [rofi_bookmarks.py](https://github.com/svonjoi/dotfiles/blob/dce250ec47d766fce422c7bacf0de55f1c909b11/.config/scripts/browser/rofi_bookmarks.py)
 - keybind & remap: keyd, i3, sxhkd
-- window manager: i3
-- IDE: nvim
+- UI: i3, polybar, picom, dunst
+- ide: nvim
+- terminal emulator: kitty
+- shell: zsh
+- git wrapper: lazygit
+- docker wrapper: lazydocker
+- pdf viewer: sioyek
+- pkm: obsidian with full vim integration
