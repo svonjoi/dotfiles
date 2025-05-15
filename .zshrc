@@ -312,9 +312,19 @@ copy_last_command () {
   history | tail -n 1 | sed "s/[[:digit:]]*  //" | sed "s/^#//" | xclip
 }
 
-# yadm
 function yc() {
     cd ~
+
+    # in git a file becomes tracked once it's been staged at least once
+    # git does not support marking a file as "tracked" without staging it
+    #
+    # this will stage untracked files under this directories. If then this
+    # files are unstaged without commiting, they will dissapear from index
+    #
+    yadm add ~/.config/nvim-kickstart/
+    yadm add ~/.config/nvim-lazyvim/
+    yadm add ~/.config/zellij/
+
     yadm enter lazygit
     cd -
 }
