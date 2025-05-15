@@ -11,7 +11,6 @@ personal dotfiles managed with yadm
 - ide: nvim
 - terminal emulator: kitty
 - shell: zsh
-- git wrapper: lazygit
-- docker wrapper: lazydocker
+- development wrappers: lazygit, lazydocker
 - pdf viewer: sioyek
 - pkm: obsidian with full vim integration
