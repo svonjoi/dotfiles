@@ -5,7 +5,7 @@ personal dotfiles managed with yadm
 ## setup
 
 - filemanager: ranger, cli
-- browser: qutebrowser, firefox
+- browser: qutebrowser, firefox; bookmarks: [rofi_bookmarks.py](https://github.com/svonjoi/dotfiles/blob/dce250ec47d766fce422c7bacf0de55f1c909b11/.config/scripts/browser/rofi_bookmarks.py)
 - keybind & remap: keyd, i3, sxhkd
 - window manager: i3
 - IDE: nvim
