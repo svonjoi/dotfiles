@@ -23,8 +23,7 @@ return {
         linters_by_ft = {
           fish = { "fish" },
           php = { "phpstan" },
-
-          -- javascript = { "biomejs" },
+          javascript = { "biomejs" },
 
           -- Use the "*" filetype to run linters on all filetypes.
           -- ['*'] = { 'global linter' },
@@ -47,6 +46,11 @@ return {
               -- local local_bin = vim.fn.fnamemodify("vendor/bin/" .. bin, ":p")
               -- return vim.loop.fs_stat(local_bin) and local_bin or bin
             end,
+            args = {
+              "analyze",
+              "--error-format=json",
+              "--no-progress",
+            },
           },
         },
       }

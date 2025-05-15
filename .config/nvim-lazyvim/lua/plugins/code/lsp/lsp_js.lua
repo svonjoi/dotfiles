@@ -10,7 +10,7 @@ return {
           enabled = false,
         },
         biome = {
-          enabled = true,
+          enabled = false,
           -- single_file_support = true,
         },
         tailwindcss = {

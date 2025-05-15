@@ -18,7 +18,7 @@ local function linters()
     end
   end
 
-  return "󱉶 " .. table.concat(unique_linters, ", ")
+  return " " .. table.concat(unique_linters, ", ")
 end
 
 local function formatters()
@@ -105,7 +105,7 @@ return {
             if vim.tbl_isempty(StatusActiveDebugSessions()) then
               return ""
             end
-            return " " .. table.concat(StatusActiveDebugSessions(), " |  ")
+            return " " .. table.concat(StatusActiveDebugSessions(), "  ")
           end,
           cond = function()
             return package.loaded["dap"] and StatusActiveDebugSessions() ~= ""

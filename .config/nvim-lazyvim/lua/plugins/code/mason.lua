@@ -24,6 +24,7 @@ return {
         "yamlfmt",
         "jq",
         "sqlfmt",
+        "xmlformatter",
       },
     },
   },

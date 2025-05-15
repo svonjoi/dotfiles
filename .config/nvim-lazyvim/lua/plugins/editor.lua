@@ -24,7 +24,7 @@ return {
         {
           filetypes = { "php" },
           config = {
-            tabwidth = 4,
+            tabwidth = 2,
           },
         },
         go = {

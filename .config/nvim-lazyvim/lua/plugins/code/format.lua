@@ -30,6 +30,7 @@ return {
         lua = { "stylua" },
         javascript = { "biome" },
         typescript = { "biome" },
+        xml = { "xmlformatter" },
 
         -- WARNING: after updating via mason it stops working
         -- TODO: [setup exacutable in docker container](https://github.com/stevearc/conform.nvim/issues/669)
