@@ -1,4 +1,4 @@
-#!/bin/zsh
+#special_text!/bin/zsh
 
 # TODO: check similar implementation https://github.com/davatorium/rofi-scripts
 
@@ -15,7 +15,7 @@ set -x
 #? [polybar]
 # there are 3 types of bar configured: main|secondary|third; https://github.com/polybar/polybar/issues/763
 # environment variables for use within polybar-config and polybar-scripts
-export COLOR_SPECIAL_TEXT="#ffbd3d" # 4a72bb 1f77d5
+export COLOR_SPECIAL_TEXT="#7b4dff" # ffbd3d 4a72bb 1f77d5
 export COLOR_CURRENT_TRACK="#adad88" # 787878
 # morado #8d95ff
 # dorado #adad88
