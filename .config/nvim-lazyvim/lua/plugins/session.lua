@@ -78,6 +78,8 @@ return {
                   "*/.config",
                   "*/.config/scripts",
                   "*/.config/scripts/*",
+                  "*/.config/scripts_",
+                  "*/.config/scripts_/*",
                   "*/.config/bat",
                   "*/.config/bat/*",
                   "*/.config/dunst",
