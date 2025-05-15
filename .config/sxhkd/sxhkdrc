@@ -65,10 +65,10 @@ super + shift + F10
 
 # ff bookmarks; tab+z->b->a|t
 super + F8
-    rofi -kb-custom-1 'Alt+1' -kb-custom-2 'Alt-2' -show bookmarks -modi 'bookmarks: /home/svonjoi/.config/scripts/ff/rofi_bookmarks.py'
+    rofi -kb-custom-1 'Alt+1' -kb-custom-2 'Alt-2' -show bookmarks -modi 'bookmarks: /home/svonjoi/.config/scripts/browser/rofi_bookmarks.py'
 
 super + F6
-    rofi -kb-custom-1 'Alt+1' -kb-custom-2 'Alt-2' -show bookmarks -modi 'bookmarks: /home/svonjoi/.config/scripts/ff/rofi_bookmarks.py toolbar/tunuve'
+    rofi -kb-custom-1 'Alt+1' -kb-custom-2 'Alt-2' -show bookmarks -modi 'bookmarks: /home/svonjoi/.config/scripts/browser/rofi_bookmarks.py toolbar/tunuve'
 
 ctrl + F5
     ~/.config/scripts/i3_scripts/move_windows_to_current_ws
