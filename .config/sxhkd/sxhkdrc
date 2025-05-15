@@ -32,20 +32,24 @@ mod3 + 6
 # ┊                           TAB                            ┊
 # └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
 
-# window transparency
+# transparency
+# tab+space r
 super + 9
   transset-df -a --min 0.05 --dec 0.05
 
+# tab+space S-r
 super + shift + 9
   transset-df -a --inc 0.05
 
-# tab+c
+# tab+space c
 super + 3
   ~/.config/scripts/screencast.sh >/dev/null 2>&1
 
+# tab+space y
 super + F11
   flameshot gui
 
+# tab+space S-y
 super + ctrl + F11
   flameshot screen
 
@@ -65,6 +69,9 @@ super + F8
 
 super + F6
     rofi -kb-custom-1 'Alt+1' -kb-custom-2 'Alt-2' -show bookmarks -modi 'bookmarks: /home/svonjoi/.config/scripts/ff/rofi_bookmarks.py toolbar/tunuve'
+
+ctrl + F5
+    ~/.config/scripts/i3_scripts/move_windows_to_current_ws
 
 # ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
 # ┊                           ESC                            ┊
