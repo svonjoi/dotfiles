@@ -9,7 +9,7 @@ personal dotfiles managed with yadm
 - browser: qutebrowser, firefox; bookmarks: [rofi_bookmarks.py](https://github.com/svonjoi/dotfiles/blob/dce250ec47d766fce422c7bacf0de55f1c909b11/.config/scripts/browser/rofi_bookmarks.py)
 - development
   - IDE: nvim
-  - development wrappers: lazygit, lazydocker
+  - tooling: lazygit, lazydocker
   - browser for development: chrome
 - filemanager: ranger, cli
 - terminal emulator: kitty
