@@ -204,7 +204,8 @@ export LC_ALL=en_US.UTF-8
 
 # configpath: ~/.config/nvim
 # datapath ~/.local/share/nvim
-export EDITOR=nvim
+# export EDITOR=nvim
+export EDITOR=~/.config/scripts/defaulteditor
 
 export KLOUD="/mnt/gdrive_loadmaks/"
 export POLYBAR_SCRIPTS="$HOME/bin/polybar_scripts"
@@ -324,6 +325,7 @@ function yc() {
     yadm add ~/.config/nvim-kickstart/
     yadm add ~/.config/nvim-lazyvim/
     yadm add ~/.config/zellij/
+    yadm add ~/.config/scripts/
 
     yadm enter lazygit
     cd -
