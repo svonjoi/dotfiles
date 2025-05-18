@@ -9,6 +9,9 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -- vim.g.lazyvim_cmp = "nvim-cmp"
 
+vim.opt.scrolloff = 6 -- Lines of context
+vim.opt.sidescrolloff = 8 -- Columns of context
+
 -- theme
 vim.opt.background = "dark" -- set this to dark or light
 -- vim.cmd("colorscheme oxocarbon")

@@ -56,78 +56,98 @@ end
 
 return {
   "nvim-lualine/lualine.nvim",
-  opts = {
-    options = {
-      -- https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
-      theme = "horizon",
-      -- globalstatus = true,
-      -- theme = "16color",
-      globalstatus = vim.o.laststatus == 3,
-      disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter" } },
-    },
-    extensions = {
-      "fugitive",
-      "fzf",
-      "man",
-      "nvim-dap-ui",
-      "nvim-tree",
-      "quickfix",
-      "toggleterm",
-    },
-    sections = {
-      lualine_a = { "mode" },
-      lualine_b = { "branch", "diff", "diagnostics" },
-      lualine_c = { "filename" },
-      lualine_x = {
-        {
-          require("noice").api.status.command.get,
-          cond = require("noice").api.status.command.has,
-          color = { fg = "#ff9e64" },
-        },
-        {
-          require("noice").api.status.mode.get,
-          cond = require("noice").api.status.mode.has,
-          color = { fg = "#ff9e64" },
-        },
-        {
-          require("noice").api.status.search.get,
-          cond = require("noice").api.status.search.has,
-          color = { fg = "#ff9e64" },
-        },
-        {
-          formatters,
-        },
-        {
-          linters,
-        },
-        {
-          function()
-            if vim.tbl_isempty(StatusActiveDebugSessions()) then
-              return ""
-            end
-            return " " .. table.concat(StatusActiveDebugSessions(), "  ")
-          end,
-          cond = function()
-            return package.loaded["dap"] and StatusActiveDebugSessions() ~= ""
-          end,
-          color = function()
-            return { fg = "orange" }
-          end,
-        },
-        "encoding",
-        "fileformat",
-        "filetype",
+  opts = function()
+    local dmode_enabled = false
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "DebugModeChanged",
+      callback = function(args)
+        dmode_enabled = args.data.enabled
+      end,
+    })
+
+    return {
+      options = {
+        -- https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
+        theme = "horizon",
+        -- globalstatus = true,
+        -- theme = "16color",
+        globalstatus = vim.o.laststatus == 3,
+        disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter" } },
       },
-      lualine_y = {
-        {
-          session_name,
-          color = { fg = "grey" },
-        },
-        "progress",
+      extensions = {
+        "fugitive",
+        "fzf",
+        "man",
+        -- "nvim-dap-ui",
+        "nvim-tree",
+        "quickfix",
+        "toggleterm",
       },
-      lualine_z = { "location" },
-    },
-  },
+      sections = {
+        lualine_a = {
+          {
+            "mode",
+            fmt = function(str)
+              return dmode_enabled and "DEBUG" or str
+            end,
+            color = function(tb)
+              return dmode_enabled and "dCursor" or tb
+            end,
+          },
+        },
+        lualine_b = { "branch", "diff", "diagnostics" },
+        lualine_c = { "filename" },
+        lualine_x = {
+          {
+            require("noice").api.status.command.get,
+            cond = require("noice").api.status.command.has,
+            color = { fg = "#ff9e64" },
+          },
+          {
+            require("noice").api.status.mode.get,
+            cond = require("noice").api.status.mode.has,
+            color = { fg = "#ff9e64" },
+          },
+          {
+            require("noice").api.status.search.get,
+            cond = require("noice").api.status.search.has,
+            color = { fg = "#ff9e64" },
+          },
+          {
+            formatters,
+          },
+          {
+            linters,
+          },
+          {
+            function()
+              if vim.tbl_isempty(StatusActiveDebugSessions()) then
+                return ""
+              end
+              return " " .. table.concat(StatusActiveDebugSessions(), "  ")
+            end,
+            cond = function()
+              return package.loaded["dap"] and StatusActiveDebugSessions() ~= ""
+            end,
+            color = function()
+              return { fg = "orange" }
+            end,
+          },
+          "encoding",
+          "fileformat",
+          "filetype",
+        },
+        lualine_y = {
+          {
+            session_name,
+            color = { fg = "grey" },
+          },
+          "progress",
+        },
+        lualine_z = { "location" },
+      },
+    }
+  end,
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
