@@ -4,6 +4,6 @@
 # | $2 vpn-connection-name: hdt/sanjuan
 # `----
 
-# nmcli connection up sanjuan_oficina
+# nmcli connection up <con_name>
 nmcli connection $1 $2 | while read OUTPUT; do notify-send "$OUTPUT"; done
 

@@ -198,6 +198,7 @@ return {
           },
         }
       end
+      require("dap.ext.vscode").load_launchjs("launch.json")
     end,
   },
   {

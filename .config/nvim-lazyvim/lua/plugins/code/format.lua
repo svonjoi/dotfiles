@@ -29,14 +29,17 @@ return {
         yaml = { "yamlfmt" },
         lua = { "stylua" },
         javascript = { "biome" },
+        vue = { "prettier" },
         typescript = { "biome" },
         xml = { "xmlformatter" },
+        css = { "prettierd" },
 
         -- WARNING: after updating via mason it stops working
         -- TODO: [setup exacutable in docker container](https://github.com/stevearc/conform.nvim/issues/669)
         --
         -- falling back to lsp formatter...
-        php = { "prettierd", stop_after_first = true }, -- easy-coding-standard
+        -- UPD. prettierd fails in vira; idk why; default prettier nope
+        php = { "prettier", stop_after_first = true }, -- easy-coding-standard
       },
       -- formatters_by_ft = {
       --   blade = { "prettier", "blade-formatter", stop_after_first = true  },
