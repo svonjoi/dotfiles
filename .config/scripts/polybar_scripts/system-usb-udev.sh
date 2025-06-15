@@ -43,7 +43,16 @@ usb_print() {
         fi
         counter=$((counter + 1))
 
-        output="$output$space  $mounted"
+        # v="#82aea9"
+        v="${COLOR_SPECIAL_TEXT}"
+        c=%{F${v}}
+        nc=%{F-}
+
+        output="$output$space${c}${nc}  $mounted"
+
+
+
+
     done
 
     echo "$output"
