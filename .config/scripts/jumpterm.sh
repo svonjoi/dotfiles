@@ -1,7 +1,7 @@
 #!/bin/zsh
 # ,---- [ ]
 # | 
-# | $1 terminal a usar  
+# | $1 terminal a usar
 # | $2 WS_CLASS
 # | $3 tui
 # |  

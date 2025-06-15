@@ -15,15 +15,13 @@ set -x
 #? [polybar]
 # there are 3 types of bar configured: main|secondary|third; https://github.com/polybar/polybar/issues/763
 # environment variables for use within polybar-config and polybar-scripts
-export COLOR_SPECIAL_TEXT="#ffbd3d" # ffbd3d 1f77d5
+export COLOR_SPECIAL_TEXT="#82aea9" # ffbd3d 1f77d5
 export COLOR_CURRENT_TRACK="#adad88" # 787878
-# morado #8d95ff
-# dorado #adad88
 
 # the same vars defined in i3wm as here
 out_DP_1="DP-1"
 out_DP_2="DP-2"
-outLaptop="eDP-1"
+outLaptop="eDP"
 outHDMI="HDMI-1"
 
 #* si en VML/ML hay algun bug de visualizacion o de polybar, primero switch to laptop and then to 3 mon
@@ -266,10 +264,10 @@ function main() {
 	if [ $setup_l -eq 1 ]; then
 
 		if [ $apply_xrandr -eq 1 ]; then
-			xrandr --output $outLaptop --mode 1920x1080 --pos 0x0 --rotate normal \
-				--output $out_DP_1 --off \
-				--output $out_DP_2 --off \
-				--output $outHDMI --off
+			xrandr --output $outLaptop --mode 1920x1200 --pos 0x0 --rotate normal
+				# --output $out_DP_1 --off \
+				# --output $out_DP_2 --off \
+				# --output $outHDMI --off
 		fi
 
 		if [ $apply_polybar -eq 1 ]; then
