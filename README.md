@@ -15,11 +15,9 @@ personal dotfiles managed with yadm
 - keybind
   - i3
   - sxhkd
-- browser
+- browser; unified bookmarks: [rofi_bookmarks.py](https://github.com/svonjoi/dotfiles/blob/dce250ec47d766fce422c7bacf0de55f1c909b11/.config/scripts/browser/rofi_bookmarks.py)
   - qutebrowser
   - firefox
-- browser-bookmarks
-  - [rofi_bookmarks.py](https://github.com/svonjoi/dotfiles/blob/dce250ec47d766fce422c7bacf0de55f1c909b11/.config/scripts/browser/rofi_bookmarks.py)
 - development
   - IDE
     - nvim
