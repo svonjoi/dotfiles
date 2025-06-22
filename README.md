@@ -10,6 +10,7 @@ personal dotfiles managed with yadm
   - polybar
   - picom
   - dunst
+  - rofi
 - remap
   - keyd
 - keybind
