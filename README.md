@@ -4,7 +4,7 @@ personal dotfiles managed with yadm
 
 ## setup
 
-- OS: EndeavourOS
+- OS: [EndeavourOS](https://endeavouros.com/)
 - window manager: [i3](https://github.com/i3/i3)
 - terminal emulator: [kitty](https://github.com/kovidgoyal/kitty)
 - terminal multiplexer: [zellij](https://github.com/zellij-org/zellij)
