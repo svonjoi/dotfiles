@@ -4,9 +4,10 @@ personal dotfiles managed with yadm
 
 ## setup
 
-- OS: EOS
-- UI elements
+- OS: EndeavourOS
+- window manager
   - i3
+- UI elements
   - polybar
   - picom
   - dunst
@@ -14,7 +15,7 @@ personal dotfiles managed with yadm
 - remap
   - keyd
 - keybing
-  - sxhkd/i3
+  - sxhkd & i3
 - browser; [unified bookmarks](https://github.com/svonjoi/dotfiles/blob/dce250ec47d766fce422c7bacf0de55f1c909b11/.config/scripts/browser/rofi_bookmarks.py)
   - qutebrowser
   - firefox
@@ -32,6 +33,7 @@ personal dotfiles managed with yadm
   - zsh
 - pdf-viewer
   - sioyek
+- social
+  - [telega.el](https://github.com/zevlg/telega.el)
 - pkm
   - obsidian vim-way
-
