@@ -1,6 +1,6 @@
 personal dotfiles managed with yadm
 
-![screen](https://github.com/user-attachments/assets/8c91fd4b-e33e-4634-8dd4-ab9d83d19d6b)
+![dotfiles](https://github.com/user-attachments/assets/a49711c1-0e2e-4777-a515-7cd4b300865b)
 
 ## setup
 
