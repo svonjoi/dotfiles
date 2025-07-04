@@ -5,8 +5,9 @@ personal dotfiles managed with yadm
 ## setup
 
 - OS: EndeavourOS
-- window manager
-  - i3
+- window manager: [i3](https://github.com/i3/i3)
+- terminal emulator: [kitty](https://github.com/kovidgoyal/kitty)
+- terminal multiplexer: [zellij](https://github.com/zellij-org/zellij)
 - UI elements
   - polybar
   - picom
@@ -27,8 +28,6 @@ personal dotfiles managed with yadm
     - lazydocker
 - filemanager
   - ranger
-- terminal emulator
-  - kitty
 - shell
   - zsh
 - pdf-viewer
