@@ -20,13 +20,12 @@ personal dotfiles managed with yadm
 - network: [nm](https://github.com/NetworkManager/NetworkManager)
 - browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser) + firefox
 - development
-  - IDE
-    - nvim
-  - wrappers for common cli tools
-    - lazygit
-    - lazydocker
-- filemanager: ranger
-- pdf-viewer: sioyek
+  - IDE: [nvim](https://github.com/neovim/neovim)
+  - TUI for common cli tools
+    - [lazygit](https://github.com/jesseduffield/lazygit)
+    - [lazydocker](https://github.com/jesseduffield/lazydocker)
+- filemanager: [ranger](https://github.com/ranger/ranger)
+- pdf-viewer: [sioyek](https://github.com/ahrm/sioyek)
 - social
   - [telega.el](https://github.com/zevlg/telega.el)
 - pkm
