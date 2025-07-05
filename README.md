@@ -13,10 +13,11 @@ personal dotfiles managed with yadm
 - compositor: [picom](https://github.com/yshui/picom)
 - notification daemon: [dunst](https://github.com/dunst-project/dunst)
 - dynamic menu: [rofi](https://github.com/davatorium/rofi)
-- remap: [keyd](https://github.com/rvaiya/keyd)
-- keybing: [sxhkd](https://github.com/baskerville/sxhkd)
+- input
+  - remap: [keyd](https://github.com/rvaiya/keyd)
+  - keybing: [sxhkd](https://github.com/baskerville/sxhkd)
 - clipboard: [greenclip](https://github.com/erebe/greenclip)
-- network: [nm](https://github.com/NetworkManager/NetworkManager)
+- network manager: [nm](https://github.com/NetworkManager/NetworkManager)
 - browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser) + firefox
 - development
   - IDE: [nvim](https://github.com/neovim/neovim)
@@ -26,6 +27,6 @@ personal dotfiles managed with yadm
 - filemanager: [ranger](https://github.com/ranger/ranger)
 - pdf-viewer: [sioyek](https://github.com/ahrm/sioyek)
 - social
-  - [telega.el](https://github.com/zevlg/telega.el)
+  - telegram client: [telega.el](https://github.com/zevlg/telega.el)
 - pkm
   - obsidian vim-way
