@@ -13,12 +13,12 @@ personal dotfiles managed with yadm
   - remap: [keyd](https://github.com/rvaiya/keyd)
   - keybing: [sxhkd](https://github.com/baskerville/sxhkd)
 - status-bar: [polybar](https://github.com/polybar/polybar)
-- compositor: [picom](https://github.com/yshui/picom)
 - notification daemon: [dunst](https://github.com/dunst-project/dunst)
 - dynamic menu: [rofi](https://github.com/davatorium/rofi)
 - network manager: [nm](https://github.com/NetworkManager/NetworkManager)
 - clipboard: [greenclip](https://github.com/erebe/greenclip)
 - filemanager: [ranger](https://github.com/ranger/ranger)
+- compositor: [picom](https://github.com/yshui/picom)
 - browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser) + firefox
 - pdf-viewer: [sioyek](https://github.com/ahrm/sioyek)
 - development
