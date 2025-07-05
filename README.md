@@ -25,7 +25,6 @@ personal dotfiles managed with yadm
   - IDE: [nvim](https://github.com/neovim/neovim)
   - Git: [lazygit](https://github.com/jesseduffield/lazygit)
   - Docker: [lazydocker](https://github.com/jesseduffield/lazydocker)
+- pkm: obsidian vim-way
 - social
   - telegram client: [telega.el](https://github.com/zevlg/telega.el)
-- pkm
-  - obsidian vim-way
