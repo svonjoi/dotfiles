@@ -14,7 +14,7 @@ personal dotfiles managed with yadm
   - picom
   - dunst
   - rofi
-- remap: Xmodmap + [keyd](https://github.com/rvaiya/keyd)
+- remap: [keyd](https://github.com/rvaiya/keyd)
 - keybing: [sxhkd](https://github.com/baskerville/sxhkd)
 - clipboard: [greenclip](https://github.com/erebe/greenclip)
 - network: [nm](https://github.com/NetworkManager/NetworkManager)
