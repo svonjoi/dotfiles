@@ -18,9 +18,7 @@ personal dotfiles managed with yadm
 - keybing: [sxhkd](https://github.com/baskerville/sxhkd)
 - clipboard: [greenclip](https://github.com/erebe/greenclip)
 - network: [nm](https://github.com/NetworkManager/NetworkManager)
-- browser; [unified bookmarks](https://github.com/svonjoi/dotfiles/blob/dce250ec47d766fce422c7bacf0de55f1c909b11/.config/scripts/browser/rofi_bookmarks.py)
-  - qutebrowser
-  - firefox
+- browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser) + firefox with [unified bookmarks](https://github.com/svonjoi/dotfiles/blob/dce250ec47d766fce422c7bacf0de55f1c909b11/.config/scripts/browser/rofi_bookmarks.py)
 - development
   - IDE
     - nvim
