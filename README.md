@@ -9,23 +9,22 @@ personal dotfiles managed with yadm
 - terminal emulator: [kitty](https://github.com/kovidgoyal/kitty)
 - terminal multiplexer: [zellij](https://github.com/zellij-org/zellij)
 - shell: [zsh](https://github.com/zsh-users/zsh) + [omz](https://github.com/ohmyzsh/ohmyzsh)
+- input
+  - remap: [keyd](https://github.com/rvaiya/keyd)
+  - keybing: [sxhkd](https://github.com/baskerville/sxhkd)
 - status-bar: [polybar](https://github.com/polybar/polybar)
 - compositor: [picom](https://github.com/yshui/picom)
 - notification daemon: [dunst](https://github.com/dunst-project/dunst)
 - dynamic menu: [rofi](https://github.com/davatorium/rofi)
-- input
-  - remap: [keyd](https://github.com/rvaiya/keyd)
-  - keybing: [sxhkd](https://github.com/baskerville/sxhkd)
-- clipboard: [greenclip](https://github.com/erebe/greenclip)
 - network manager: [nm](https://github.com/NetworkManager/NetworkManager)
+- clipboard: [greenclip](https://github.com/erebe/greenclip)
+- filemanager: [ranger](https://github.com/ranger/ranger)
 - browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser) + firefox
+- pdf-viewer: [sioyek](https://github.com/ahrm/sioyek)
 - development
   - IDE: [nvim](https://github.com/neovim/neovim)
-  - TUI for common cli tools
-    - [lazygit](https://github.com/jesseduffield/lazygit)
-    - [lazydocker](https://github.com/jesseduffield/lazydocker)
-- filemanager: [ranger](https://github.com/ranger/ranger)
-- pdf-viewer: [sioyek](https://github.com/ahrm/sioyek)
+  - Git: [lazygit](https://github.com/jesseduffield/lazygit)
+  - Docker: [lazydocker](https://github.com/jesseduffield/lazydocker)
 - social
   - telegram client: [telega.el](https://github.com/zevlg/telega.el)
 - pkm
