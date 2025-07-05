@@ -9,11 +9,10 @@ personal dotfiles managed with yadm
 - terminal emulator: [kitty](https://github.com/kovidgoyal/kitty)
 - terminal multiplexer: [zellij](https://github.com/zellij-org/zellij)
 - shell: [zsh](https://github.com/zsh-users/zsh) + [omz](https://github.com/ohmyzsh/ohmyzsh)
-- UI elements
-  - polybar
-  - picom
-  - dunst
-  - rofi
+- status-bar: [polybar](https://github.com/polybar/polybar)
+- compositor: [picom](https://github.com/yshui/picom)
+- notification daemon: [dunst](https://github.com/dunst-project/dunst)
+- dynamic menu: [rofi](https://github.com/davatorium/rofi)
 - remap: [keyd](https://github.com/rvaiya/keyd)
 - keybing: [sxhkd](https://github.com/baskerville/sxhkd)
 - clipboard: [greenclip](https://github.com/erebe/greenclip)
