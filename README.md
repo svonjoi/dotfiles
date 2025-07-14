@@ -1,5 +1,3 @@
-personal dotfiles managed with yadm
-
 ![dotfiles](https://github.com/user-attachments/assets/a49711c1-0e2e-4777-a515-7cd4b300865b)
 
 ## setup
