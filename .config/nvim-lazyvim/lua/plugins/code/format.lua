@@ -11,10 +11,10 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 -- :NullLsInfo ???????????
 
 return {
-  -- {
-  --   "nvimtools/none-ls.nvim",
-  --   enabled = false,
-  -- },
+  {
+    "nvimtools/none-ls.nvim",
+    enabled = false,
+  },
   {
     "stevearc/conform.nvim",
     -- enabled = false,
@@ -33,6 +33,10 @@ return {
         typescript = { "biome" },
         xml = { "xmlformatter" },
         css = { "prettierd" },
+        astro = { "prettierd" },
+
+        -- шебанг меняет тип файла
+        zsh = { "shfmt" },
 
         -- WARNING: after updating via mason it stops working
         -- TODO: [setup exacutable in docker container](https://github.com/stevearc/conform.nvim/issues/669)

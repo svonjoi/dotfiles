@@ -1,7 +1,6 @@
 #!/bin/sh
 # set -x
 
-
 # fix: show part rm=false if is mounted in /run/media, workaround for motorhead as it is identified
 # as rm=false by the system; but this only will work with udiskie..
 jq_query_mounted='.blockdevices[] |
@@ -35,7 +34,7 @@ usb_print() {
     )
 
     for mounted in $mounted_devices; do
-        
+
         if [ $counter -eq 0 ]; then
             space=""
         else
@@ -44,14 +43,11 @@ usb_print() {
         counter=$((counter + 1))
 
         # v="#82aea9"
-        v="${COLOR_SPECIAL_TEXT}"
+        v="${POLYCOLOR1}"
         c=%{F${v}}
         nc=%{F-}
 
         output="$output$space${c}${nc}  $mounted"
-
-
-
 
     done
 
@@ -69,48 +65,48 @@ usb_update() {
 path_pid="/tmp/polybar-system-usb-udev.pid"
 
 case "$1" in
-    --update)
-        usb_update
-        ;;
-    --unmount)
-        devices=$(lsblk -Jplno NAME,TYPE,RM,MOUNTPOINT)
+--update)
+    usb_update
+    ;;
+--unmount)
+    devices=$(lsblk -Jplno NAME,TYPE,RM,MOUNTPOINT)
 
-        mounted_devices=$(
-            echo "$devices" | jq -r "${jq_query_mounted} | .name"
-        )
+    mounted_devices=$(
+        echo "$devices" | jq -r "${jq_query_mounted} | .name"
+    )
 
-        for mounted in $mounted_devices; do
-            udisksctl unmount --no-user-interaction -b "$mounted"
-            udisksctl power-off --no-user-interaction -b "$mounted"
-        done
+    for mounted in $mounted_devices; do
+        udisksctl unmount --no-user-interaction -b "$mounted"
+        udisksctl power-off --no-user-interaction -b "$mounted"
+    done
 
-        usb_update
-        ;;
-    # --mount)
-    #     devices=$(lsblk -Jplno NAME,TYPE,RM,MOUNTPOINT)
+    usb_update
+    ;;
+# --mount)
+#     devices=$(lsblk -Jplno NAME,TYPE,RM,MOUNTPOINT)
 
-    #     for mount in $(echo "$devices" | jq -r '.blockdevices[] | select(.type == "part") | select(.rm == true) | select(.mountpoint == null) | .name'); do
-    #         udisksctl mount --no-user-interaction -b "$mount"
+#     for mount in $(echo "$devices" | jq -r '.blockdevices[] | select(.type == "part") | select(.rm == true) | select(.mountpoint == null) | .name'); do
+#         udisksctl mount --no-user-interaction -b "$mount"
 
-    #         # mountpoint=$(udisksctl mount --no-user-interaction -b $mount)
-    #         # mountpoint=$(echo $mountpoint | cut -d " " -f 4- | tr -d ".")
-    #         # terminal -e "bash -lc 'filemanager $mountpoint'"
-    #     done
+#         # mountpoint=$(udisksctl mount --no-user-interaction -b $mount)
+#         # mountpoint=$(echo $mountpoint | cut -d " " -f 4- | tr -d ".")
+#         # terminal -e "bash -lc 'filemanager $mountpoint'"
+#     done
 
-    #     usb_update
-    #     ;;
-    *)
-        echo $$ > $path_pid
+#     usb_update
+#     ;;
+*)
+    echo $$ >$path_pid
 
-        trap exit INT
-        trap "echo" USR1
+    trap exit INT
+    trap "echo" USR1
 
-        while true; do
-            usb_print
+    while true; do
+        usb_print
 
-            # sleep 60 &
-            sleep 5 &
-            wait
-        done
-        ;;
+        # sleep 60 &
+        sleep 5 &
+        wait
+    done
+    ;;
 esac

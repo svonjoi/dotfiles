@@ -16,7 +16,7 @@ declare -r LABEL_SUFFIX=" "
 #
 # ----------------------------------------------------------------------------
 declare -Ar LABEL_TABLE=(
-  ["Hsuper + r"]="Resize Windows" # Example for single prefix
+    ["Hsuper + r"]="Resize Windows" # Example for single prefix
 )
 
 # ============================================================================
@@ -26,52 +26,52 @@ declare -Ar LABEL_TABLE=(
 declare -i REGISTER_CHAINMODE=1
 
 remove_label() {
-  echo ""
+    echo ""
 }
 
 display_label() {
-  echo "$LABEL_PREFIX$1$LABEL_SUFFIX"
+    echo "$LABEL_PREFIX$1$LABEL_SUFFIX"
 }
 
 # If input is hotkey, find label in the list and display the label
 event_hotkey() {
-  local -r event="$1"
-  local key
-  local val
+    local -r event="$1"
+    local key
+    local val
 
-  for key in "${!LABEL_TABLE[@]}"; do
-    val="${LABEL_TABLE[$key]}"
-    [[ $(echo "$event" | grep "$key$") ]] && display_label "$val"
-  done
+    for key in "${!LABEL_TABLE[@]}"; do
+        val="${LABEL_TABLE[$key]}"
+        [[ $(echo "$event" | grep "$key$") ]] && display_label "$val"
+    done
 }
 
 # If chain is begin, turn the REGISTER_CHAINMODE on
 event_begin() {
-  REGISTER_CHAINMODE=0
+    REGISTER_CHAINMODE=0
 }
 
 # If chain is aborted, turn the register off and remove the label
 event_end() {
-  remove_label
-  REGISTER_CHAINMODE=1
+    remove_label
+    REGISTER_CHAINMODE=1
 }
 
 # Check input event
 handle_event() {
-  local -r event="$1"
-  [[ $(echo "$event" | grep "^H") ]] && event_hotkey "$event"
-  [[ $(echo "$event" | grep "^BBegin") ]] && event_begin
-  [[ $(echo "$event" | grep "^EEnd") ]] && event_end
-  [[ $(echo "$event" | grep "^C") ]] && [[ ! $REGISTER_CHAINMODE ]] && event_end
+    local -r event="$1"
+    [[ $(echo "$event" | grep "^H") ]] && event_hotkey "$event"
+    [[ $(echo "$event" | grep "^BBegin") ]] && event_begin
+    [[ $(echo "$event" | grep "^EEnd") ]] && event_end
+    [[ $(echo "$event" | grep "^C") ]] && [[ ! $REGISTER_CHAINMODE ]] && event_end
 }
 
 # Waiting input event from pipe
 loop() {
-  (socat UNIX-CONNECT:$ADDRESS -) |
-    while read event; do
-      # echo "$event" >>/tmp/even
-      handle_event "$event"
-    done
+    (socat UNIX-CONNECT:$ADDRESS -) |
+        while read event; do
+            # echo "$event" >>/tmp/even
+            handle_event "$event"
+        done
 }
 
 loop

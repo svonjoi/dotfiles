@@ -10,7 +10,7 @@ nc=%{F-}
 day="${c}M${nc}󰧟󰧟󰧟󰧟󰧟󰧟"
 
 if [ -e $PID_FILE ]; then
-	echo "${c}REC.${nc}"
+    echo "${c}REC.${nc}"
 else
-	echo ""
+    echo ""
 fi

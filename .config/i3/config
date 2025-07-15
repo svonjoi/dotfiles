@@ -1,4 +1,3 @@
-# http://i3wm.org/docs/userguide.html
 #  ██▒   █▓ ▄▄▄       ███▄ ▄███▓ ██▓███   ██▀███
 # ▓██░   █▒▒████▄    ▓██▒▀█▀ ██▒▓██░  ██▒▓██ ▒ ██▒
 #  ▓██  █▒░▒██  ▀█▄  ▓██    ▓██░▓██░ ██▓▒▓██ ░▄█ ▒
@@ -26,7 +25,7 @@
 # 80. Window customization
 # 81. Gaps
 # 82. Theme colors
-# 84. Distraction-free
+# 84. Ne-ebite-mozg
 
 #* copy of this defined variables is in output.sh
 set $out_DP_1 "DP-1"
@@ -77,8 +76,8 @@ bindsym Ctrl+Next    exec --no-startup-id xdotool click --repeat 20 --delay 0 5
 # bindsym Control+D exec --no-startup-id xdotool click --repeat 5 --delay 50 5
 
 # backlight
-bindsym $C+F7     exec brillo -A 10
-bindsym $C+F6     exec brillo -U 10
+bindsym $C+F7     exec pkexec /usr/bin/brillo -A 10
+bindsym $C+F6     exec pkexec /usr/bin/brillo -U 10
 
 # Screen brightness controls
 # bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
@@ -171,35 +170,24 @@ mode "$wine_reload" {
 # +------------------------------------------+
 
 exec --no-startup-id $scripts/autostart.sh
-exec --no-startup-id greenclip daemon
+exec --no-startup-id $scripts/output.sh --setup_l &
+exec --no-startup-id $scripts/helpers/player_handler.pl &
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id /usr/bin/dwall -s bitday
+exec --no-startup-id picom -b
+# exec --no-startup-id greenclip daemon
 # exec --no-startup-id keyd-application-mapper -d
 # exec --no-startup-id copyq &
 # exec --no-startup-id copyq show
-exec --no-startup-id $scripts/output.sh --setup_l &
-exec --no-startup-id $scripts/helpers/player_handler.pl &
-# exec --no-startup-id nitrogen --restore
-exec --no-startup-id /usr/bin/dwall -s bitday
-exec --no-startup-id picom -b
 
-#? manjaro defaults
-# exec --no-startup-id nitrogen --restore; sleep 1; picom -b
-# exec --no-startup-id xfce4-power-manager
-# exec --no-startup-id start_conky_maia
-
-# commented for test wtf will happen
-# exec --no-startup-id nitrogen --restore
-# exec --no-startup-id nm-applet
-# exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-
-#? scratchpad application
+#INFO: scratchpad application
 exec --no-startup-id kitty --class=kitty_scratchterm
-# exec --no-startup-id kitty --class=kitty_ranger -e ranger
 exec --no-startup-id kitty --class=kitty_nmtui -e nmtui
 exec --no-startup-id alacritty --class alacritty_ranger -e ranger
 exec --no-startup-id keepassxc
-exec --no-startup-id kate
+# exec --no-startup-id kitty --class=kitty_ranger -e ranger
 # exec --no-startup-id gcolor3
-exec --no-startup-id crow
+# exec --no-startup-id crow
 
 # +------------------------------------------+
 # 20. Keyboard Layout
@@ -704,7 +692,7 @@ for_window [all] title_window_icon padding 3px
 title_align right
 
 # +------------------------------------------+
-# 84. Distraction-free
+# 84. Ne-ebite-mozg
 # +------------------------------------------+
 
 set $freeze Distraction-free mode (super+$S+f to reactivate bindings)

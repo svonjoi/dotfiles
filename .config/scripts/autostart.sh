@@ -12,6 +12,8 @@ setsid -f sxhkd
 
 nohup udiskie --tray &
 nohup greenclip daemon &
+nohup ~/.config/scripts/show_in_folder.pl &
+
 #todo: start crow
 
 # kill this shit: sudo killall teamviewerd
@@ -21,9 +23,9 @@ nohup greenclip daemon &
 # disable power-button
 # https://unix.stackexchange.com/questions/547582/how-to-disable-cleanly-the-power-button
 nohup systemd-inhibit \
-  --what="handle-power-key" \
-  --who="disable-shutdown-button script" \
-  --why="allows i3 to open shutdown-dialog instead" \
-  sleep 1000d
+    --what="handle-power-key" \
+    --who="disable-shutdown-button script" \
+    --why="allows i3 to open shutdown-dialog instead" \
+    sleep 1000d
 
 notify-send "autostart done"

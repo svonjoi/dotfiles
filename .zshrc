@@ -2,7 +2,7 @@
 # The main advantage of exec zsh is that no rogue state is left
 # after such a reload - e.g. env variables you’ve previously set
 # that are no longer in your config. By the way, exec (like source)
-# is just a Zsh built-in. Here is what the documentation has to 
+# is just a Zsh built-in. Here is what the documentation has to
 # say about it
 #
 # exec zsh
@@ -17,7 +17,6 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -47,7 +46,7 @@ ZSH_THEME="garyblessington"
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
 # zstyle ':omz:update' mode auto      # update automatically without asking
-zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+zstyle ':omz:update' mode reminder # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
 zstyle ':omz:update' frequency 13
@@ -111,7 +110,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-
 #? +-----------------------+
 #? |        Antigen        |
 #? +-----------------------+
@@ -149,6 +147,7 @@ antigen bundle git-auto-fetch
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle MichaelAquilina/zsh-auto-notify
+antigen bundle soimort/translate-shell@develop
 
 # list the shortcuts that are currently available based on the plugins you have enabled.
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/aliases
@@ -194,10 +193,6 @@ source ~/Repos/znap/znap.zsh # Start Znap
 #? |      GLOBAL VARS      |
 #? +-----------------------+
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -219,14 +214,14 @@ export POLYBAR_SCRIPTS="$HOME/bin/polybar_scripts"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-  alias ls='ls --color=auto'
-  #alias dir='dir --color=auto'
-  #alias vdir='vdir --color=auto'
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
 
-  alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 fi
 
 # some more ls aliases
@@ -236,7 +231,7 @@ alias ll='lsd -l --all --group-directories-first'
 alias llt='exa --tree --group-directories-first'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias man='batman'
-alias dump='~/.config/scripts_/dump_kvatch/dump_kvatch.sh --full'
+alias dump='~/.config/scripts_/morkedump/morkedump.sh'
 
 alias v=openNvimWithConfigSelecion
 alias nvim1='NVIM_APPNAME=nvim-kickstart nvim'
@@ -280,37 +275,37 @@ alias notify-pipe='~/.config/scripts/helpers/notify-pipe.sh'
 # |       FUNCTIONS       |
 # +-----------------------+
 
-@c(){
-  xargs echo -n | xclip -selection clipboard
+@c() {
+    xargs echo -n | xclip -selection clipboard
 }
 
 # https://www.cyberciti.biz/faq/how-do-i-copy-a-file-to-the-clipboard-in-linux/
 # multiline
 @c2() {
-  xclip -sel clip
+    xclip -sel clip
 }
 
-yankpath () {
-  realpath $1 | yank
+yankpath() {
+    realpath $1 | yank
 }
 
 addText() {
-  if [ -z "$1" ]; then
-    echo "Usage: addText <text>"
-    return 1
-  fi
+    if [ -z "$1" ]; then
+        echo "Usage: addText <text>"
+        return 1
+    fi
 
-  # text_to_add="$1"
-  # RBUFFER=${text_to_add}${RBUFFER}
+    # text_to_add="$1"
+    # RBUFFER=${text_to_add}${RBUFFER}
 
-  # https://gist.github.com/YumaInaura/2a1a915b848728b34eacf4e674ca61eb
-  # $1 is inputted as console input buffer not as command result stdout
-  print -z $1
+    # https://gist.github.com/YumaInaura/2a1a915b848728b34eacf4e674ca61eb
+    # $1 is inputted as console input buffer not as command result stdout
+    print -z $1
 }
 
 # Add a # to the front of the command (so it becomes a comment)
-copy_last_command () {
-  history | tail -n 1 | sed "s/[[:digit:]]*  //" | sed "s/^#//" | xclip
+copy_last_command() {
+    history | tail -n 1 | sed "s/[[:digit:]]*  //" | sed "s/^#//" | xclip
 }
 
 function yc() {
@@ -339,23 +334,23 @@ function apply_wallpaper() {
 # Allow Ranger to `cd` your current shell by exiting with capital Q
 # https://github.com/ranger/ranger/issues/1554#issuecomment-2576451254
 function ranger {
-  local IFS=$'\t\n'
-  local tempfile="$(mktemp -t tmp.XXXXXX)"
-  local ranger_cmd=(
-    command
-    ranger
-    # quitallcd добавил в ~.config/ranger/commands.py
-    --cmd="map Q quitallcd $tempfile"
-  )
-  
-  ${ranger_cmd[@]} "$@"
-  local target_dir=$(cat -- "$tempfile" | tr -d ' ')
-  local cwd=$(echo -n `pwd` | tr -d ' ')
-  if [[ -f "$tempfile" ]] && [[ "$target_dir" != "" ]] && \
-      [[ "$target_dir" != "$cwd" ]]; then
-    cd -- "$target_dir"
-  fi
-  command rm -f -- "$tempfile" 2>/dev/null
+    local IFS=$'\t\n'
+    local tempfile="$(mktemp -t tmp.XXXXXX)"
+    local ranger_cmd=(
+        command
+        ranger
+        # quitallcd добавил в ~.config/ranger/commands.py
+        --cmd="map Q quitallcd $tempfile"
+    )
+
+    ${ranger_cmd[@]} "$@"
+    local target_dir=$(cat -- "$tempfile" | tr -d ' ')
+    local cwd=$(echo -n $(pwd) | tr -d ' ')
+    if [[ -f "$tempfile" ]] && [[ "$target_dir" != "" ]] &&
+        [[ "$target_dir" != "$cwd" ]]; then
+        cd -- "$target_dir"
+    fi
+    command rm -f -- "$tempfile" 2>/dev/null
 }
 
 # colored man pager with bat, using bat configured theme
@@ -368,43 +363,42 @@ function batman() {
 }
 
 function openNvimWithConfigSelecion() {
-  # Assumes all configs exist in directories named ~/.config/nvim-*
-  local config=$(fd --max-depth 1 --glob 'nvim-*' ~/.config | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
- 
-  # If I exit fzf without selecting a config, don't open Neovim
-  [[ -z $config ]] && echo "No config selected" && return
- 
-  set -x
-  # Open Neovim with the selected config
-  NVIM_APPNAME=$(basename $config) nvim $@
+    # Assumes all configs exist in directories named ~/.config/nvim-*
+    local config=$(fd --max-depth 1 --glob 'nvim-*' ~/.config | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
+
+    # If I exit fzf without selecting a config, don't open Neovim
+    [[ -z $config ]] && echo "No config selected" && return
+
+    set -x
+    # Open Neovim with the selected config
+    NVIM_APPNAME=$(basename $config) nvim $@
 }
 
 # https://gist.github.com/elijahmanor/b279553c0132bfad7eae23e34ceb593b
 function openNvimWithConfigSelecion2() {
-  set -x
-  items=$(find $HOME/.config -maxdepth 2 -name "init.lua" -type f -execdir sh -c 'pwd | xargs basename' \;)
-  selected=$(printf "%s\n" "${items[@]}" | FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS-} --preview-window 'right:border-left:50%:<40(right:border-left:50%:hidden)' --preview 'lsd -l -A --tree --depth=1 --color=always --blocks=size,name ~/.config/{} | head -200'" fzf )
-  if [[ -z $selected ]]; then
-    return 0
-  elif [[ $selected == "nvim" ]]; then
-    selected="nvim-kickstart"
-  fi
-  echo "$@"
-  ~/.config/scripts/helpers/nvim_runner.sh $selected
-  # NVIM_APPNAME=$selected nvim "$@"
+    set -x
+    items=$(find $HOME/.config -maxdepth 2 -name "init.lua" -type f -execdir sh -c 'pwd | xargs basename' \;)
+    selected=$(printf "%s\n" "${items[@]}" | FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS-} --preview-window 'right:border-left:50%:<40(right:border-left:50%:hidden)' --preview 'lsd -l -A --tree --depth=1 --color=always --blocks=size,name ~/.config/{} | head -200'" fzf)
+    if [[ -z $selected ]]; then
+        return 0
+    elif [[ $selected == "nvim" ]]; then
+        selected="nvim-kickstart"
+    fi
+    echo "$@"
+    ~/.config/scripts/helpers/nvim_runner.sh $selected
+    # NVIM_APPNAME=$selected nvim "$@"
 }
 
-
 function zshSourceConfigFile() {
-  addText "source ~/.zshrc"
+    addText "source ~/.zshrc"
 }
 
 function zshReloadSession() {
-  addText "exec zsh"
+    addText "exec zsh"
 }
 
 function removeWsLayout() {
-  ~/.config/scripts/i3_scripts/ws/remove_ws_layout.sh
+    ~/.config/scripts/i3_scripts/ws/remove_ws_layout.sh
 }
 
 function fzfAlias() {
@@ -412,10 +406,10 @@ function fzfAlias() {
     FZF_ALIAS_OPTS=${FZF_ALIAS_OPTS:-"--preview-window up:3:hidden:wrap"}
     # use sed with column to work around MacOS/BSD column not having a -l option
     if selection=$(alias |
-                       sed 's/=/\t/' |
-                       column -s '	' -t |
-                       FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_ALIAS_OPTS" fzf --preview "echo {2..}" --query="$BUFFER" |
-                       awk '{ print $1 }'); then
+        sed 's/=/\t/' |
+        column -s '	' -t |
+        FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_ALIAS_OPTS" fzf --preview "echo {2..}" --query="$BUFFER" |
+        awk '{ print $1 }'); then
         BUFFER=$selection
         CURSOR=$#BUFFER
     fi
@@ -425,7 +419,6 @@ function fzfAlias() {
 # +-----------------------+
 # |        BINDING        |
 # +-----------------------+
-
 
 # Fix zsh autosuggestions keybind for arrow keys
 # zle-line-init() {}
@@ -453,19 +446,18 @@ if [[ -n $DISPLAY ]]; then
     bindkey '^y' copy_line_to_x_clipboard
 fi
 
-
 # +-----------------------+
 # |         $PATH         |
 # +-----------------------+
 
 # the directory must have permissions: chmod -R 755 ~/bin
 if [ -d $HOME/.config/scripts ]; then
-  PATH=$PATH:$HOME/bin
+    PATH=$PATH:$HOME/bin
 fi
 
 # export all ~/bin subdirectories
-for dir in $HOME/.config/scripts/*/ ; do
-  export PATH="$PATH:$dir"
+for dir in $HOME/.config/scripts/*/; do
+    export PATH="$PATH:$dir"
 done
 
 # sioyek
@@ -483,12 +475,16 @@ done
 # UPD. Надо китти на сервак ставить или терминфо как минимум (не пробовал)
 # UPD. в mosh проблем нету
 
-PATH="/home/svonjoi/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/svonjoi/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/svonjoi/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/svonjoi/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/svonjoi/perl5"; export PERL_MM_OPT;
-
+PATH="/home/svonjoi/perl5/bin${PATH:+:${PATH}}"
+export PATH
+PERL5LIB="/home/svonjoi/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
+export PERL5LIB
+PERL_LOCAL_LIB_ROOT="/home/svonjoi/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
+export PERL_LOCAL_LIB_ROOT
+PERL_MB_OPT="--install_base \"/home/svonjoi/perl5\""
+export PERL_MB_OPT
+PERL_MM_OPT="INSTALL_BASE=/home/svonjoi/perl5"
+export PERL_MM_OPT
 
 # fzf shell integration
 # TODO: много полезняшек
@@ -507,3 +503,16 @@ export FZF_CTRL_T_OPTS="
 
 export RIPGREP_CONFIG_PATH="${HOME}/.config/.ripgreprc"
 
+# Created by `pipx` on 2025-06-16 22:31:10
+export PATH="$PATH:/home/morke/.local/bin"
+
+. "$HOME/.local/share/../bin/env"
+export PATH="/home/morke/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/home/morke/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+
+# automatically set with zsh install_nvm.sh
+# also after nvm installation with install_nvm.sh script run:
+# nvm alias default node
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
