@@ -4,11 +4,12 @@
     ### Display ###
     monitor = 2
 
+    enable_posix_regex = true
     follow = none
 
     ### Geometry ###
     width = 400
-    
+
     # dynamic height from 0 to 300
     # The maximum height of a single notification, excluding the frame.
     height = (0, 300)
@@ -65,7 +66,7 @@
     min_icon_size = 0
     max_icon_size = 32
     icon_path = /usr/share/icons/Qogir/16/status:/usr/share/icons/Qogir/16/devices/:/usr/share/icons/Qogir/24/panel/:/usr/share/icons/Qogir/16/apps/:/usr/share/pixmaps/:/usr/share/icons/Qogir/scalable/apps/
-    
+
     ### History ###
     sticky_history = false
     history_length = 0
@@ -91,95 +92,21 @@
 [experimental]
     per_monitor_dpi = false
 
-
-[stack-volumes]
-    appname = "some_volume_notifiers"
-    set_stack_tag = "volume"
-
-
-
-
-# [teams]
-#    appname = "[tT]eams"
-#    urgency = critical
-
-[thunderbird_gen]
-   appname = "[tT]hunderbird"
-   urgency = low
-
-[thunderbird_svonjoi]
-   appname = "[tT]hunderbird"
-   summary = "svonjoi"
-   urgency = critical
-
-[thunderbird_hdt]
-   appname = "[tT]hunderbird"
-   summary = "hdt"
-   urgency = normal
-
-[thunderbird_tunuve]
-   appname = "[tT]hunderbird"
-   summary = "tunuve"
-   urgency = critical
-
-#+------------------------------------------------------------------------------+
-#|                                SPECIAL RULES                                 |
-#+------------------------------------------------------------------------------+
-
-[urgency_low]
-    # IMPORTANT: colors have to be defined in quotation marks.
-    # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#263238"
-    foreground = "#556064"
-    timeout = 10
-    skip_display = true
-    icon = /usr/share/icons/Qogir/16/status/package-installed-outdated.svg
-
-[urgency_normal]
-    background = "#0e0a1b"
-    foreground = "#adad88"
-    timeout = 10
-    skip_display = true
-    icon = /usr/share/icons/Qogir/16/emblems/emblem-question.svg
-
-[urgency_critical]
-    background = "#1d36a8"
-    foreground = "#F9FAF9"
-    timeout = 0
-    skip_display = true
-    icon = /usr/share/icons/Qogir/16/actions/dialog-warning.svg
-
-# [urgency_low]
-#     background = "#28143c"
-#     foreground = "#ffffff"
-#     timeout = 5
-#     icon = /usr/share/icons/Qogir/16/status/package-installed-outdated.svg
-#
-# [urgency_normal]
-#     background = "#28143c"
-#     foreground = "#ffffff"
-#     timeout = 5
-#     override_pause_level = 30
-#     icon = /usr/share/icons/Qogir/16/emblems/emblem-question.svg
-#
-# [urgency_critical]
-#     background = "#28143c"
-#     foreground = "#ffffff"
-#     frame_color = "#ff7f7f"
-#     timeout = 120
-#     icon = /usr/share/icons/Qogir/16/actions/dialog-warning.svg
-
-#+------------------------------------------------------------------------------+
-#|                                 CUSTOM RULES                                 |
-#+------------------------------------------------------------------------------+
+# ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+# ┊                          RULES                           ┊
+# └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
 
 # https://man.archlinux.org/man/dunst.5.en#RULES
 # https://github.com/dunst-project/dunst/wiki/Guides
-# https://github.com/dunst-project/dunst/blob/master/docs/dunst.5.pod
 # dunst -print
 # dunstctl --help
+
+# INFO: testing rules
+#
 # dunstctl rule <name> toggle
-# test: dunstify -a "Microsoft Teams - Preview" "Testing"
+# dunstify -a "Thunderbird" "title"
+# dunstify -a "thunderbird" "title" --urgency=critical
+# NOTE: dunstify -a не матчит desktop_entry
 
 # There are 2 parts in configuring a rule: Defining the filters that controls when a 
 # rule should apply and then the actions that should be taken when the rule is matched.
@@ -187,9 +114,74 @@
 
 # Rules are applied in order of appearance. Beware: if a notification is changed by a rule, it may affect if it's being matched by a later rule.
 
-#? para habilitar/desactivar notifiaciones segun urgencia, he anadido `skip_display = true` a special urgency rules
-#? y he creado custom rules que por defecto se ejecutar y habilitan notificaciones de los 3 tipos de urgencias
-#? de esta forma se puede deshabilitar esas rules desde fuera y asi deshabilitar las notificaciones de la urgencia correspondiente
+[stack-volumes]
+    appname = "some_volume_notifiers"
+    set_stack_tag = "volume"
+
+[thunderbird]
+   desktop_entry = "Thunderbird"
+   urgency = low
+
+[thunderbird_maksimvike]
+   desktop_entry = "Thunderbird"
+   summary = "maksimvike*"
+   urgency = normal
+
+[thunderbird_daesu14]
+   desktop_entry = "Thunderbird"
+   summary = "daesu14*"
+   urgency = critical
+
+[thunderbird_svonjoi]
+   desktop_entry = "Thunderbird"
+   summary = "svonjoi*"
+   urgency = critical
+
+[thunderbird_hdt]
+   desktop_entry = "Thunderbird"
+   summary = "hdt*"
+   urgency = critical
+
+# ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+# ┊         customize notifications based on urgency         ┊
+# └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+[apply-style-urg-low]
+    msg_urgency = low
+    background = "#263238"
+    frame_color = "#263238"
+    timeout = 10
+
+[apply-style-urg-normal]
+    msg_urgency = normal
+    background = "#0e0a1b"
+    foreground = "#adad88"
+    timeout = 10
+
+[apply-style-urg-critical]
+    msg_urgency = critical
+    background = "#1d36a8"
+    foreground = "#F9FAF9"
+    timeout = 0
+
+# ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+# ┊          disable notifications based on urgency          ┊
+# └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+[urg-low-default]
+    msg_urgency = low
+    skip_display = true
+
+[urg-low-default]
+    msg_urgency = normal
+    skip_display = true
+
+[urg-low-default]
+    msg_urgency = critical
+    skip_display = true
+
+# disable the following rules to disable notifications based on urgency
+# Ex: dunstctl rule urg_critical disable
 
 [urg_low]
     msg_urgency = low
@@ -202,4 +194,5 @@
 [urg_critical]
     msg_urgency = critical
     skip_display = false
+
 
