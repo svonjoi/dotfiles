@@ -3,14 +3,14 @@
 ## setup
 
 - OS ([EOS](https://endeavouros.com/))
-- window manager: [i3](https://github.com/i3/i3)
-- terminal emulator: [kitty](https://github.com/kovidgoyal/kitty)
-- terminal multiplexer: [zellij](https://github.com/zellij-org/zellij)
-- shell: [zsh](https://github.com/zsh-users/zsh) + [omz](https://github.com/ohmyzsh/ohmyzsh)
+- window manager ([i3](https://github.com/i3/i3))
+- terminal emulator: ([kitty](https://github.com/kovidgoyal/kitty))
+- terminal multiplexer ([zellij](https://github.com/zellij-org/zellij))
+- shell ([zsh](https://github.com/zsh-users/zsh))
 - input
-  - remap: [keyd](https://github.com/rvaiya/keyd)
-  - keybing: [sxhkd](https://github.com/baskerville/sxhkd)
-- status-bar: [polybar](https://github.com/polybar/polybar)
+  - remapping ([keyd](https://github.com/rvaiya/keyd))
+  - keybing ([sxhkd](https://github.com/baskerville/sxhkd))
+- status-bar ([polybar](https://github.com/polybar/polybar))
 - notification daemon: [dunst](https://github.com/dunst-project/dunst)
 - dynamic menu: [rofi](https://github.com/davatorium/rofi)
 - network manager: [nm](https://github.com/NetworkManager/NetworkManager)
