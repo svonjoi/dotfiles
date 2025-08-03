@@ -23,7 +23,7 @@ export POLYCOLOR3="#8e8e8e"
 out_DP_1="DP-4"
 out_DP_2="DisplayPort-2"
 out_DP_3="DisplayPort-3"
-outLaptop="eDP-1"
+outLaptop="eDP-1-1"
 outHDMI="HDMI-0"
 
 #* si en VML/ML hay algun bug de visualizacion o de polybar, primero switch to laptop and then to 3 mon
@@ -319,7 +319,7 @@ function main() {
         if [ $apply_xrandr -eq 1 ]; then
             xrandr --output $out_ --primary --mode $mode --rate 144 --pos 0x0 --rotate normal \
                 --output $outLaptop --off \
-                --output $out_DP_2 --off \
+                --output $out_DP_1 --off \
                 --output $out_DP_2 --off \
                 --output $out_DP_3 --off
         fi

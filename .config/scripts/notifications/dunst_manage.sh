@@ -1,11 +1,10 @@
 #!/bin/zsh
 # ,---- [ ]
-# | 
+# |
 # | $1 workmode
 # | $2 enable|disable
-# |  
+# |
 # `----
-
 
 if [ "$1" = "workmode" ]; then
 
@@ -26,3 +25,4 @@ if [ "$1" = "workmode" ]; then
     fi
 
 fi
+
