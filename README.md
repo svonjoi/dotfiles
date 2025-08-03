@@ -16,16 +16,17 @@
 - *input*
   - remapping ([keyd](https://github.com/rvaiya/keyd))
   - keybing ([sxhkd](https://github.com/baskerville/sxhkd))
-- network manager ([nm](https://github.com/NetworkManager/NetworkManager))
-- clipboard ([greenclip](https://github.com/erebe/greenclip))
-- filemanager ([ranger](https://github.com/ranger/ranger))
-- browser ([qutebrowser](https://github.com/qutebrowser/qutebrowser))
-- pdf-viewer ([sioyek](https://github.com/ahrm/sioyek))
 - *development*
   - IDE ([nvim](https://github.com/neovim/neovim))
   - git ([lazygit](https://github.com/jesseduffield/lazygit))
   - docker ([lazydocker](https://github.com/jesseduffield/lazydocker))
 - *pkm*
   - obsidian vim-way
-- *social*
+- *social clients*
   - telegram client ([telega.el](https://github.com/zevlg/telega.el))
+- network manager ([nm](https://github.com/NetworkManager/NetworkManager))
+- clipboard ([greenclip](https://github.com/erebe/greenclip))
+- filemanager ([ranger](https://github.com/ranger/ranger))
+- browser ([qutebrowser](https://github.com/qutebrowser/qutebrowser))
+- pdf-viewer ([sioyek](https://github.com/ahrm/sioyek))
+
