@@ -666,30 +666,45 @@ mode "$wine_gaps_outer" {
 # https://thomashunter.name/i3-configurator/
 # cyan child border = 6efffc
 
-# ⚡ BORDER & TABS
-# client.focused              #4c7899   #172b3a   #ffffff   #ffd49a   #6efffc
+# set $bg-color            #ff000050
+# set $border-color        #ff000050
+# set $indicator-color     #008cff50
+# set $inactive-bg-color   #ffffff00
+# set $text-color          #ababab
+# set $inactive-text-color #676E7D
+# set $urgent-bg-color     #E53935
+# set $ws-focused-bg       #000000
+
+# client.focused          $border-color       $bg-color          $text-color          $indicator-color
+# client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color $inactive-bg-color
+# client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color $inactive-bg-color
+# client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 
 # class                     [border]  [backgr]  [text]    [indicat] [child_border]
-client.focused              #0b1720   #0b1720   #ffffff   #ffd49a   #ffffff
-client.focused_inactive     #0b1720   #0e1a23   #ffffff   #5f676a   #5f676a
-client.unfocused            #1f2528   #0f0f14   #b9b9b9   #5f676a
-client.urgent               #5860a6   #3845b1   #ffffff   #268BD2
-client.placeholder          #000000   #0c0c0c   #000000   #000000
-client.focused_tab_title    #000000   #000000   #000000   #000000   #ffffff
+client.focused              #0e0a1b   #0e0a1b   #b29e5b   #ffd49a
+client.focused_inactive     #0e0a1b   #252525   #b29e5b   #ffd49a
+client.unfocused            #0e0a1b   #0e0a1b   #3f3f3f   #5f676a
+# client.urgent               #5860a6   #3845b1   #ffffff   #268BD2
+# client.placeholder          #000000   #0c0c0c   #000000   #000000
+# client.focused_tab_title    #000000   #000000   #000000   #000000   #ffffff
 
 # ⚡ Background color which will be used to paint the background of the client window on top of 
 # which the client will be rendered. Only clients which do not cover the whole area of this 
 # window expose the color. Note that this colorclass only takes a single color
-# client.background #2B2C2B
+# client.background #2B22B
 
 # print all window titles bold
 # for_window [class=".*"] title_format "<span>%class | %title</span>"
 # f2e23d yellow
-for_window [class=".*"] title_format "<span>[<b><span foreground='#754eff'>%class</span></b>] :: %title</span>"
+for_window [class=".*"] title_format "<b><span font-size='11pt'>[<span font-size='12pt' foreground='#754eff'>%class</span>] :: %title</span></b>"
 # for_window [class=".*"] title_format "<span><b><span foreground='#754eff'>%class</span></b></span>"
-for_window [all] title_window_icon padding 3px
 
-title_align right
+# for_window [all] title_window_icon padding 3px
+for_window [all] title_window_icon no
+
+title_align center
+
+# for_window [floating] 
 
 # +------------------------------------------+
 # 84. Ne-ebite-mozg

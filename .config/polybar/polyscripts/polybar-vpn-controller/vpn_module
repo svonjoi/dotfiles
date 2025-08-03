@@ -130,7 +130,7 @@ vpn_report() {
         echo "%{F$COLOR_CONNECTING}$ICON_CONNECTING Connecting...%{F-}"
 
     else
-        echo "%{F$COLOR_DISCONNECTED}$ICON_DISCONNECTED %{F-}"
+        echo "%{F$COLOR_DISCONNECTED} $ICON_DISCONNECTED %{F-}"
     fi
 }
 

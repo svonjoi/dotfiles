@@ -1,3 +1,6 @@
+# TODO:
+# https://github.com/ohmyzsh/ohmyzsh/wiki/FAQ#what-is-oh-my-zsh-and-what-does-it-have-to-do-with-zsh
+#
 #### reload the current zsh session
 # The main advantage of exec zsh is that no rogue state is left
 # after such a reload - e.g. env variables you’ve previously set
@@ -147,16 +150,16 @@ antigen bundle git-auto-fetch
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle MichaelAquilina/zsh-auto-notify
-antigen bundle soimort/translate-shell@develop
+# antigen bundle soimort/translate-shell@develop
 
 # list the shortcuts that are currently available based on the plugins you have enabled.
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/aliases
 antigen bundle aliases
 
-# https://github.com/ohmyzsh/ohmyzsh/wiki/FAQ#how-do-i-reset-the-completion-cache
+# https://github.com/zsh-users/zsh-autosuggestions?tab=readme-ov-file
 antigen bundle zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-# history: ~/.zsh_history
+bindkey '^ ' autosuggest-toggle
 
 # https://github.com/zsh-users/zsh-autosuggestions/issues/751#issuecomment-1774018197
 autoload -Uz compinit && compinit
@@ -201,6 +204,7 @@ export LC_ALL=en_US.UTF-8
 # datapath ~/.local/share/nvim
 # export EDITOR=nvim
 export EDITOR=~/.config/scripts/defaulteditor
+export BROWSER=qutebrowser
 
 export KLOUD="/mnt/gdrive_loadmaks/"
 export POLYBAR_SCRIPTS="$HOME/bin/polybar_scripts"
@@ -211,6 +215,8 @@ export POLYBAR_SCRIPTS="$HOME/bin/polybar_scripts"
 #? +-----------------------+
 #? |         ALIAS         |
 #? +-----------------------+
+
+alias fzj="$HOME/.config/scripts/zellij/fzj/fzj.sh"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -266,8 +272,8 @@ alias notify-pipe='~/.config/scripts/helpers/notify-pipe.sh'
 # he instalado esto pero tira de su propia bdd asi que he vuelto con zsh-z para
 # no volver a completar la bdd, xq tampoco he visto ninguna mejora
 # estos son dirs donde cayeron los archivos que se instalaron con el script q viene en el github
-# Installed zoxide to /home/svonjoi/.local/bin
-# Installed manpages to /home/svonjoi/.local/share/man
+# Installed zoxide to /home/morke/.local/bin
+# Installed manpages to /home/morke/.local/share/man
 # add zoxide to zsh shell
 # eval "$(zoxide init zsh)"
 
@@ -432,7 +438,7 @@ bindkey -M emacs '\ea' fzfAlias
 bindkey -M vicmd '\ea' fzfAlias
 bindkey -M viins '\ea' fzfAlias
 
-bindkey -s "^v" "openNvimWithConfigSelecion2\n"
+bindkey -s "\en" "openNvimWithConfigSelecion2\n"
 
 zle -N copy_last_command
 bindkey '^k' copy_last_command
@@ -450,15 +456,13 @@ fi
 # |         $PATH         |
 # +-----------------------+
 
-# the directory must have permissions: chmod -R 755 ~/bin
-if [ -d $HOME/.config/scripts ]; then
-    PATH=$PATH:$HOME/bin
-fi
-
 # export all ~/bin subdirectories
+# the directory must have permissions: chmod -R 755
 for dir in $HOME/.config/scripts/*/; do
     export PATH="$PATH:$dir"
 done
+
+# PATH=~/.config/scripts/rofi/rofi-search:$PATH
 
 # sioyek
 # PATH="$HOME/dev/third/sioyek/build${PATH:+:${PATH}}"; export PATH;
@@ -475,15 +479,15 @@ done
 # UPD. Надо китти на сервак ставить или терминфо как минимум (не пробовал)
 # UPD. в mosh проблем нету
 
-PATH="/home/svonjoi/perl5/bin${PATH:+:${PATH}}"
+PATH="/home/morke/perl5/bin${PATH:+:${PATH}}"
 export PATH
-PERL5LIB="/home/svonjoi/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
+PERL5LIB="/home/morke/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
 export PERL5LIB
-PERL_LOCAL_LIB_ROOT="/home/svonjoi/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
+PERL_LOCAL_LIB_ROOT="/home/morke/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
 export PERL_LOCAL_LIB_ROOT
-PERL_MB_OPT="--install_base \"/home/svonjoi/perl5\""
+PERL_MB_OPT="--install_base \"/home/morke/perl5\""
 export PERL_MB_OPT
-PERL_MM_OPT="INSTALL_BASE=/home/svonjoi/perl5"
+PERL_MM_OPT="INSTALL_BASE=/home/morke/perl5"
 export PERL_MM_OPT
 
 # fzf shell integration
@@ -504,11 +508,13 @@ export FZF_CTRL_T_OPTS="
 export RIPGREP_CONFIG_PATH="${HOME}/.config/.ripgreprc"
 
 # Created by `pipx` on 2025-06-16 22:31:10
-export PATH="$PATH:/home/morke/.local/bin"
+# export PATH="$PATH:/home/morke/.local/bin"
+#
+# . "$HOME/.local/share/../bin/env"
+# export PATH="/home/morke/.config/herd-lite/bin:$PATH"
+# export PHP_INI_SCAN_DIR="/home/morke/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 
-. "$HOME/.local/share/../bin/env"
-export PATH="/home/morke/.config/herd-lite/bin:$PATH"
-export PHP_INI_SCAN_DIR="/home/morke/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+export PATH="$HOME/.gem/ruby/3.4.0/bin:$PATH"
 
 # automatically set with zsh install_nvm.sh
 # also after nvm installation with install_nvm.sh script run:

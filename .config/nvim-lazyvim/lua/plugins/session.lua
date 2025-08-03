@@ -70,7 +70,7 @@ return {
                   --"node_modules",
                 },
                 hide_by_pattern = {
-                  "/home/svonjoi/*",
+                  "/home/morke/*",
                   -- "*/.config/*",
                   --".gitignored",
                 },

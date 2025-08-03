@@ -14,9 +14,26 @@ def get_formatted_speed(s,bytes=False):
         s = s / 1024
         unit = "K"
     if bytes:
-        return f"{(s/8):.2f} {unit}iB/s"
+        # rounded version
+        return f"{round((s/8))}{unit}"
+        # return f"{(s/8):.2f} {unit}iB/s"
     return f"{s:.2f} {unit}ib/s"
-    
+
+# def get_formatted_speed(s,bytes=False):
+#     unit = ""
+#     if s > 1024**3:
+#         s = s / 1024**3
+#         unit = "G"
+#     elif s > 1024**2:
+#         s = s / 1024**2
+#         unit = "M"
+#     elif s > 1024:
+#         s = s / 1024
+#         unit = "K"
+#     if bytes:
+#         # rounded version
+#         return f"{round((s/8))}{unit}"
+#     return f"{s:.2f} {unit}ib/s"
 
 
 parser = argparse.ArgumentParser()

@@ -40,8 +40,8 @@ return {
             },
             mappings = {
               i = {
-                ["<M-a>"] = lga_actions.quote_prompt({ postfix = " -g *" }),
-                ["<M-s>"] = lga_actions.quote_prompt({ postfix = " -tphp " }),
+                ["<M-y>"] = lga_actions.quote_prompt({ postfix = " -g *" }),
+                ["<M-u>"] = lga_actions.quote_prompt({ postfix = " -tphp " }),
                 ["<M-i>"] = lga_actions.quote_prompt({ postfix = " -tlua lazy/LazyVim/" }),
               },
             },

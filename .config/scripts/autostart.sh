@@ -4,21 +4,14 @@
 ~/.config/scripts/hardware/mouse.sh
 ~/.config/scripts/hardware/layout.sh
 ~/.config/scripts/helpers/setup_remap.sh
-~/.config/scripts/cloud.sh
+~/.config/scripts/mount_cloud.sh
 
 # set keybinding
-# killall sxhkd && setsid -f sxhkd
 setsid -f sxhkd
 
 nohup udiskie --tray &
 nohup greenclip daemon &
 nohup ~/.config/scripts/show_in_folder.pl &
-
-#todo: start crow
-
-# kill this shit: sudo killall teamviewerd
-# хуйня проситб пароль заебала
-# teamviewer --daemon start
 
 # disable power-button
 # https://unix.stackexchange.com/questions/547582/how-to-disable-cleanly-the-power-button

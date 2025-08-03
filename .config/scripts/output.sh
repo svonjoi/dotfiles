@@ -20,11 +20,11 @@ export POLYCOLOR2="#adad88" # 787878 adad88
 export POLYCOLOR3="#8e8e8e"
 
 # the same vars defined in i3wm as here
-out_DP_1="DP-1"
+out_DP_1="DP-4"
 out_DP_2="DisplayPort-2"
 out_DP_3="DisplayPort-3"
-outLaptop="eDP"
-outHDMI="HDMI-1"
+outLaptop="eDP-1"
+outHDMI="HDMI-0"
 
 #* si en VML/ML hay algun bug de visualizacion o de polybar, primero switch to laptop and then to 3 mon
 #* caso: left inverted mon not working after sleep laptop: restart docking
@@ -203,8 +203,8 @@ function main() {
     # INFO: setup:MH
     if [ $setup_mh -eq 1 ]; then
 
-        FST=$out_DP_2
-        SEC=$out_DP_3
+        FST=$outHDMI
+        SEC=$out_DP_1
 
         # 320x1080              under
         # 296x0                 above
@@ -267,9 +267,7 @@ function main() {
     if [ $setup_l -eq 1 ]; then
 
         if [ $apply_xrandr -eq 1 ]; then
-            xrandr --output $outLaptop --mode 1920x1200 --pos 0x0 --rotate normal \
-                --output $out_DP_1 --off \
-                --output $out_DP_2 --off \
+            xrandr --output $outLaptop --mode 1920x1080 --pos 0x0 --rotate normal \
                 --output $outHDMI --off
         fi
 
@@ -311,7 +309,7 @@ function main() {
     if [ $setup_m -eq 1 ]; then
 
         # out_=$out_DP_2
-        out_=$out_DP_2
+        out_=$outHDMI
         mode="1920x1080" # 2560x1440 1920x1080 1600x900
 
         if ! is_monitor_connected "$out_"; then
@@ -321,6 +319,7 @@ function main() {
         if [ $apply_xrandr -eq 1 ]; then
             xrandr --output $out_ --primary --mode $mode --rate 144 --pos 0x0 --rotate normal \
                 --output $outLaptop --off \
+                --output $out_DP_2 --off \
                 --output $out_DP_2 --off \
                 --output $out_DP_3 --off
         fi

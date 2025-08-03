@@ -34,6 +34,7 @@ return {
         xml = { "xmlformatter" },
         css = { "prettierd" },
         astro = { "prettierd" },
+        python = { "black" },
 
         -- шебанг меняет тип файла
         zsh = { "shfmt" },
