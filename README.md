@@ -3,7 +3,7 @@
 ## setup
 
 - OS ([eos](https://endeavouros.com/))
-- *gui*
+- *desktop environment*
   - window manager ([i3](https://github.com/i3/i3))
   - status-bar ([polybar](https://github.com/polybar/polybar))
   - notification daemon ([dunst](https://github.com/dunst-project/dunst))
