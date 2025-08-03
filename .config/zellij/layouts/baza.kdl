@@ -6,7 +6,7 @@ layout {
             plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
                 format_left "{mode}#[bg=#0e0a1b,fg=#adad88] {session} #[bg=#0e0a1b,fg=#8f8f8f] {swap_layout} "
                 format_center ""
-                format_right "{tabs} "
+                format_right "{tabs}"
                 format_space "#[bg=#0e0a1b]"
 
                 //mode_locked  "#[bg=red,fg=white]  LOCKED "
