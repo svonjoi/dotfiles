@@ -2,7 +2,7 @@
 
 ## setup
 
-- OS ([eos](https://endeavouros.com/))
+- os ([eos](https://endeavouros.com/))
 - *desktop environment*
   - window manager ([i3](https://github.com/i3/i3))
   - status-bar ([polybar](https://github.com/polybar/polybar))
@@ -15,9 +15,9 @@
   - shell ([zsh](https://github.com/zsh-users/zsh))
 - *input*
   - remapping ([keyd](https://github.com/rvaiya/keyd))
-  - keybing ([sxhkd](https://github.com/baskerville/sxhkd))
+  - keybind ([sxhkd](https://github.com/baskerville/sxhkd))
 - *development*
-  - IDE ([nvim](https://github.com/neovim/neovim))
+  - ide ([nvim](https://github.com/neovim/neovim))
   - git ([lazygit](https://github.com/jesseduffield/lazygit))
   - docker ([lazydocker](https://github.com/jesseduffield/lazydocker))
 - *pkm*
