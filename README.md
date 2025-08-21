@@ -4,7 +4,7 @@
 
 - os ([eos](https://endeavouros.com/))
 - *desktop environment*
-  - window manager ([i3](https://github.com/i3/i3))
+  - tilling-wm ([i3](https://github.com/i3/i3))
   - status-bar ([polybar](https://github.com/polybar/polybar))
   - notification daemon ([dunst](https://github.com/dunst-project/dunst))
   - dynamic menu ([rofi](https://github.com/davatorium/rofi))
