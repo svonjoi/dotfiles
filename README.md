@@ -1,4 +1,4 @@
-![dotfiles](https://github.com/user-attachments/assets/a49711c1-0e2e-4777-a515-7cd4b300865b)
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/7d5b11d5-c2f0-43b3-96f2-011d8051550e" />
 
 ## setup
 
