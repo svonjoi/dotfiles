@@ -32,7 +32,9 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "SourceCodeVF" :foundry "ADBO" :slant normal :weight medium :height 140 :width normal)))))
 
-;; (set-face-attribute 'default nil :font "Monospace" :height 120)
+; (set-face-attribute 'default nil :font "Monospace" :height 120)
+(set-frame-font "Hack Nerd Font Mono 13" nil t)
+; (set-frame-font "Hack Nerd Font Mono 16" nil t)
 
 ;; X clipboard
 ;; https://unix.stackexchange.com/questions/6640/emacs-command-to-cut-or-copy-to-system-clipboard
@@ -50,6 +52,9 @@
 
 ;; this is necessary unless TDLib is globally installed
 ;; (setq telega-server-libs-prefix "~/dev/repo/td/tdlib")
+
+;; указываем путь куда искать tdlib установленную с AUR (telegram-tdlib)
+(setq telega-server-libs-prefix "/usr")
 
 (define-key global-map (kbd "C-c t") telega-prefix-map)
 

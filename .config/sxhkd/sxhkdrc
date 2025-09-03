@@ -4,20 +4,6 @@
 # | instead of alt modifier use mod1; idk why alt dont work
 # @_____________________________________________________________.
 
-#super + F2; v; s
-#  ~/.config/scripts/vpn/vpn_handler.sh up office
-
-#super + F2; v; S
-#  ~/.config/scripts/vpn/vpn_handler.sh down office
-
-#ctrl + f
-#  xkb-switch -s us && xmodmap ~/.Xmodmap >/dev/null 2>&1
-
-#screenshot_path="$(xdg-user-dir PICTURES)/ss/$(date +%d_%b_%H%M%S).png" && \
-#maim | tee "$screenshot_path" | xclip -sel c -t image/png && \
-#echo -n "file://$screenshot_path" | xclip -sel c -t text/uri-list && \
-#notify-send -t 800 "Screenshot take; path copied to 📎"
-
 # ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
 # ┊                           HYP                            ┊
 # └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
@@ -32,60 +18,73 @@ mod3 + 6
 # ┊                           TAB                            ┊
 # └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
 
-# transparency
-# tab+space r
-super + 9
-  transset-df -a --min 0.05 --dec 0.05
-
-# tab+space S-r
-super + shift + 9
-  transset-df -a --inc 0.05
-
-# tab+space c
-super + 3
-  ~/.config/scripts/screencast.sh >/dev/null 2>&1
-
-# tab+space y
-super + F11
-  flameshot gui
-
-# tab+space S-y
-super + ctrl + F11
-  flameshot screen
-
-super + shift + F11
-  flameshot gui -d 2000 >/dev/null 2>&1
-
+# T-semicolon
 super + F12
-  ~/.config/scripts/identify_process.sh
+  ~/.config/scripts/window-get-props
 
-# tab+shift+g
-super + shift + F10
-  ~/.config/scripts/colorpicker.sh
+# T-Shift-semicolon
+super + shift + F12
+  ~/.config/scripts/window-get-gui-lib
 
-# ff bookmarks; tab+z->b->a|t
+# T-z b a
 super + F8
     rofi -kb-custom-1 'Alt+1' -kb-custom-2 'Alt-2' -show bookmarks -modi 'bookmarks: /home/morke/.config/scripts/browser/rofi_bookmarks.py'
 
+# T-z b t
 super + F6
     rofi -kb-custom-1 'Alt+1' -kb-custom-2 'Alt-2' -show bookmarks -modi 'bookmarks: /home/morke/.config/scripts/browser/rofi_bookmarks.py toolbar/tunuve'
 
-# tab+s
+# T-s
 ctrl + F2
-    ~/.config/scripts/helpers/search_engine.sh
+    ~/.config/scripts/rofi-search-static
 
+# T-a
+ctrl + F3
+    ~/.config/scripts/rofi-search/rofi-search-wrapper
+
+# T-space w
 ctrl + F5
-    ~/.config/scripts/i3_scripts/move_windows_to_current_ws
+    ~/.config/scripts/i3-move-windows-to-current-ws
+
+# T-space d
+super + 8
+    ~/.config/scripts/i3-resurrect-wrapper
+
+# T-space g
+super + shift + F10
+  ~/.config/scripts/colorpicker.sh
+
+# T-space r
+super + 9
+  transset-df -a --min 0.05 --dec 0.05
+
+# T-space S-r
+super + shift + 9
+  transset-df -a --inc 0.05
+
+# T-space c
+super + 3
+  ~/.config/scripts/screencast.sh >/dev/null 2>&1
+
+# T-space y
+super + F11
+  flameshot gui
+
+# T-space y
+super + ctrl + F11
+  flameshot screen
+
+# T-space S-y
+super + shift + F11
+  flameshot gui -d 2000 >/dev/null 2>&1
 
 # ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
 # ┊                           ESC                            ┊
 # └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
 
-# E-3
-# ctrl + F12
-#  i3-msg restart
-
 # EE
 ctrl + shift + mod1 + F12
   ~/.config/scripts/helpers/fix_input_device_connection.sh
+
+
 

@@ -8,7 +8,7 @@
     follow = none
 
     ### Geometry ###
-    width = 400
+    width = (400, 1000)
 
     # dynamic height from 0 to 300
     # The maximum height of a single notification, excluding the frame.
@@ -148,20 +148,20 @@
 
 [apply-style-urg-low]
     msg_urgency = low
-    background = "#263238"
-    frame_color = "#263238"
+    background = "#170d23"
+    foreground = "#adad8"
     timeout = 10
 
 [apply-style-urg-normal]
     msg_urgency = normal
     background = "#0e0a1b"
-    foreground = "#adad88"
+    foreground = "#e6ce50"
     timeout = 10
 
 [apply-style-urg-critical]
     msg_urgency = critical
-    background = "#1d36a8"
-    foreground = "#F9FAF9"
+    background = "#260009"
+    foreground = "#ff8579"
     timeout = 0
 
 # ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐

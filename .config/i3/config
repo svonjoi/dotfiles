@@ -15,10 +15,9 @@
 # 30. Sound section
 # 40. Workspaces: set, navigation
 # 50. Bind software to workspaces
-# 51. save and restore workspaces
 # 60. Bind ws to outputs & move ws between outputs
 # 70. Windows & containers functionallity
-# 75. Window setup for software
+# 75. Floating windows
 # 50. Scratchpad
 # 70. Distraction-free
 # 90. Menu
@@ -27,21 +26,20 @@
 # 82. Theme colors
 # 84. Ne-ebite-mozg
 
-#* copy of this defined variables is in output.sh
-set $out_DP_1 "DP-1"
-set $out_DP_2 "DP-2"
-set $outLaptop "eDP-1"
-set $outHDMI "HDMI-1"
+set $out0 "eDP-1"
+set $out1 "HDMI-1"
+set $out2 "DP-2"
+set $out3 "DP-1"
+
 
 # Set modifier keys
-# todo: $G=AltGr
+# TODO: $G=AltGr
 set $M Mod4
 set $A Mod1
 set $S Shift
 set $C Ctrl
 set $Y Mod3
 
-set $i3scripts ~/.config/scripts/i3_scripts
 set $rofi ~/.config/rofi
 set $scripts ~/.config/scripts
 
@@ -62,10 +60,9 @@ bindsym $M+$S+n exec --no-startup-id jumpapp nm-connection-editor
 
 # clipboard
 bindsym $A+grave exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
-# bindsym $A+$Y+q exec --no-startup-id copyq show;[class="copyq"] scratchpad show; move position center
 
 # scroll output of current window
-# todo: real-time scrolling
+# TODO: real-time scrolling
 bindsym Prior        exec --no-startup-id xdotool click --repeat 5 --delay 50 4
 bindsym Next         exec --no-startup-id xdotool click --repeat 5 --delay 50 5
 bindsym Ctrl+Prior   exec --no-startup-id xdotool click --repeat 20 --delay 0 4
@@ -114,36 +111,23 @@ bindsym $C+$A+$S+x --release exec --no-startup-id xkill
 bindsym $M+d exec --no-startup-id $rofi/launcher.sh
 bindsym $M+$S+d exec --no-startup-id rofi -show window
 
-# rofi calculator
-# bindsym $Y+g exec --no-startup-id xkb-switch -s us && rofi -show calc -modi calc -no-show-match -no-sort -matching fuzzy -theme "~/.local/share/rofi/themes/svonjoi-window-squared-material-red.rasi"
-# bindsym $Y+g exec --no-startup-id \
-#     xkb-switch -s us \
-#     && rofi \
-#         -show calc \
-#         -modi calc \
-#         -no-show-match \
-#         -no-sort \
-#         -matching fuzzy \
-#         -theme "svonjoi-window-squared-material-red.rasi"
-
-# keybinding in fancy rofi (automated):
-# bindsym $M+F1 exec $i3scripts/keyhint-2
-
 # +------------------------------------------------+
 # 10. Reload
 # +------------------------------------------------+
 
 # fixes (run when i3-msg restart)
 exec_always --no-startup-id fix_xcursor
-# exec_always --no-startup-id nitrogen --restore
+exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id /usr/bin/dwall -s bitday
 exec_always --no-startup-id polybar-msg cmd restart
+exec_always --no-startup-id i3-msg '[instance="keepassxc"] move scratchpad', resize set 1150 670, border pixel 1
+exec_always --no-startup-id i3-msg '[instance="emacs"] move scratchpad', resize set 1150 670, border pixel 1
 
 #INFO: RELOAD MENU
 #
 # [MENU] esc+space
 bindsym $C+$S+$A+F11 mode "$wine_reload"
-set $wine_reload (3)i3 (s)sxkhd (p)picom (n)dunst (P)polybar (e)espanso
+set $wine_reload i[3] [s]xkhd [p]icom [d]unst [P]olybar [e]spanso [X]org
 mode "$wine_reload" {
 
     bindsym 3 exec --no-startup-id i3-msg restart
@@ -158,7 +142,7 @@ mode "$wine_reload" {
     # TODO:
     bindsym p exec --no-startup-id killall picom && picom -b && notify-send "[picom] reloaded", mode "default"
 
-    bindsym n exec --no-startup-id killall dunst && notify-send "[dunst] reloaded", mode "default"
+    bindsym d exec --no-startup-id killall dunst && notify-send "[dunst] reloaded", mode "default"
     bindsym shift+p exec --no-startup-id polybar-msg cmd restart && notify-send "[polybar] reloaded", mode "default"
     bindsym e exec --no-startup-id espanso restart && notify-send "[espanso] restarted", mode "default"
 
@@ -172,55 +156,25 @@ mode "$wine_reload" {
 exec --no-startup-id $scripts/autostart.sh
 exec --no-startup-id $scripts/output.sh --setup_l &
 exec --no-startup-id $scripts/helpers/player_handler.pl &
-exec --no-startup-id nitrogen --restore
 exec --no-startup-id /usr/bin/dwall -s bitday
 exec --no-startup-id picom -b
-# exec --no-startup-id greenclip daemon
-# exec --no-startup-id keyd-application-mapper -d
-# exec --no-startup-id copyq &
-# exec --no-startup-id copyq show
 
 #INFO: scratchpad application
-exec --no-startup-id kitty --class=kitty_scratchterm
 exec --no-startup-id kitty --class=kitty_nmtui -e nmtui
-exec --no-startup-id alacritty --class alacritty_ranger -e ranger
-exec --no-startup-id keepassxc
-# exec --no-startup-id kitty --class=kitty_ranger -e ranger
-# exec --no-startup-id gcolor3
-# exec --no-startup-id crow
+exec --no-startup-id kitty --class kitty_ranger -e ranger
 
 # +------------------------------------------+
 # 20. Keyboard Layout
 # +------------------------------------------+
 
 # https://www.reddit.com/r/i3wm/comments/mtdebu/comment/jhbf7bq/?utm_source=share&utm_medium=web2x&context=3
-# yay -S xkb-switch
 bindsym $M+1 exec --no-startup-id xkb-switch -s us && xmodmap ~/.Xmodmap >/dev/null 2>&1
 bindsym $M+2 exec --no-startup-id xkb-switch -s ru && xmodmap ~/.Xmodmap >/dev/null 2>&1
-# bindsym $Y+Shift+3 exec --no-startup-id xkb-switch -s es && xmodmap ~/.Xmodmap >/dev/null 2>&1
-
-# ? esto da error; no se pq, desde terminal si funciona
-# bindsym $M+1 exec --no-startup-id setxkbmap -layout 'us,ru' && xkb-switch -s us && xmodmap ~/.Xmodmap >/dev/null 2>&1
 
 # +------------------------------------------+
 # 30. Sound section
 # +------------------------------------------+
-## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
-
 exec --no-startup-id volumeicon
-
-# Screen brightness controls
-# bindsym $Y+F6 exec "amixer set Master toggle"
-# bindsym $Y+F7 exec "amixer set Master 5%-"
-# bindsym $Y+F8 exec "amixer set Master 5%+"
-
-#? Use pactl to adjust volume in PulseAudio.
-# set $refresh_i3status killall -SIGUSR1 i3status
-# bindsym $Y+F7 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && killall -SIGUSR1 i3status && notify-send "volume: $(pamixer --get-volume)%"
-# bindsym $Y+F8 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && killall -SIGUSR1 i3status && notify-send "volume: $(pamixer --get-volume)%"
-# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status && notify-send "mute: $(pamixer --get-mute)"
-# bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status && notify-send "mute: $(pamixer --get-mute)"
-
 exec --no-startup-id pulseaudio
 exec --no-startup-id pa-applet
 
@@ -230,7 +184,6 @@ bindsym $C+$A+End exec --no-startup-id playerctl play-pause -p spotify
 
 bindsym $M+$C+$A+Insert exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym $M+$C+$A+End exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
-
 
 # +------------------------------------------+
 # 40. Workspaces: set, navigation
@@ -359,7 +312,7 @@ assign [class="remmina"] $ws_r
 assign [class="DBeaver"] $ws_d
 assign [class="Microsoft Teams - Preview"] $ws_s
 
-# todo: no funciona
+# TODO: no funciona
 assign [class="libreoffice"] $ws_v
 assign [class="libreoffice_calc"] $ws_v
 
@@ -373,20 +326,13 @@ assign [class="whatsdesk"] $ws_s
 assign [class="discord"] $ws_s
 
 # +----------------------------------------------+
-# 51. save and restore workspaces
-# -----------------------------------------------+
-
-bindsym $M+8 exec "~/.config/scripts/i3_scripts/ws/restore_ws_layout.sh"
-bindsym $M+Shift+8 exec "rofi -show fb -modes 'fb:~/.config/scripts/i3_scripts/ws/rofi_layout_options.sh'"
-
-# +----------------------------------------------+
 # 60. Bind ws to outputs & move ws between outputs
 # -----------------------------------------------+
 
 # You can specify multiple outputs. The first available will be used.
-# set $monPrimary $out_DP_1 $outLaptop
-set $monPrimary $out_DP_1 $outLaptop
-set $modSecondary $out_DP_2 $out_DP_1 $outLaptop
+# set $monPrimary $out3 $out0
+set $monPrimary $out1 $out0
+set $modSecondary $out2 $out0
 
 workspace $ws_1     output $monPrimary
 workspace $ws_2     output $monPrimary
@@ -422,10 +368,15 @@ bindsym $M+$C+k move workspace to output up
 
 focus_follows_mouse no
 
-#todo: toggle tiling / floating; also restore from scratchpad
+#* workaruond cuando en una aplicacion no se muestra el border sin mas
+for_window [class="obsidian"] border pixel 1
+for_window [class="Docker Desktop"] border pixel 1
+for_window [class="Code"] border pixel 1
+
+#TODO: toggle tiling / floating; also restore from scratchpad
 bindsym $M+$S+space floating toggle
 
-#todo: change focus between tiling / floating windows
+#TODO: change focus between tiling / floating windows
 # bindsym $M+space focus mode_toggle
 
 # toggle sticky
@@ -446,14 +397,14 @@ bindsym $M+$S+l	  move right 30
 
 #? Resize windows
 # keyd hyp+h = left
-bindsym $M+Left exec --no-startup-id $i3scripts/i3resize left 2
-bindsym $M+Down exec --no-startup-id $i3scripts/i3resize down 2
-bindsym $M+Up exec --no-startup-id $i3scripts/i3resize up 2
-bindsym $M+Right exec --no-startup-id $i3scripts/i3resize right 2
-bindsym $M+$S+Left exec --no-startup-id $i3scripts/i3resize left 7
-bindsym $M+$S+Down exec --no-startup-id $i3scripts/i3resize down 7
-bindsym $M+$S+Up exec --no-startup-id $i3scripts/i3resize up 7
-bindsym $M+$S+Right exec --no-startup-id $i3scripts/i3resize right 7
+bindsym $M+Left exec --no-startup-id $scripts/i3-resize left 8
+bindsym $M+Down exec --no-startup-id $scripts/i3-resize down 8
+bindsym $M+Up exec --no-startup-id $scripts/i3-resize up 8
+bindsym $M+Right exec --no-startup-id $scripts/i3-resize right 8
+bindsym $M+$S+Left exec --no-startup-id $scripts/i3-resize left 30
+bindsym $M+$S+Down exec --no-startup-id $scripts/i3-resize down 30
+bindsym $M+$S+Up exec --no-startup-id $scripts/i3-resize up 30
+bindsym $M+$S+Right exec --no-startup-id $scripts/i3-resize right 30
 
 #? change container layout (stacked, tabbed, toggle split)
 bindsym $M+c  split horizontal; exec notify-send 'tile horizontally'
@@ -474,56 +425,76 @@ bindsym $M+a focus parent
 # not working
 # bindsym $M+g exec i3-input -F 'rename workspace to "'`i3-msg -t get_workspaces | jq '.[] | select(.visible == true)' | jq .num`': %s"' -P "new name? "
 
-
 # +------------------------------------------+
-# 75. Window setup for software
+# 75. Floating windows
 # +------------------------------------------+
 
-#* workaruond cuando en una aplicacion no se muestra el border sin mas
-for_window [class="obsidian"] border pixel 1
-for_window [class="Docker Desktop"] border pixel 1
-for_window [class="Code"] border pixel 1
+# for_window docs: https://i3wm.org/docs/userguide.html#list_of_commands
 
-#* para que los popups no salgan en floating mode. Por ejemplo cuando arrastro tabla a otra pantalla en dbeaver
-# for_window [class="DBeaver"] floating disable border normal
+# instance       WM_CLASS (the first part)
+# class          WM_CLASS (the second part)
 
-#* floating mode explicito
-# for_window [title="alsamixer"] floating enable border pixel 1
-# for_window [class="(?i)virtualbox"] floating enable border normal
-# for_window [class="Gucharmap"] floating enable
-# for_window [class="Lightdm-settings"] floating enable
-# for_window [class="Nitrogen"] floating enable sticky enable border normal
-for_window [class="calamares"] floating enable border normal
-for_window [class="Clipgrab"] floating enable
-for_window [title="File Transfer*"] floating enable
-for_window [class="fpakman"] floating enable
-for_window [class="Galculator"] floating enable border pixel 1
-for_window [class="GParted"] floating enable border normal
-for_window [title="i3_help"] floating enable sticky enable border normal
-for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [class="Manjaro-hello"] floating enable
-for_window [class="Manjaro Settings Manager"] floating enable border normal
-for_window [title="MuseScore: Play Panel"] floating enable
-for_window [class="Oblogout"] fullscreen enable
-for_window [class="octopi"] floating enable
-for_window [title="About Pale Moon"] floating enable
-for_window [class="Pamac-manager"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="qt5ct"] floating enable sticky enable border normal
-for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
-for_window [class="Simple-scan"] floating enable border normal
-for_window [class="(?i)System-config-printer.py"] floating enable border normal
-for_window [class="Skype"] floating enable border normal
-for_window [class="Timeset-gui"] floating enable border normal
-for_window [class="Xfburn"] floating enable
-for_window [class="Arandr"] floating enable
+# window_role    WM_WINDOW_ROLE
+# window_type    _NET_WM_WINDOW_TYPE; Possible values are normal, dialog, utility, toolbar, splash, menu, dropdown_menu, popup_menu, tooltip and notification.
+# title          _NET_WM_NAME or WM_NAME as fallback; X11 window title
+# id             X11 window ID, which you can get via xwininfo for example
 
+for_window [class="Pavucontrol"] floating enable, resize set 1200 680, move position center
+for_window [class="Arandr"] floating enable, resize set 1200 680, move position center
+
+# for_window [class="AutoFirma"] floating enable, resize set 1200 680, move position center
+
+# thunderbird
+for_window [instance="Msgcompose" class="(?i)Thunderbird"] floating enable, resize set 1200 680, move position center
+for_window [instance="Mailnews" class="(?i)Thunderbird"] floating enable, resize set 1200 680, move position center
+for_window [instance="Mailnews" class="(?i)Thunderbird" title="Filter Rules"] floating enable, resize set 200 680, move position center
+
+for_window [instance="nitrogen"] floating enable, resize set 1000 680, move position center
+
+# keepassxc
+
+# вместо этого, exec_always запускает это же через i3-ipc
+# for_window [instance="keepassxc"] move scratchpad, resize set 1150 670, border pixel 1
+
+
+# https://wiki.archlinux.org/title/I3#Correct_handling_of_floating_dialogs
+# for_window [window_role="About"] floating enable
+# for_window [window_role="Organizer"] floating enable
+# for_window [window_role="Preferences"] floating enable
+# for_window [window_role="bubble"] floating enable
+# for_window [window_role="page-info"] floating enable
+# for_window [window_role="pop-up"] floating enable
+# for_window [window_role="task_dialog"] floating enable
+# for_window [window_role="toolbox"] floating enable
+# for_window [window_role="webconsole"] floating enable
+# for_window [window_type="menu"] floating enable
+# for_window [window_type="dialog"] floating enable, resize set 1000 680, move position center
+
+# for_window [class="Clipgrab"] floating enable
+# for_window [title="File Transfer*"] floating enable
+# for_window [class="fpakman"] floating enable
+# for_window [class="Galculator"] floating enable border pixel 1
+# for_window [class="GParted"] floating enable border normal
+# for_window [title="i3_help"] floating enable sticky enable border normal
+# for_window [class="Lxappearance"] floating enable sticky enable border normal
+# for_window [title="MuseScore: Play Panel"] floating enable
+# for_window [class="Oblogout"] fullscreen enable
+# for_window [class="octopi"] floating enable
+# for_window [title="About Pale Moon"] floating enable
+# for_window [class="Pamac-manager"] floating enable
+# for_window [class="qt5ct"] floating enable sticky enable border normal
+# for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
+# for_window [class="Simple-scan"] floating enable border normal
+# for_window [class="(?i)System-config-printer.py"] floating enable border normal
+# for_window [class="Skype"] floating enable border normal
+# for_window [class="Timeset-gui"] floating enable border normal
+# for_window [class="Xfburn"] floating enable
 
 # +------------------------------------------+
 # 50. Scratchpad
 # +------------------------------------------+
 
-#todo: https://github.com/noctuid/tdrop
+#TODO: https://github.com/noctuid/tdrop
 
 # move the currently focused window to the scratchpad
 bindsym $M+$S+minus move scratchpad
@@ -534,52 +505,35 @@ bindsym $M+minus scratchpad show
 
 # https://wiki.archlinux.org/title/i3
 # https://i3wm.org/docs/userguide.html#command_criteria
-for_window [class="KeePassXC"], move scratchpad, resize set 1300 680
-for_window [class="kate"], move scratchpad, resize set 1300 680
-for_window [class="Nl.hjdskes.gcolor3"], move scratchpad, resize set 700 280, border pixel 1
-# for_window [class="TelegramDesktop"], move scratchpad, resize set 1300 680, border pixel 1
-for_window [class="Emacs"], move scratchpad, resize set 1150 670, border pixel 1
-for_window [class="crow"], move scratchpad, resize set 1000 680, border pixel 1
-# for_window [class="copyq"], move scratchpad, resize set 1000 680, border pixel 1
-for_window [class="alacritty_ranger"], move scratchpad, resize set 1200 680, border pixel 1
-for_window [class="kitty_scratchterm"], move scratchpad, resize set 1200 680, border pixel 1
+for_window [instance="(?i)nl.hjdskes.gcolor3"], move scratchpad, resize set 700 280, border pixel 1
+for_window [class="kitty_ranger"], move scratchpad, resize set 1200 680, border pixel 1
 for_window [class="kitty_zellij_master"], move scratchpad, resize set 1200 690, border pixel 1
-for_window [class="kitty_zellij_notepad"], move scratchpad, resize set 1200 680, border pixel 1
+for_window [class="kitty_zellij_notepad"], move scratchpad, resize set 1200 690, border pixel 1
 for_window [class="kitty_nmtui"] move scratchpad, resize set 1200 680, border pixel 1
 for_window [class="kitty_alsamixer"] move scratchpad, resize set 1200 680, border pixel 1
-# for_window [class="Nm-connection-editor"] move scratchpad, resize set 1200 680, border pixel 1
-for_window [window_type="dialog"], resize set 1000 680, move position center
 
 
 # 1. show & start if not running
 # 1.1 show/start gui
-# crow: translate selection but in main window
-bindsym $M+6 exec --no-startup-id $scripts/translate/crow.sh; [class="crow"] scratchpad show; move position center
-# crow: speakSelection
-# bindsym $M+Shift+6 exec --no-startup-id qdbus org.kde.CrowTranslate /org/kde/CrowTranslate/MainWindow speakSelection
 
 # tab+space+f
 bindsym $M+7 exec --no-startup-id jumpapp keepassxc; [class="KeePassXC"] scratchpad show; move position center
-# tab+space+d
-# bindsym $M+F9 exec --no-startup-id jumpapp kate; [class="kate"] scratchpad show; move position center
 # tab+space+g
-bindsym $M+F10 exec --no-startup-id jumpapp gcolor3; [class="Nl.hjdskes.gcolor3"] scratchpad show; move position center
-# bindsym $C+$A+Next exec --no-startup-id jumpapp TelegramDesktop; [class="TelegramDesktop"] scratchpad show; move position center
+bindsym $M+F10 exec --no-startup-id jumpapp gcolor3; [instance="(?i)nl.hjdskes.gcolor3"] scratchpad show; move position center
 # tab+space+x
-bindsym $M+4 exec --no-startup-id jumpapp emacs; [class="Emacs"] scratchpad show; move position center
+bindsym $M+4 exec --no-startup-id jumpapp emacs; [instance="emacs"] scratchpad show; move position center
 
-# 1.2 show/start terminal based apps
-bindsym $M+space exec --no-startup-id ~/.config/scripts/jumpterm.sh alacritty alacritty_ranger ranger; [class="alacritty_ranger"] scratchpad show; move position center
-bindsym $M+$S+Tab exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_scratchterm; [class="kitty_scratchterm"] scratchpad show; move position center
+# 1.2 run-or-raise cli-tools
+bindsym $M+space exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_ranger ranger; [class="kitty_ranger"] scratchpad show; move position center
 bindsym $M+n exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_nmtui nmtui ;[class="kitty_nmtui"] scratchpad show; move position center
 bindsym $M+m exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_alsamixer alsamixer; [class="kitty_alsamixer"] scratchpad show; move position center
 # with this output redirection i was able to see that the ~/.config/scripts/ is not on PATH <from i3>
 # conclusion; in some point of time, my PATH environment var was stopped being read within i3 execution
 # if zellij session dont exists, strange behaviour
 # tab+space+space
-bindsym $M+0 exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zellij_master "zellij attach master" > /tmp/rubin 2>&1; [class="kitty_zellij_master"] scratchpad show; move position center
+bindsym $M+0 exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zellij_master "zellij attach master" > /tmp/rubin 2>&1; [class="kitty_zellij_master"] scratchpad show
 # tab+space+d
-bindsym $M+F9 exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zellij_notepad "zellij attach notepad" > /tmp/rubin 2>&1; [class="kitty_zellij_notepad"] scratchpad show; move position center
+bindsym $M+F9 exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_zellij_notepad "zellij attach notepad" > /tmp/rubin 2>&1; [class="kitty_zellij_notepad"] scratchpad show
 
 # +------------------------------------------+
 # 80. Window customization
@@ -596,11 +550,9 @@ hide_edge_borders none
 
 #? change borders
 # bindsym $M+u border none
-#todo: assign keys
+#TODO: assign keys
 # bindsym $M+$Y+e border normal
 # bindsym $M+$Y+w border pixel 1
-
-
 
 # +------------------------------------------+
 # 81. Gaps
@@ -681,10 +633,10 @@ mode "$wine_gaps_outer" {
 # client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 
 # class                     [border]  [backgr]  [text]    [indicat] [child_border]
-client.focused              #0e0a1b   #0e0a1b   #b29e5b   #ffd49a
+client.focused              #0e0a1b   #0e0a1b   #b29e5b   #ffd49a   #adad88
 client.focused_inactive     #0e0a1b   #252525   #b29e5b   #ffd49a
 client.unfocused            #0e0a1b   #0e0a1b   #3f3f3f   #5f676a
-# client.urgent               #5860a6   #3845b1   #ffffff   #268BD2
+client.urgent               #5860a6   #3845b1   #ffffff   #268BD2
 # client.placeholder          #000000   #0c0c0c   #000000   #000000
 # client.focused_tab_title    #000000   #000000   #000000   #000000   #ffffff
 
@@ -693,13 +645,15 @@ client.unfocused            #0e0a1b   #0e0a1b   #3f3f3f   #5f676a
 # window expose the color. Note that this colorclass only takes a single color
 # client.background #2B22B
 
-# print all window titles bold
-# for_window [class=".*"] title_format "<span>%class | %title</span>"
-# f2e23d yellow
-for_window [class=".*"] title_format "<b><span font-size='11pt'>[<span font-size='12pt' foreground='#754eff'>%class</span>] :: %title</span></b>"
-# for_window [class=".*"] title_format "<span><b><span foreground='#754eff'>%class</span></b></span>"
+set $short_title "<b><span font-size='11pt'>[<span font-size='12pt' foreground='#754eff'>%class</span>]</span></b>"
+set $long_title "<b><span font-size='11pt'>[<span font-size='12pt' foreground='#754eff'>%class</span>] :: %title</span></b>"
 
-# for_window [all] title_window_icon padding 3px
+for_window [class=".*"] title_format $long_title
+for_window [class="qutebrowser"] title_format $short_title
+
+# font pango:lemon 12
+# for_window [class="."] title_format "<span font='hack 8'> </span>" for_window [class="."] border normal 1 
+
 for_window [all] title_window_icon no
 
 title_align center
@@ -743,9 +697,6 @@ mode "$wine_system" {
 }
 
 bindsym $M+BackSpace exec --no-startup-id $scripts/power.sh lock
-
-# exec --no-startup-id xautolock -time 10 -locker blurlock
-# exec --no-startup-id xautolock -time 10 -locker "$i3scripts/i3lock-fancy-pizdati --greyscale" -detectsleep
 
 # wait for 50 mins in idle mode then xautolock used to lock the system, then wait for another 10 mins before suspending
 # xautolock -time 50 -locker slock -killtime 10 -killer "systemctl suspend" -corners -+00 -secure
@@ -795,28 +746,21 @@ mode "$wine_notif" {
 #
 # [MENU] esc+o
 bindsym $C+F11 mode "$wine_monitor_control"
-set $wine_monitor_control  󰓏 [q|x|X|w|e|r|m|h]:[VM|MV|MH|L|ML|VML|M|H] 󰓏 ws2output [Alt]+[1|2|3]:M|V|L 
+set $wine_monitor_control  󰓏 [w|m|x|M]:[L|M|MH|ML] 󰓏 ws2output [A-1/2/3]:out1/2/0
 mode "$wine_monitor_control" {
 
     # reaply xrandr configuration & reload polybar & apply xmodmap
 
     set $log "/tmp/output.log"
 
-    bindsym q exec --no-startup-id $scripts/output.sh --setup_vm > $log 2>&1; mode "default"
-
-    # valid for connecting vertical monitor via docking (is always appear as dp-1) and via dp-1 port directly in laptop
-    bindsym x exec --no-startup-id $scripts/output.sh --setup_mv > $log 2>&1; mode "default"
-    bindsym Shift+x exec --no-startup-id $scripts/output.sh --setup_mh > $log 2>&1; mode "default"
-    bindsym h exec --no-startup-id $scripts/output.sh --setup_h > $log 2>&1; mode "default"
-
     bindsym w exec --no-startup-id $scripts/output.sh --setup_l > $log 2>&1; mode "default"
-    bindsym e exec --no-startup-id $scripts/output.sh --setup_ml > $log 2>&1; mode "default"
-    bindsym r exec --no-startup-id $scripts/output.sh --setup_vml > $log 2>&1; mode "default"
     bindsym m exec --no-startup-id $scripts/output.sh --setup_m > $log 2>&1; mode "default"
+    bindsym x exec --no-startup-id $scripts/output.sh --setup_mh > $log 2>&1; mode "default"
+    bindsym $S+m exec --no-startup-id $scripts/output.sh --setup_ml > $log 2>&1; mode "default"
 
-    bindsym $A+1 [class=".*"] move workspace to output $outHDMI
-    bindsym $A+2 [class=".*"] move workspace to output $out_DP_2
-    bindsym $A+3 [class=".*"] move workspace to output $outLaptop
+    bindsym $A+1 [class=".*"] move workspace to output $out1
+    bindsym $A+2 [class=".*"] move workspace to output $out2
+    bindsym $A+3 [class=".*"] move workspace to output $out0
 
     bindsym Escape mode "default"
 }

@@ -100,6 +100,8 @@ return {
                   "*/.config/qutebrowser/*",
                   "*/.config/ranger",
                   "*/.config/ranger/*",
+                  "*/.config/yazi",
+                  "*/.config/yazi/*",
                   "*/.config/sxhkd",
                   "*/.config/sxhkd/*",
                   "*/.config/zellij",

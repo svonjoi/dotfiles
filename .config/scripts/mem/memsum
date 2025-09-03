@@ -1,4 +1,3 @@
 #!/bin/zsh
-#!/usr/bin/env dash
 
 xargs ps -o%mem | sum

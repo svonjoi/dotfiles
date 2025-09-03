@@ -50,7 +50,7 @@ return {
       -- Styles to enable or disable
       styles = {
         bold = true, -- Enable bold highlights for some highlight groups
-        italic = true, -- Enable italic highlights for some highlight groups
+        italic = true, -- Enable italic highlights for some highlight groupsg
         underline = true, -- Enable underline highlights for some highlight groups
       },
     },

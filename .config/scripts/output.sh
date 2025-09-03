@@ -209,7 +209,11 @@ function main() {
         # 320x1080              under
         # 296x0                 above
         # 1920x423              right
-        sec_pos="320x1080"
+        # 0x360                 left
+        #
+        # 1280x0 + 0x360        MAIN + portable horizontal (left-sided)
+        fst_pos="1280x0"
+        sec_pos="0x360"
 
         fst_mode="1920x1080" # 2560x1440 1920x1080 1600x900
         sec_mode="1280x720"
@@ -224,7 +228,7 @@ function main() {
 
         if [ $apply_xrandr -eq 1 ]; then
             xrandr \
-                --output $FST --primary --mode $fst_mode --rate 144 --rotate normal --pos 0x0 \
+                --output $FST --primary --mode $fst_mode --rate 144 --rotate normal --pos $fst_pos \
                 --output $SEC --mode $sec_mode --rate 144 --rotate normal --pos $sec_pos \
                 --output $outLaptop --off \
                 2>&1 | ~/.config/scripts/helpers/notify-pipe.sh
@@ -251,8 +255,7 @@ function main() {
                 --output $outHDMI --primary --mode 1920x1080 --rate 144 --pos 0x0 --rotate normal \
                 --output $out_DP_1 --off \
                 --output $out_DP_2 --off \
-                --output $out_DP_3 --off \
-                --output $out_DP_4 --off
+                --output $out_DP_3 --off
 
         fi
 

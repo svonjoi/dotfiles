@@ -1898,7 +1898,7 @@ c.content.autoplay = False
 ## Scaling factor for favicons in the tab bar. The tab size is unchanged,
 ## so big favicons also require extra `tabs.padding`.
 ## Type: Float
-# c.tabs.favicons.scale = 1.0
+c.tabs.favicons.scale = 1.3
 
 ## When to show favicons in the tab bar. When switching this from never
 ## to always/pinned, note that favicons might not be loaded yet, thus
@@ -1989,7 +1989,7 @@ c.content.autoplay = False
 
 ## Padding (in pixels) around text for tabs.
 ## Type: Padding
-# c.tabs.padding = {'top': 0, 'bottom': 0, 'left': 5, 'right': 5}
+c.tabs.padding = {"top": 2, "bottom": 2, "left": 5, "right": 5}
 
 ## Force pinned tabs to stay at fixed URL.
 ## Type: Bool
@@ -2085,7 +2085,7 @@ c.tabs.position = "left"
 ## Width (in pixels or as percentage of the window) of the tab bar if
 ## it's vertical.
 ## Type: PercOrInt
-# c.tabs.width = '15%'
+c.tabs.width = "25%"
 
 ## Wrap when changing tabs.
 ## Type: Bool
@@ -2507,7 +2507,7 @@ c.zoom.default = "120%"
 # c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}'}
 # c.url.default_page = 'https://google.com/'
 
-# config.source('themes/qute-city-lights/city-lights-theme.py')
+config.source("themes/qute-city-lights/city-lights-theme.py")
 
 # ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
 # ┊                         KEYBIND                          ┊
@@ -2534,6 +2534,9 @@ config.bind("bo", "cmd-set-text -s :quickmark-load -t")
 config.bind("M", "bookmark-del")
 
 config.bind("<Alt-P>", "cmd-set-text -s :tab-select")
+
+config.bind("<Meta-Alt-Shift-h>", "tab-prev")
+config.bind("<Meta-Alt-Shift-l>", "tab-next")
 
 # ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
 # ┊                 Bindings for insert mode                 ┊
@@ -2579,3 +2582,11 @@ config.bind("<Ctrl-U>", "rl-unix-line-discard", mode="command")
 # config.bind('<Ctrl-Y>', 'paste-primary', mode='command')
 # config.bind('<Ctrl-Y>', 'insert-text {primary}', mode='command')
 # config.bind('<Ctrl-Y>', 'fake-key <Ctrl-v>', mode='command')
+
+# ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+# ┊                         LANGMAP                          ┊
+# └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+config.unbind(".")
+en_keys = "qwertyuiop[]asdfghjkl;'zxcvbnm,./" + 'QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>?'
+ru_keys = "йцукенгшщзхъфывапролджэячсмитьбю." + "ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,"
+c.bindings.key_mappings.update(dict(zip(ru_keys, en_keys)))

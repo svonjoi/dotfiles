@@ -1,2 +1,4 @@
 #!/bin/bash
+
+# TODO: нахуя я эту хуету в отдельный файл вывел?
 NVIM_APPNAME=nvim-kickstart nvim "$@"

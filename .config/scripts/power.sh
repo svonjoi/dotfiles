@@ -7,7 +7,7 @@ lock() {
     # must have png file header; convert <image> image.png
     # i3lock -c 000000 -k -f -i ~/Pictures/_lock/elfart.png
 
-    ~/.config/scripts/i3_scripts/i3lock-fancy-pizdati --greyscale
+    ~/.config/scripts/i3-lock-fancy-mod --greyscale
 
     # эта хуйня оповещения не пикселит
     # i3lock-fancy -p &

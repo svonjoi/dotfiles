@@ -94,13 +94,6 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -200,10 +193,9 @@ source ~/Repos/znap/znap.zsh # Start Znap
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# configpath: ~/.config/nvim
-# datapath ~/.local/share/nvim
-# export EDITOR=nvim
-export EDITOR=~/.config/scripts/defaulteditor
+export PATH="$HOME/.config/scripts:$PATH"
+export EDITOR=defaulteditor
+
 export BROWSER=qutebrowser
 
 export KLOUD="/mnt/gdrive_loadmaks/"
@@ -215,8 +207,6 @@ export POLYBAR_SCRIPTS="$HOME/bin/polybar_scripts"
 #? +-----------------------+
 #? |         ALIAS         |
 #? +-----------------------+
-
-alias fzj="$HOME/.config/scripts/zellij/fzj/fzj.sh"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -233,11 +223,10 @@ fi
 # some more ls aliases
 # exa, lsd accepts the same parms
 alias l='exa --all --group-directories-first'
-alias ll='lsd -l --all --group-directories-first'
-alias llt='exa --tree --group-directories-first'
+alias ll='lsd -l --all --group-directories-first --date "+%Y-%m-%d %H:%M"'
+alias llt='exa --tree --group-directories-first '
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias man='batman'
-alias dump='~/.config/scripts_/morkedump/morkedump.sh'
 
 alias v=openNvimWithConfigSelecion
 alias nvim1='NVIM_APPNAME=nvim-kickstart nvim'
@@ -247,7 +236,7 @@ alias nvim2='NVIM_APPNAME=nvim-lazyvim nvim'
 # alias zsh-reload-session=zshReloadSession
 alias r='exec zsh'
 
-alias re='removeWsLayout'
+alias y=y
 
 # GIT ALIAS
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
@@ -368,31 +357,12 @@ function batman() {
     return $?
 }
 
-function openNvimWithConfigSelecion() {
-    # Assumes all configs exist in directories named ~/.config/nvim-*
-    local config=$(fd --max-depth 1 --glob 'nvim-*' ~/.config | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
-
-    # If I exit fzf without selecting a config, don't open Neovim
-    [[ -z $config ]] && echo "No config selected" && return
-
+function openNvimCfgSelection() {
     set -x
-    # Open Neovim with the selected config
-    NVIM_APPNAME=$(basename $config) nvim $@
-}
-
-# https://gist.github.com/elijahmanor/b279553c0132bfad7eae23e34ceb593b
-function openNvimWithConfigSelecion2() {
-    set -x
-    items=$(find $HOME/.config -maxdepth 2 -name "init.lua" -type f -execdir sh -c 'pwd | xargs basename' \;)
+    items=$(find "$HOME/.config" -type d -name "*nvim*" -exec sh -c 'basename "$1"' _ {} \;)
     selected=$(printf "%s\n" "${items[@]}" | FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS-} --preview-window 'right:border-left:50%:<40(right:border-left:50%:hidden)' --preview 'lsd -l -A --tree --depth=1 --color=always --blocks=size,name ~/.config/{} | head -200'" fzf)
-    if [[ -z $selected ]]; then
-        return 0
-    elif [[ $selected == "nvim" ]]; then
-        selected="nvim-kickstart"
-    fi
     echo "$@"
-    ~/.config/scripts/helpers/nvim_runner.sh $selected
-    # NVIM_APPNAME=$selected nvim "$@"
+    $HOME/.config/scripts/helpers/nvim_runner.sh $selected
 }
 
 function zshSourceConfigFile() {
@@ -401,10 +371,6 @@ function zshSourceConfigFile() {
 
 function zshReloadSession() {
     addText "exec zsh"
-}
-
-function removeWsLayout() {
-    ~/.config/scripts/i3_scripts/ws/remove_ws_layout.sh
 }
 
 function fzfAlias() {
@@ -422,26 +388,30 @@ function fzfAlias() {
     zle redisplay
 }
 
+function y() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    IFS= read -r -d '' cwd <"$tmp"
+    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+    rm -f -- "$tmp"
+}
+
 # +-----------------------+
 # |        BINDING        |
 # +-----------------------+
-
-# Fix zsh autosuggestions keybind for arrow keys
-# zle-line-init() {}
-# bindkey '\e[A' history-beginning-search-backward
-# bindkey '\e[B' history-beginning-search-forward
-# bindkey "^[[A" history-beginning-search-backward
-# bindkey "^[[B" history-beginning-search-forward
+#TODO: learn zsh keybindings
 
 zle -N fzfAlias
-bindkey -M emacs '\ea' fzfAlias
-bindkey -M vicmd '\ea' fzfAlias
-bindkey -M viins '\ea' fzfAlias
+bindkey -s "\ea" "fzfAlias\n"
 
-bindkey -s "\en" "openNvimWithConfigSelecion2\n"
+bindkey -s "^[^E" "yy\n"
 
-zle -N copy_last_command
-bindkey '^k' copy_last_command
+# bindkey -L | grep "\^\[n"
+bindkey -s "\en" "openNvimCfgSelection\n"
+
+bindkey -s "\eo" "$HOME/.config/scripts/zellij/fzj-wrapper.sh\n"
+
+bindkey -s "\ev" "$HOME/.config/scripts_/dump-wrapper.sh\n"
 
 if [[ -n $DISPLAY ]]; then
     copy_line_to_x_clipboard() {
@@ -516,9 +486,23 @@ export RIPGREP_CONFIG_PATH="${HOME}/.config/.ripgreprc"
 
 export PATH="$HOME/.gem/ruby/3.4.0/bin:$PATH"
 
+export PATH=$PATH:$HOME/.config/scripts/rofi-search
+
 # automatically set with zsh install_nvm.sh
 # also after nvm installation with install_nvm.sh script run:
 # nvm alias default node
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
+function yy() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        cd -- "$cwd"
+        zle reset-prompt
+    fi
+    rm -f -- "$tmp"
+}
+
+alias gam="/home/morke/bin/gam7/gam"
