@@ -1,10 +1,10 @@
-![dotfiles](https://github.com/user-attachments/assets/a49711c1-0e2e-4777-a515-7cd4b300865b)
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/7d5b11d5-c2f0-43b3-96f2-011d8051550e" />
 
 ## setup
 
 - os ([eos](https://endeavouros.com/))
 - *desktop environment*
-  - window manager ([i3](https://github.com/i3/i3))
+  - tilling-wm ([i3](https://github.com/i3/i3))
   - status-bar ([polybar](https://github.com/polybar/polybar))
   - notification daemon ([dunst](https://github.com/dunst-project/dunst))
   - dynamic menu ([rofi](https://github.com/davatorium/rofi))
