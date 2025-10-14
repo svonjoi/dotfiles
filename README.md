@@ -3,7 +3,10 @@
 ## setup
 
 - os ([eos](https://endeavouros.com/))
-  - administration
+  - filemanager ([yazi](https://github.com/sxyazi/yazi))
+  - network manager ([nm](https://github.com/NetworkManager/NetworkManager))
+  - clipboard ([greenclip](https://github.com/erebe/greenclip))
+  - *administration*
     - dotfiles mgmt ([yadm](https://github.com/yadm-dev/yadm))
     - system configuration/packages mgmt ([aconfmgr](https://github.com/CyberShadow/aconfmgr?tab=readme-ov-file#aconfmgr-vs-puppetansible))
 - *desktop environment*
@@ -25,10 +28,9 @@
   - docker ([lazydocker](https://github.com/jesseduffield/lazydocker))
 - *pkm*
   - obsidian vim-way
-- *social clients*
+- *internet*
   - telegram client ([telega.el](https://github.com/zevlg/telega.el))
-- network manager ([nm](https://github.com/NetworkManager/NetworkManager))
-- clipboard ([greenclip](https://github.com/erebe/greenclip))
-- filemanager ([yazi](https://github.com/sxyazi/yazi))
-- browser ([qutebrowser](https://github.com/qutebrowser/qutebrowser))
-- pdf-viewer ([sioyek](https://github.com/ahrm/sioyek))
+  - browser ([qutebrowser](https://github.com/qutebrowser/qutebrowser))
+- *office*
+  - pdf-viewer ([sioyek](https://github.com/ahrm/sioyek))
+
