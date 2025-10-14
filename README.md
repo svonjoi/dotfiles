@@ -1,4 +1,4 @@
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/7d5b11d5-c2f0-43b3-96f2-011d8051550e" />
+<img width="1919" height="1079" alt="dotfiles-2" src="https://github.com/user-attachments/assets/8462bd55-4fe2-4c7e-b2c3-d6aa1f53f225" />
 
 ## setup
 
