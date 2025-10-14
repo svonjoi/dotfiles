@@ -16,9 +16,9 @@
   - dynamic menu ([rofi](https://github.com/davatorium/rofi))
   - compositor ([picom](https://github.com/yshui/picom))
 - *terminal*
-  - terminal emulator ([kitty](https://github.com/kovidgoyal/kitty))
-  - terminal multiplexer ([zellij](https://github.com/zellij-org/zellij))
   - shell ([zsh](https://github.com/zsh-users/zsh))
+  - multiplexer ([zellij](https://github.com/zellij-org/zellij))
+  - emulator ([kitty](https://github.com/kovidgoyal/kitty))
 - *input*
   - remapping ([keyd](https://github.com/rvaiya/keyd))
   - keybind ([sxhkd](https://github.com/baskerville/sxhkd))
