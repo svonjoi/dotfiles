@@ -3,6 +3,9 @@
 ## setup
 
 - os ([eos](https://endeavouros.com/))
+  - administration
+    - dotfiles mgmt ([yadm](https://github.com/yadm-dev/yadm))
+    - system configuration/packages mgmt ([aconfmgr](https://github.com/CyberShadow/aconfmgr?tab=readme-ov-file#aconfmgr-vs-puppetansible))
 - *desktop environment*
   - tilling-wm ([i3](https://github.com/i3/i3))
   - status-bar ([polybar](https://github.com/polybar/polybar))
@@ -29,6 +32,3 @@
 - filemanager ([yazi](https://github.com/sxyazi/yazi))
 - browser ([qutebrowser](https://github.com/qutebrowser/qutebrowser))
 - pdf-viewer ([sioyek](https://github.com/ahrm/sioyek))
-- administration
-  - dotfiles mgmt ([yadm](https://github.com/yadm-dev/yadm))
-  - system configuration/packages mgmt ([aconfmgr](https://github.com/CyberShadow/aconfmgr?tab=readme-ov-file#aconfmgr-vs-puppetansible))
