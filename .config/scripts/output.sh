@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-# TODO: check similar implementation https://github.com/davatorium/rofi-scripts
+# TODO: поставить везде: xrandr --dpi 100
 
 # ,---- [ display setup ]
 # | [V]ertical
@@ -15,9 +15,10 @@ set -x
 #? [polybar]
 # there are 3 types of bar configured: main|secondary|third; https://github.com/polybar/polybar/issues/763
 # environment variables for use within polybar-config and polybar-scripts
-export POLYCOLOR1="#7852ff" # ffbd3d 1f77d5 7852ff 8f6fff
-export POLYCOLOR2="#adad88" # 787878 adad88
+export POLYCOLOR1="#7852ff" #b45d5d
+export POLYCOLOR2="#8a88ad" #adad88
 export POLYCOLOR3="#8e8e8e"
+export POLYCOLOR4="#b45d5d"
 
 # the same vars defined in i3wm as here
 out_DP_1="DP-4"
@@ -117,89 +118,6 @@ function main() {
     # Wait until the processes have been shut down
     while pgrep -x polybar >/dev/null; do sleep 1; done
 
-    #? setup:VM
-    if [ $setup_vm -eq 1 ]; then
-
-        # [V] connected via docking (60hz)
-        # [M] connected via HDMI port (144hz)
-
-        if ! is_monitor_connected "$outHDMI"; then
-            notify-send "$outHDMI is not fucking pluged"
-        fi
-
-        if ! is_monitor_connected "$out_DP_2"; then
-            notify-send "$out_DP_2 is not fucking pluged"
-        fi
-
-        if [ $apply_xrandr -eq 1 ]; then
-
-            xrandr --output $outHDMI --primary --mode 1920x1080 --rate 144 --pos 1080x548 --rotate normal \
-                --output $out_DP_2 --mode 1920x1080 --pos 0x0 --rotate left \
-                --output $out_DP_1 --off \
-                --output $outLaptop --off
-        fi
-
-        if [ $apply_polybar -eq 1 ]; then
-            MONITOR=$outHDMI polybar --reload main 2>/tmp/polybar.log &
-            MONITOR=$out_DP_2 polybar --reload secondary &
-        fi
-        xmodmap ~/.Xmodmap
-    fi
-
-    #? setup:MV
-    if [ $setup_mv -eq 1 ]; then
-
-        # [M] (left-positioned) connected via HDMI port (144hz)
-        # [V] (right-positioned) connected dp-2 (60hz)
-
-        if ! is_monitor_connected "$outHDMI"; then
-            notify-send "$outHDMI is not fucking pluged"
-        fi
-
-        if ! is_monitor_connected "$out_DP_2"; then
-            notify-send "$out_DP_2 is not fucking pluged"
-        fi
-
-        if [ $apply_xrandr -eq 1 ]; then
-
-            xrandr \
-                --output $outHDMI --primary --mode 1920x1080 --rate 144 --pos 0x420 --rotate normal \
-                --output $out_DP_2 --mode 1680x1050 --rate 144 --pos 1920x0 --rotate right \
-                --output $out_DP_1 --off \
-                --output $outLaptop --off
-
-        fi
-
-        if [ $apply_polybar -eq 1 ]; then
-            MONITOR=$outHDMI polybar --reload main 2>/tmp/polybar.log &
-            MONITOR=$out_DP_2 polybar --reload secondary &
-        fi
-        xmodmap ~/.Xmodmap
-    fi
-
-    #? setup:H
-    if [ $setup_h -eq 1 ]; then
-
-        if ! is_monitor_connected "$out_DP_1"; then
-            notify-send "$out_DP_1 is not fucking pluged"
-        fi
-
-        if [ $apply_xrandr -eq 1 ]; then
-
-            xrandr \
-                --output $outHDMI --off \
-                --output $out_DP_1 --primary --mode 1920x1080 --pos 1920x0 \
-                --output $out_DP_2 --off \
-                --output $outLaptop --off
-
-        fi
-
-        if [ $apply_polybar -eq 1 ]; then
-            MONITOR=$out_DP_1 polybar --reload main &
-        fi
-        xmodmap ~/.Xmodmap
-    fi
-
     # INFO: setup:MH
     if [ $setup_mh -eq 1 ]; then
 
@@ -280,35 +198,7 @@ function main() {
         xmodmap ~/.Xmodmap
     fi
 
-    #? setup:VML
-    if [ $setup_vml -eq 1 ]; then
-        # [V] connected via docking (60hz)
-        # [M] connected via HDMI port (144hz)
-
-        if ! is_monitor_connected "$outHDMI"; then
-            notify-send "$outHDMI is not fucking plugged"
-        fi
-
-        if ! is_monitor_connected "$out_DP_2"; then
-            notify-send "$out_DP_2 is not fucking plugged"
-        fi
-
-        if [ $apply_xrandr -eq 1 ]; then
-            xrandr --output $outLaptop --mode 1368x768 --pos 3000x664 --rotate normal \
-                --output $outHDMI --primary --mode 1920x1080 --rate 144 --pos 1080x548 --rotate normal \
-                --output $out_DP_2 --mode 1920x1080 --pos 0x0 --rotate left \
-                --output $out_DP_1 --off
-        fi
-
-        if [ $apply_polybar -eq 1 ]; then
-            MONITOR=$outHDMI polybar --reload main &
-            MONITOR=$out_DP_2 polybar --reload secondary &
-            MONITOR=$outLaptop polybar --reload third &
-        fi
-        xmodmap ~/.Xmodmap
-    fi
-
-    #? setup:M
+    # INFO: setup:M
     if [ $setup_m -eq 1 ]; then
 
         # out_=$out_DP_2
@@ -320,7 +210,7 @@ function main() {
         fi
 
         if [ $apply_xrandr -eq 1 ]; then
-            xrandr --output $out_ --primary --mode $mode --rate 144 --pos 0x0 --rotate normal \
+            xrandr --output $out_ --primary --mode $mode --rate 144 --pos 0x0 --rotate normal --dpi 96 \
                 --output $outLaptop --off \
                 --output $out_DP_1 --off \
                 --output $out_DP_2 --off \
@@ -328,7 +218,7 @@ function main() {
         fi
 
         if [ $apply_polybar -eq 1 ]; then
-            MONITOR=$out_ polybar --reload main &
+            MONITOR=$out_ polybar --reload main 2>/tmp/polybar-main.log &
         fi
         xmodmap ~/.Xmodmap
     fi

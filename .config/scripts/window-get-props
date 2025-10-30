@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# ,---- [ ]
+# | get window properties
+# `----
+
+# https://specifications.freedesktop.org/wm-spec/1.3/ar01s05.html
+
+# dunstify "" "$(xprop -id $(xdotool getmouselocation --shell | grep WINDOW | cut -d '=' -f 2))"
+
+wm_class="$(xprop -id $(xdotool getmouselocation --shell | grep WINDOW | cut -d '=' -f 2) | grep WM_CLASS)"
+net_wm_window_type="$(xprop -id $(xdotool getmouselocation --shell | grep WINDOW | cut -d '=' -f 2) | grep _NET_WM_WINDOW_TYPE)"
+wm_name="$(xprop -id $(xdotool getmouselocation --shell | grep WINDOW | cut -d '=' -f 2) | grep WM_NAME)"
+
+notify-send -h string:fgcolor:#ff4444 "window properties" "$wm_class\n\n$net_wm_window_type\n\n$wm_name"
+
+# or just... sleep 2; xprop
+
+# EXAMPLE: WM_CLASS(STRING) = "Msgcompose", "thunderbird"
+# for_window [window_role="Msgcompose"]
+# for_window [class="thunderbird"]

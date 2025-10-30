@@ -1,7 +1,8 @@
 # @___[sxhkdrc]_________________________________________________.
 # |
-# | NOTE:(?)keysym used here are case sensitive
-# | instead of alt modifier use mod1; idk why alt dont work
+# | (?)keysym used here are case sensitive
+# |
+# | mod1 = alt
 # @_____________________________________________________________.
 
 # ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
@@ -23,6 +24,7 @@ super + F12
   ~/.config/scripts/window-get-props
 
 # T-Shift-semicolon
+# TODO: 
 super + shift + F12
   ~/.config/scripts/window-get-gui-lib
 
@@ -37,10 +39,6 @@ super + F6
 # T-s
 ctrl + F2
     ~/.config/scripts/rofi-search-static
-
-# T-a
-ctrl + F3
-    ~/.config/scripts/rofi-search/rofi-search-wrapper
 
 # T-space w
 ctrl + F5
@@ -78,13 +76,31 @@ super + ctrl + F11
 super + shift + F11
   flameshot gui -d 2000 >/dev/null 2>&1
 
-# ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
-# ┊                           ESC                            ┊
-# └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
-
-# EE
+# T-space Tab
 ctrl + shift + mod1 + F12
   ~/.config/scripts/helpers/fix_input_device_connection.sh
 
+#INFO: Notifications
+# pause dunst notifications
+# bindsym $Y+9        exec --no-startup-id dunstctl close-all && notify-send "Dunst enabled 🌀" && dunstctl set-paused toggle
+# bindsym $Y+$A+c     exec --no-startup-id dunstctl context
 
+# T-a
+# NOTE: free
+# ctrl + F3
 
+ctrl + F3
+    dunstctl close
+
+# mod3 + mod2 + x
+#  dunstctl close
+
+# T-x
+# bindsym $Y+$A+x     exec --no-startup-id dunstctl close
+# T-S-x
+# bindsym $Y+$A+$S+x  exec --no-startup-id dunstctl close-all
+# T-C-x
+# bindsym $Y+$A+$C+x  exec --no-startup-id dunstctl history-pop
+#
+# dunstify "Title" "Message" -u critical
+#

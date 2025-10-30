@@ -34,7 +34,6 @@
 
 ; (set-face-attribute 'default nil :font "Monospace" :height 120)
 (set-frame-font "Hack Nerd Font Mono 13" nil t)
-; (set-frame-font "Hack Nerd Font Mono 16" nil t)
 
 ;; X clipboard
 ;; https://unix.stackexchange.com/questions/6640/emacs-command-to-cut-or-copy-to-system-clipboard

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#for additional ddgr options see "ddgr --help"
+export DDG_ARGS='["-n", 5]'
+export ROFI_SEARCH='ddgr'
+
+SCRIPT_PATH="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+
+rofi -modi blocks -blocks-wrap $SCRIPT_PATH/rofi-search -show blocks \
+    -lines 4 -eh 2 -kb-custom-1 'Control+y'

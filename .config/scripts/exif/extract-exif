@@ -1,0 +1,58 @@
+#!/bin/bash
+
+show_help() {
+    cat <<EOF
+Usage: script.sh <tag> <file>
+
+Extracts EXIF date-related metadata from an image or video file.
+
+Arguments:
+  <tag>   The EXIF date tag to query
+  <file>  Path to the file
+
+Examples:
+  script.sh SubSecDateTimeOriginal image.jpg
+  script.sh SubSecCreateDate video.mp4
+
+EXIF date tags; immich look for a date from these tags (in order):
+  SubSecDateTimeOriginal
+  SubSecCreateDate
+  SubSecMediaCreateDate
+  DateTimeOriginal
+  CreateDate
+
+Options:
+  -h, --help    Show this help message
+EOF
+}
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    show_help
+    exit 0
+fi
+
+tag="$1"
+file="$2"
+
+# Check arguments
+if [[ -z "$tag" || -z "$file" ]]; then
+    show_help
+    exit 1
+fi
+
+# Check if file exists
+if [[ ! -f "$file" ]]; then
+    echo "Error: File not found -> $file"
+    exit 1
+fi
+
+# Extract tag value
+value=$(exiftool -s3 -"${tag}" -d '%Y-%m-%d %H:%M:%S' "$file")
+
+# Show result
+if [[ -n "$value" ]]; then
+    echo "$value"
+else
+    echo "Tag '$tag' not found in file: $file"
+    exit 1
+fi

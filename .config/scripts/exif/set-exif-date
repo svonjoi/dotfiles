@@ -1,0 +1,54 @@
+#!/bin/bash
+
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    cat <<EOF
+Usage: $(basename "$0") <filename> [YYYY:MM:DD HH:MM:SS]
+
+Description:
+  This script sets the EXIF "AllDates" metadata for an image file using exiftool.
+
+Arguments:
+  <filename>                 Path to the image file (e.g., photo.jpg).
+  [YYYY:MM:DD HH:MM:SS]      Optional date/time in EXIF format.
+                             - If provided, sets the image's "AllDates" to this value.
+                             - If omitted, the date is extracted from the filename.
+
+Examples:
+  # Set date from filename
+  $(basename "$0") photo_20230101_123000.jpg
+
+  # Manually set EXIF date
+  $(basename "$0") photo.jpg "2023:01:01 12:30:00"
+
+EOF
+    exit 0
+fi
+
+file="$1"
+date="$2"
+
+if [ -z "$file" ]; then
+    echo "Usage: $0 <filename> [YYYY:MM:DD HH:MM:SS]"
+    exit 1
+fi
+
+echo "$file"
+
+# date=$(gum input --placeholder "YYYY:MM:DD HH:MM:SS" --prompt "Enter new datetime (leave empty to use filename): ")
+
+if [ -z "$date" ]; then
+    if exiftool -v -overwrite_original "-AllDates<Filename" "$file"; then
+        new_date=$(exiftool -s3 -"DateTimeOriginal" -d '%Y-%m-%d %H:%M' "$file")
+        echo "$new_date (new date extracted from filename)"
+    else
+        echo "Failed to set date from filename for '$file'" >&2
+        exit 1
+    fi
+else
+    if exiftool -overwrite_original "-AllDates=$date" "$file"; then
+        echo "$date (new date manually set)"
+    else
+        echo "Failed to set date for '$file'" >&2
+        exit 1
+    fi
+fi

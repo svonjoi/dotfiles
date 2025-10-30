@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# set -x
+
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## vpn_module: vpn scripts for polybar
 ## 	by Shervin S. (shervin@enchanter.ai)
@@ -34,11 +36,15 @@ VPN_DISCONNECT="mullvad disconnect"
 VPN_GET_STATUS="mullvad status"
 VPN_RELAY_SET_LOCATION="mullvad relay set location"
 
-## [Set VPN status parsing]
-# The first command cuts the status, which is compared to keywords below.
-# It's made to be fairly generic to apply across VPNs.
-VPN_STATUS="$($VPN_GET_STATUS | grep -Eio 'connected|connecting|disconnected' |
-    tr '[:upper:]' '[:lower:]')"
+if ! $VPN_GET_STATUS >/dev/null 2>&1; then
+    # if the command fails, daemon is not running, missing deps, etc.
+    VPN_STATUS="error"
+else
+    VPN_STATUS="$($VPN_GET_STATUS | grep -Eio 'connected|connecting|disconnected' |
+        tr '[:upper:]' '[:lower:]')"
+    : "${VPN_STATUS:=unknown}"
+fi
+
 CONNECTED="connected"
 CONNECTING="connecting tunnel.."
 
@@ -48,10 +54,14 @@ CONNECTING="connecting tunnel.."
 ICON_CONNECTED=""
 ICON_CONNECTING="ﱱ"
 ICON_DISCONNECTED=""
-COLOR_CONNECTING=${POLYCOLOR2}
-COLOR_DISCONNECTED=${POLYCOLOR3}
+ICON_ERROR=""
 
-COLOR_CONNECTED="#2f96ff"
+COLOR_ERROR=${POLYCOLOR3}
+COLOR_DISCONNECTED=${POLYCOLOR2}
+COLOR_CONNECTED=${POLYCOLOR1}
+COLOR_CONNECTED_INFO=${POLYCOLOR2}
+COLOR_CONNECTING=${POLYCOLOR2}
+
 COLOR_IP="#7d5ccb"
 
 ## [Set rofi menu]. `man rofi` for help on location params.
@@ -82,25 +92,16 @@ vpn_report() {
     if [ "$VPN_STATUS" = "$CONNECTED" ]; then
         if [ "$@" ]; then
             if [ "$1" == "mullvad" ]; then
-                # use mullvad status to read location
-                # report="$($VPN_GET_STATUS | sed -n 's/.*in //p')"
-                # заебашил через json
                 country=$(mullvad status --json | jq -r '.details.location.country')
                 city=$(mullvad status --json | jq -r '.details.location.city')
                 ip=$(mullvad status --json | jq -r '.details.location.ipv4')
 
-                output="%{F$COLOR_CONNECTED}$ICON_CONNECTED $country $city "
-                output+="%{F$COLOR_IP}$ip%{F-}%{F$COLOR_CONNECTED}%{F-}"
+                output="%{F$COLOR_CONNECTED}$ICON_CONNECTED %{F$COLOR_CONNECTED_INFO}$country%{F-}"
+                # output="%{F$COLOR_CONNECTED}$ICON_CONNECTED $country $city "
+                # output+="%{F$COLOR_IP}$ip%{F-}%{F$COLOR_CONNECTED}%{F-}"
+                # output=$ICON_CONNECTED
 
                 echo $output
-
-                # zscroll -l 10 \
-                #     --delay 0.3 \
-                #     --scroll-padding " :: " \
-                #     --scroll 1 \
-                #     --update-check true \
-                #     "echo '$ICON_CONNECTED $country/$city($ip)'" &
-                # wait
 
             elif [ "$1" == "other-vpn" ]; then
                 # use a generic check to see if VPN provides location in its status command.
@@ -128,7 +129,8 @@ vpn_report() {
 
     elif [ "$VPN_STATUS" = "$CONNECTING" ]; then
         echo "%{F$COLOR_CONNECTING}$ICON_CONNECTING Connecting...%{F-}"
-
+    elif [ "$VPN_STATUS" = "error" ]; then
+        echo "%{F$COLOR_ERROR}$ICON_ERROR%{F-}"
     else
         echo "%{F$COLOR_DISCONNECTED}$ICON_DISCONNECTED%{F-}"
     fi

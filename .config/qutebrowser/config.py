@@ -2548,6 +2548,7 @@ config.bind("<Meta-Alt-Shift-l>", "tab-next")
 
 # https://github.com/qutebrowser/qutebrowser/blob/main/doc/help/configuring.asciidoc#emacs-like-config
 c.bindings.commands["insert"] = {
+    "<Ctrl-j>": "fake-key <Shift-Return>",
     "<Ctrl-f>": "fake-key <Right>",
     "<Ctrl-b>": "fake-key <Left>",
     "<Ctrl-a>": "fake-key <Home>",

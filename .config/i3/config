@@ -8,29 +8,11 @@
 #      ░░    ░   ▒   ░      ░   ░░         ░░   ░
 #       ░        ░  ░       ░               ░
 #      ░
-# 00. Inbox
-# 10. Reload
-# 15. Autostart
-# 20. Keyboard Layout
-# 30. Sound section
-# 40. Workspaces: set, navigation
-# 50. Bind software to workspaces
-# 60. Bind ws to outputs & move ws between outputs
-# 70. Windows & containers functionallity
-# 75. Floating windows
-# 50. Scratchpad
-# 70. Distraction-free
-# 90. Menu
-# 80. Window customization
-# 81. Gaps
-# 82. Theme colors
-# 84. Ne-ebite-mozg
 
 set $out0 "eDP-1"
 set $out1 "HDMI-1"
 set $out2 "DP-2"
 set $out3 "DP-1"
-
 
 # Set modifier keys
 # TODO: $G=AltGr
@@ -116,12 +98,14 @@ bindsym $M+$S+d exec --no-startup-id rofi -show window
 # +------------------------------------------------+
 
 # fixes (run when i3-msg restart)
+exec_always --no-startup-id ~/.config/scripts/helpers/setup-remap.sh
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id /usr/bin/dwall -s bitday
 exec_always --no-startup-id polybar-msg cmd restart
 exec_always --no-startup-id i3-msg '[instance="keepassxc"] move scratchpad', resize set 1150 670, border pixel 1
 exec_always --no-startup-id i3-msg '[instance="emacs"] move scratchpad', resize set 1150 670, border pixel 1
+exec_always --no-startup-id i3-msg '[instance="claude"] move scratchpad', resize set 1450 870, border pixel 1
 
 #INFO: RELOAD MENU
 #
@@ -189,7 +173,7 @@ bindsym $M+$C+$A+End exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -
 # 40. Workspaces: set, navigation
 # -------------------------------------------+
 
-# 🎲⚙🔧🔨🪓⛏⚒⚒🛠🗡⚔⚡🫒୨୧␣ツ✦✨★〣✦⊞
+# 🎲⚙🔧🔨🪓⛏⚒⚒🛠🗡⚔⚡🫒୨୧␣ツ✦✨★〣✦⊞󰣇〣󱇆✦
 # https://coolsymbol.com/
 
 # switch to workspace with urgent window automatically
@@ -200,65 +184,51 @@ workspace_auto_back_and_forth no
 # bindsym $M+b workspace back_and_forth
 # bindsym $M+$S+b move container to workspace back_and_forth; workspace back_and_forth
 
-
-# ? Rename workspace
-# bindsym $M+$Y+r exec i3-input -F 'rename workspace to "%s"' -P 'Destination: '
-# bindsym $M+$Y+r exec i3-input -F "rename workspace to "$(i3-msg -t get_workspaces | jq -r "map(select(.focused))[0].num"):%s"" -P "New name: "
-# clear workspace name
-# bindsym $M+$Y+c exec i3-msg "rename workspace to "$(i3-msg -t get_workspaces | jq -r "map(select(.focused))[0].num")""
-
-
 #? navigate workspaces next / previous
 # bindsym $M+$A+l workspace next
 # bindsym $M+$A+h workspace prev
 
-
-#? set workspaces "0:󰣇〣󱇆✦"
+# 40.1. Define workspaces
 set $ws_1 1
 set $ws_2 2
 set $ws_3 3
 set $ws_4 4
 set $ws_5 5
+set $ws_b1 "61:["
+set $ws_b2 "62:]"
 set $ws_x "51:x"
 set $ws_w "52:w"
 set $ws_e "53:e"
-set $ws_b1 "61:["
-set $ws_b2 "62:]"
 set $ws_y "65:y"
 set $ws_z "66:z"
-set $ws_q "67:q"
 set $ws_r "90:r"
 set $ws_t "100:t"
-set $ws_s "110:s"
-set $ws_d "120:d"
+set $ws_i "110:i"
+set $ws_u "115:u"
+set $ws_o "120:o"
 set $ws_p "130:p"
-set $ws_a "150:a"
 set $ws_c "170:c"
 set $ws_v "180:v"
 set $ws_b "190:b"
 set $ws_n "200:n"
 set $ws_m "210:m"
-set $ws_f "220:f"
-set $ws_semicolon "250:;"
+set $ws_comma "230:<"
+set $ws_period "231:>"
 
-#? Switch to workspace
+# 40.2. Switch to workspace
 bindsym $Y+1 workspace number $ws_1
 bindsym $Y+2 workspace number $ws_2
 bindsym $Y+3 workspace number $ws_3
 bindsym $Y+4 workspace number $ws_4
 bindsym $Y+5 workspace number $ws_5
-bindsym $Y+semicolon workspace $ws_semicolon
-bindsym $Y+bracketleft workspace $ws_b1
-bindsym $Y+bracketright workspace $ws_b2
 bindsym $Y+r workspace $ws_r
 bindsym $Y+t workspace $ws_t
-bindsym $Y+s workspace $ws_s
-bindsym $Y+d workspace $ws_d
+bindsym $Y+i workspace $ws_i
+bindsym $Y+u workspace $ws_u
+bindsym $Y+o workspace $ws_o
 bindsym $Y+w workspace $ws_w
 bindsym $Y+e workspace $ws_e
 bindsym $Y+p workspace $ws_p
-bindsym $Y+q workspace $ws_q
-bindsym $Y+a workspace $ws_a
 bindsym $Y+z workspace $ws_z
 bindsym $Y+x workspace $ws_x
 bindsym $Y+c workspace $ws_c
@@ -266,27 +236,30 @@ bindsym $Y+v workspace $ws_v
 bindsym $Y+b workspace $ws_b
 bindsym $Y+n workspace $ws_n
 bindsym $Y+m workspace $ws_m
-bindsym $Y+f workspace $ws_f
 bindsym $Y+y workspace $ws_y
+bindsym $Y+bracketleft workspace $ws_b1
+bindsym $Y+bracketright workspace $ws_b2
+bindsym $Y+period workspace $ws_period
+bindsym $Y+comma workspace $ws_comma
 
-#? Move focused container to workspace
+# 40.3. Move focused container to workspace
 bindsym $M+$Y+1 move container to workspace number $ws_1
 bindsym $M+$Y+2 move container to workspace number $ws_2
 bindsym $M+$Y+3 move container to workspace number $ws_3
 bindsym $M+$Y+4 move container to workspace number $ws_4
 bindsym $M+$Y+5 move container to workspace number $ws_5
-bindsym $M+$Y+semicolon move container to workspace $ws_semicolon
+bindsym $M+$Y+comma move container to workspace $ws_comma
 bindsym $M+$Y+bracketleft move container to workspace $ws_b1
 bindsym $M+$Y+bracketright move container to workspace $ws_b2
+bindsym $M+$Y+period move container to workspace $ws_period
 bindsym $M+$Y+r move container to workspace $ws_r
 bindsym $M+$Y+t move container to workspace $ws_t
-bindsym $M+$Y+s move container to workspace $ws_s
-bindsym $M+$Y+d move container to workspace $ws_d
+bindsym $M+$Y+i move container to workspace $ws_i
+bindsym $M+$Y+u move container to workspace $ws_u
+bindsym $M+$Y+o move container to workspace $ws_o
 bindsym $M+$Y+w move container to workspace $ws_w
 bindsym $M+$Y+e move container to workspace $ws_e
 bindsym $M+$Y+p move container to workspace $ws_p
-bindsym $M+$Y+q move container to workspace $ws_q
-bindsym $M+$Y+a move container to workspace $ws_a
 bindsym $M+$Y+z move container to workspace $ws_z
 bindsym $M+$Y+x move container to workspace $ws_x
 bindsym $M+$Y+c move container to workspace $ws_c
@@ -294,7 +267,6 @@ bindsym $M+$Y+v move container to workspace $ws_v
 bindsym $M+$Y+b move container to workspace $ws_b
 bindsym $M+$Y+n move container to workspace $ws_n
 bindsym $M+$Y+m move container to workspace $ws_m
-bindsym $M+$Y+f move container to workspace $ws_f
 bindsym $M+$Y+y move container to workspace $ws_y
 
 #? Move to workspace with focused container
@@ -302,15 +274,13 @@ bindsym $M+$Y+y move container to workspace $ws_y
 # bindsym $Y+$S+2 move container to workspace number $ws_2; workspace number $ws_2
 
 
-# +----------------------------------------------+
-# 50. Bind software to workspaces
-# -----------------------------------------------+
+# 40.4. Bind software to workspaces
 
 # assign [class="obsidian"] $ws_space
 assign [class="thunderbird"] $ws_t
 assign [class="remmina"] $ws_r
-assign [class="DBeaver"] $ws_d
-assign [class="Microsoft Teams - Preview"] $ws_s
+# assign [class="DBeaver"] $ws_d
+# assign [class="Microsoft Teams - Preview"] $ws_i
 
 # TODO: no funciona
 assign [class="libreoffice"] $ws_v
@@ -321,9 +291,9 @@ assign [class="Postman"] $ws_p
 # assign [class="Brave-browser"] $ws_e
 assign [class="Tor Browser"] $ws_e
 # social
-# assign [class="TelegramDesktop"] $ws_s
-assign [class="whatsdesk"] $ws_s
-assign [class="discord"] $ws_s
+assign [class="TelegramDesktop"] $ws_i
+assign [class="whatsdesk"] $ws_i
+assign [class="discord"] $ws_i
 
 # +----------------------------------------------+
 # 60. Bind ws to outputs & move ws between outputs
@@ -339,15 +309,11 @@ workspace $ws_2     output $monPrimary
 workspace $ws_3     output $monPrimary
 workspace $ws_4     output $monPrimary
 workspace $ws_5     output $monPrimary
-# workspace $ws_space output $monPrimary
 workspace $ws_r     output $monPrimary
 workspace $ws_t     output $monPrimary
-workspace $ws_s     output $monPrimary
-workspace $ws_d     output $monPrimary
+workspace $ws_i     output $monPrimary
 workspace $ws_w     output $monPrimary
 workspace $ws_p     output $monPrimary
-workspace $ws_q     output $monPrimary
-workspace $ws_a     output $monPrimary
 workspace $ws_z     output $monPrimary
 workspace $ws_x     output $monPrimary
 workspace $ws_c     output $monPrimary
@@ -395,8 +361,7 @@ bindsym $M+$S+k	  move up 30
 bindsym $M+l      focus right
 bindsym $M+$S+l	  move right 30
 
-#? Resize windows
-# keyd hyp+h = left
+# Resize windows
 bindsym $M+Left exec --no-startup-id $scripts/i3-resize left 8
 bindsym $M+Down exec --no-startup-id $scripts/i3-resize down 8
 bindsym $M+Up exec --no-startup-id $scripts/i3-resize up 8
@@ -406,24 +371,22 @@ bindsym $M+$S+Down exec --no-startup-id $scripts/i3-resize down 30
 bindsym $M+$S+Up exec --no-startup-id $scripts/i3-resize up 30
 bindsym $M+$S+Right exec --no-startup-id $scripts/i3-resize right 30
 
-#? change container layout (stacked, tabbed, toggle split)
-bindsym $M+c  split horizontal; exec notify-send 'tile horizontally'
-bindsym $M+v  split vertical; exec notify-send 'tile vertically'
-bindsym $M+s  layout stacking
-bindsym $M+w  layout tabbed
-bindsym $M+e  layout toggle split
-bindsym $M+x  split toggle
+# split
+bindsym $M+c split horizontal; exec notify-send 'tile horizontally'
+bindsym $M+v split vertical; exec notify-send 'tile vertically'
+bindsym $M+x split toggle
+
+# layout
+bindsym $M+s layout stacking
+bindsym $M+w layout tabbed
+bindsym $M+e layout toggle split
 
 # focus the parent container
 bindsym $M+a focus parent
 
-#? Renaming parent container
-# to pop up an input window for you to enter a container name and then focuses 
-# on the window parent, renames the container and then focuses back on the child window
-# bindsym $Y+slash exec "answer=$(zenity --title=\\"i3-msg title_format\\" --text \\"Change %TITLE for parent container\\" --entry); if [ -n \\"$answer\\" ]; then i3-msg focus parent, title_format \\"<span foreground='pink'><b> $answer</b></span>\\", focus child; else i3-msg focus parent, title_format \\"<span foreground='pink'><b> %title</b></span>\\", focus child; fi"
-
-# not working
-# bindsym $M+g exec i3-input -F 'rename workspace to "'`i3-msg -t get_workspaces | jq '.[] | select(.visible == true)' | jq .num`': %s"' -P "new name? "
+# rename containe title on the fly
+bindsym $M+t exec --no-startup-id ~/.config/i3/scripts/title-format
+bindsym $M+$S+t exec --no-startup-id ~/.config/i3/scripts/title-format parent
 
 # +------------------------------------------+
 # 75. Floating windows
@@ -452,43 +415,11 @@ for_window [instance="Mailnews" class="(?i)Thunderbird" title="Filter Rules"] fl
 for_window [instance="nitrogen"] floating enable, resize set 1000 680, move position center
 
 # keepassxc
-
 # вместо этого, exec_always запускает это же через i3-ipc
 # for_window [instance="keepassxc"] move scratchpad, resize set 1150 670, border pixel 1
 
+# for_window [class="(?i)claude"] floating enable, resize set 1450 870, move position center
 
-# https://wiki.archlinux.org/title/I3#Correct_handling_of_floating_dialogs
-# for_window [window_role="About"] floating enable
-# for_window [window_role="Organizer"] floating enable
-# for_window [window_role="Preferences"] floating enable
-# for_window [window_role="bubble"] floating enable
-# for_window [window_role="page-info"] floating enable
-# for_window [window_role="pop-up"] floating enable
-# for_window [window_role="task_dialog"] floating enable
-# for_window [window_role="toolbox"] floating enable
-# for_window [window_role="webconsole"] floating enable
-# for_window [window_type="menu"] floating enable
-# for_window [window_type="dialog"] floating enable, resize set 1000 680, move position center
-
-# for_window [class="Clipgrab"] floating enable
-# for_window [title="File Transfer*"] floating enable
-# for_window [class="fpakman"] floating enable
-# for_window [class="Galculator"] floating enable border pixel 1
-# for_window [class="GParted"] floating enable border normal
-# for_window [title="i3_help"] floating enable sticky enable border normal
-# for_window [class="Lxappearance"] floating enable sticky enable border normal
-# for_window [title="MuseScore: Play Panel"] floating enable
-# for_window [class="Oblogout"] fullscreen enable
-# for_window [class="octopi"] floating enable
-# for_window [title="About Pale Moon"] floating enable
-# for_window [class="Pamac-manager"] floating enable
-# for_window [class="qt5ct"] floating enable sticky enable border normal
-# for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
-# for_window [class="Simple-scan"] floating enable border normal
-# for_window [class="(?i)System-config-printer.py"] floating enable border normal
-# for_window [class="Skype"] floating enable border normal
-# for_window [class="Timeset-gui"] floating enable border normal
-# for_window [class="Xfburn"] floating enable
 
 # +------------------------------------------+
 # 50. Scratchpad
@@ -511,17 +442,19 @@ for_window [class="kitty_zellij_master"], move scratchpad, resize set 1200 690, 
 for_window [class="kitty_zellij_notepad"], move scratchpad, resize set 1200 690, border pixel 1
 for_window [class="kitty_nmtui"] move scratchpad, resize set 1200 680, border pixel 1
 for_window [class="kitty_alsamixer"] move scratchpad, resize set 1200 680, border pixel 1
-
+for_window [class="(?i)claude"] move scratchpad, resize set 1450 870, border pixel 1
 
 # 1. show & start if not running
 # 1.1 show/start gui
 
-# tab+space+f
+# T-Space-f
 bindsym $M+7 exec --no-startup-id jumpapp keepassxc; [class="KeePassXC"] scratchpad show; move position center
-# tab+space+g
+# T-Space-g
 bindsym $M+F10 exec --no-startup-id jumpapp gcolor3; [instance="(?i)nl.hjdskes.gcolor3"] scratchpad show; move position center
-# tab+space+x
+# T-Space-x
 bindsym $M+4 exec --no-startup-id jumpapp emacs; [instance="emacs"] scratchpad show; move position center
+# T-Space-e
+bindsym $M+F5 exec --no-startup-id jumpapp claude-desktop; [instance="claude"] scratchpad show; move position center
 
 # 1.2 run-or-raise cli-tools
 bindsym $M+space exec --no-startup-id ~/.config/scripts/jumpterm.sh kitty kitty_ranger ranger; [class="kitty_ranger"] scratchpad show; move position center
@@ -717,21 +650,6 @@ mode "$wine_vpn" {
     bindsym Escape mode "default"
 }
 
-#INFO: Notifications
-#
-# pause dunst notifications
-# bindsym $Y+9        exec --no-startup-id dunstctl close-all && notify-send "Dunst enabled 🌀" && dunstctl set-paused toggle
-bindsym $Y+$A+c     exec --no-startup-id dunstctl context
-
-# T-x
-bindsym $Y+$A+x     exec --no-startup-id dunstctl close
-# T-S-x
-bindsym $Y+$A+$S+x  exec --no-startup-id dunstctl close-all
-# T-C-x
-bindsym $Y+$A+$C+x  exec --no-startup-id dunstctl history-pop
-#
-# dunstify "Title" "Message" -u critical
-#
 # [MENU] esc+n
 bindsym $C+F8 mode "$wine_notif"
 set $wine_notif [Notifications] (w|W)work-mode on|off (d)close-topmost (h)history-pop (c)context
@@ -739,6 +657,7 @@ mode "$wine_notif" {
     bindsym w          exec --no-startup-id dunstctl close-all && $scripts/notifications/dunst_manage.sh workmode enable
     bindsym $S+w       exec --no-startup-id dunstctl close-all && $scripts/notifications/dunst_manage.sh workmode disable
     bindsym c          exec --no-startup-id dunstctl context
+    bindsym h          exec --no-startup-id dunstctl history-pop
     bindsym Escape mode "default"
 }
 

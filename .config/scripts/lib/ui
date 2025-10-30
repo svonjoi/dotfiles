@@ -1,0 +1,40 @@
+#!/bin/bash
+
+ui_box() {
+    gum style \
+        --foreground "#9392c1" \
+        --background "#001432" \
+        --align center \
+        --width 70 \
+        --margin "1" \
+        --padding "1" \
+        --bold \
+        "$1"
+}
+
+ui_box_2() {
+    gum style \
+        --foreground "#00ffff" \
+        --background "#002b36" \
+        --border-foreground "#00ffff" \
+        --margin "1" \
+        --padding "1 3" \
+        --bold \
+        "$1"
+}
+
+ui-choser() {
+    gum filter \
+        --height 8 \
+        --header.foreground="196" \
+        --text.foreground="255" \
+        --match.foreground="0" \
+        --match.background="196" \
+        --indicator.foreground="75" \
+        --cursor-text.foreground="75" \
+        --header="$1"
+}
+
+fzf-choser() {
+    fzf --color='fg:#ffffff,bg:#000000,hl:#ff0000,fg+:#5fafff,bg+:#000000,hl+:#000000'
+}

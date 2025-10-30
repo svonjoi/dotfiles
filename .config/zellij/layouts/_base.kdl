@@ -1,0 +1,47 @@
+layout {
+    // https://zellij.dev/documentation/creating-a-layout.html?highlight=default_tab_template#default-tab-template
+    default_tab_template {
+        children
+        pane size=1 borderless=true {
+            plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
+                format_left "{mode}#[bg=#0e0a1b,fg=#adad88] {session} #[bg=#0e0a1b,fg=#8f8f8f] {swap_layout} "
+                format_center ""
+                format_right "{tabs}"
+                format_space "#[bg=#0e0a1b]"
+
+                //mode_locked  "#[bg=red,fg=white]  LOCKED "
+                mode_locked "#[bg=red,fg=white]  "
+                mode_normal "#[bg=#adad88] "
+                mode_tmux "#[bg=#E5BD1A] "
+                mode_pane "#[bg=#1AE5AB] "
+                mode_resize "#[bg=#1AE5AB] "
+                mode_move "#[bg=#1AE5AB] "
+                mode_tab "#[bg=#1AE5AB] "
+                mode_scroll "#[bg=#1AE5AB] "
+                mode_search "#[bg=#1AE5AB] "
+                mode_entersearch "#[bg=#1AE5AB] "
+                mode_renametab "#[bg=#1AE5AB] "
+                mode_renamepane "#[bg=#1AE5AB] "
+                mode_session "#[bg=#1AE5AB] "
+
+                tab_normal "#[bg=#0e0a1b,fg=#adad88] {name} {sync_indicator}{fullscreen_indicator}{floating_indicator}#[bg=#adad88,fg=black]"
+                tab_active "#[bg=black,fg=#e6c01e] {name} {sync_indicator}{fullscreen_indicator}{floating_indicator}#[bg=black,fg=#adad88]"
+                //tab_separator "#[fg=#A6A6A6,bg=#0E0A1B]|"
+
+                tab_sync_indicator       "󰓦 "
+                tab_fullscreen_indicator "󰉈 "
+                tab_floating_indicator   "‡ "
+
+                hide_frame_except_for_scroll "true"
+
+                datetime          "{format}"
+                datetime_format   "%d-%m-%Y %H:%M"
+                datetime_timezone "Europe/Berlin"
+            }
+        }
+    }
+
+    tab name="~" focus=true {
+        pane size="1" cwd="~"
+    }
+}

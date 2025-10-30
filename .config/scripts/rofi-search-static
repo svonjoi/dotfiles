@@ -1,0 +1,67 @@
+#!/bin/bash
+
+theme="$HOME/.config/rofi/__/themes/fucking-input.rasi"
+
+urlencode() {
+    jq -rn --arg v "$1" '$v|@uri'
+}
+
+preset_filter=""
+
+while true; do
+    selection=$(rofi -dmenu -p 'че нада нахуй' \
+        -theme "$theme" \
+        -kb-custom-1 'Alt+j' \
+        -kb-custom-2 'Alt+k' \
+        -kb-custom-3 'Alt+r' \
+        -kb-custom-4 'Alt+g' \
+        -filter "$preset_filter")
+
+    rc=$?
+
+    case $rc in
+    0)
+        # Enter
+        if [ -n "$selection" ]; then
+            q=$(urlencode "$selection")
+            xdg-open "https://www.google.com/search?q=${q}"
+        fi
+        exit 0
+        ;;
+    10)
+        # -kb-custom-1
+        if [ -n "$selection" ]; then
+            q=$(urlencode "$selection")
+            xdg-open "https://www.google.com/search?q=${q}"
+        fi
+        exit 0
+        ;;
+    11)
+        # -kb-custom-2
+        if [ -n "$selection" ]; then
+            q=$(urlencode "$selection")
+            xdg-open "https://duckduckgo.com/?q=${q}"
+        fi
+        exit 0
+        ;;
+    12) # -kb-custom-3
+        # reopen with reddit site filter, preserving typed text
+        if [[ "$selection" == site:reddit.com\ * ]]; then
+            preset_filter="$selection"
+        else
+            preset_filter="site:reddit.com ${selection}"
+        fi
+        # Loop continues; rofi reopens with preserved text and same keybindings
+        ;;
+    13) # -kb-custom-4
+        if [[ "$selection" == site:github.com\ * ]]; then
+            preset_filter="$selection"
+        else
+            preset_filter="site:github.com ${selection}"
+        fi
+        ;;
+    *)
+        exit 1
+        ;;
+    esac
+done

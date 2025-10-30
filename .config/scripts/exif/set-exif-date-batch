@@ -1,0 +1,33 @@
+#!/bin/bash
+
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    cat <<EOF
+Usage: $(basename "$0") <file1> [file2,..]
+
+Description:
+  This script updates the EXIF "AllDates" metadata for one or more image files
+EOF
+    exit 0
+fi
+
+date=$(gum input --placeholder "YYYY:MM:DD HH:MM:SS" --prompt "Selected $# files; (leave empty to use filename); DATETIME: ")
+
+if [ -z "$date" ]; then
+    date=""
+fi
+
+if [ $# -gt 0 ]; then
+    results=""
+
+    for p in "$@"; do
+        if [ -n "$p" ]; then
+            res=$($HOME/.config/scripts/exif/set-exif-date "$p" "$date")
+            results+="$res"$'\n\n'
+        fi
+    done
+
+    # Print all results
+    printf "%s" "$results"
+else
+    echo "No files provided"
+fi

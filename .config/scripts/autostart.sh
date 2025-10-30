@@ -1,19 +1,23 @@
 #!/bin/bash
 # run once when system starts
+# nohup autostart.sh &
 
 # TODO: ~/.xinitrc
 
 ~/.config/scripts/hardware/mouse.sh
 ~/.config/scripts/hardware/layout.sh
+
+#  не пашет или че?
 ~/.config/scripts/helpers/setup-remap.sh
-~/.config/scripts/mount-cloud.sh
 
 # set keybinding
+# кривой кал из за капслока выдает кучу варнов. или мб из за ш3 биндов
 setsid -f sxhkd
 
+~/.config/scripts/mount-cloud.sh
 nohup udiskie --tray &
 nohup greenclip daemon &
-nohup ~/.config/scripts/show_in_folder.pl &
+nohup ~/.config/scripts/explorer/show-in-folder.pl &
 
 # disable power-button
 # https://unix.stackexchange.com/questions/547582/how-to-disable-cleanly-the-power-button

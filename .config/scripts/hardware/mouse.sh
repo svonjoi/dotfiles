@@ -38,8 +38,9 @@ xinput --set-prop 'pointer:Logitech MX Ergo' 'libinput Accel Speed' 0.1
 # xinput set-prop "pointer:Logitech MX Ergo" "Device Accel Profile" -1
 # xinput set-prop "pointer:Logitech MX Ergo" "Device Accel Velocity Scaling" 0.1
 
-xinput --set-prop 'pointer:ELECOM TrackBall Mouse EX-G Pro TrackBall' 'libinput Accel Profile Enabled' 0, 1
-xinput --set-prop 'pointer:ELECOM TrackBall Mouse EX-G Pro TrackBall' 'libinput Accel Speed' -0.2
+# NOTE: ELECOM TRACKBALL
+# xinput --set-prop 'pointer:ELECOM TrackBall Mouse EX-G Pro TrackBall' 'libinput Accel Profile Enabled' 0, 1
+# xinput --set-prop 'pointer:ELECOM TrackBall Mouse EX-G Pro TrackBall' 'libinput Accel Speed' -0.2
 
 #+----------------------------------------------+
 #| ⚡ Razer                                     |
@@ -52,6 +53,6 @@ xinput --set-prop 'pointer:ELECOM TrackBall Mouse EX-G Pro TrackBall' 'libinput 
 # xinput set-prop "pointer:Razer Razer DeathAdder Essential" "Device Accel Adaptive Deceleration" 1
 # xinput set-prop "pointer:Razer Razer DeathAdder Essential" "Device Accel Velocity Scaling" 1
 
-#? libinput
-xinput --set-prop 'pointer:Razer Razer DeathAdder Essential' 'libinput Accel Profile Enabled' 0, 1
-xinput --set-prop 'pointer:Razer Razer DeathAdder Essential' 'libinput Accel Speed' -0.6
+# NOTE: RAZER
+# xinput --set-prop 'pointer:Razer Razer DeathAdder Essential' 'libinput Accel Profile Enabled' 0, 1
+# xinput --set-prop 'pointer:Razer Razer DeathAdder Essential' 'libinput Accel Speed' -0.6

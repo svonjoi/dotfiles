@@ -50,8 +50,8 @@ try:
     s = speedtest.Speedtest()
 except speedtest.ConfigRetrievalError:
     # print("Error: Failed to retrieve speedtest configuration.")
-    print("?")
-    exit(1)
+    # print("?")
+    exit(0)
 except speedtest.NoMatchedServers:
     print("Error: No matched servers found.")
     exit(1)

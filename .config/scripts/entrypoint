@@ -1,0 +1,26 @@
+#!/bin/bash
+
+source $HOME/.config/scripts/lib/ui
+
+# Show title
+clear
+ui_box "selector"
+
+# Create script options
+OPTIONS=(
+    "zellij"
+    "dump"
+)
+
+CHOICE=$(printf '%s\n' "${OPTIONS[@]}" | ui-choser)
+
+SCRIPT=$(echo "$CHOICE" | cut -d'|' -f1 | xargs)
+
+case "$SCRIPT" in
+"zellij")
+    ~/.config/scripts/zellij/fzj-wrapper.sh
+    ;;
+"dump")
+    ~/.config/scripts_/dump-wrapper.sh
+    ;;
+esac

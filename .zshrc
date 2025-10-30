@@ -1,3 +1,9 @@
+# installed using sh script cuz aur package is broken
+# https://duckdb.org/docs/installation/?version=stable&environment=cli&platform=macos&download_method=direct
+# also created symlink for dadbod-ui
+# sudo ln -sf ~/.duckdb/cli/latest/duckdb /usr/bin/duckdb
+alias duckdb="$HOME/.duckdb/cli/latest/duckdb"
+
 # TODO:
 # https://github.com/ohmyzsh/ohmyzsh/wiki/FAQ#what-is-oh-my-zsh-and-what-does-it-have-to-do-with-zsh
 #
@@ -129,15 +135,9 @@ source $ZSH/oh-my-zsh.sh
 source "$HOME/antigen.zsh"
 
 # Load the oh-my-zsh's library.
-antigen use oh-my-zsh
+# antigen use oh-my-zsh
 
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-
-# fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting!!
-# fzf-tab ALSO needs fzf installed, otherwise it cannot work!
-# todo: docs https://github.com/Aloxaf/fzf-tab#usage
-# antigen bundle Aloxaf/fzf-tab
-antigen bundle zsh-interactive-cd
+# antigen bundle zsh-interactive-cd
 
 antigen bundle git-auto-fetch
 antigen bundle command-not-found
@@ -149,15 +149,21 @@ antigen bundle MichaelAquilina/zsh-auto-notify
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/aliases
 antigen bundle aliases
 
-# https://github.com/zsh-users/zsh-autosuggestions?tab=readme-ov-file
+###### Zsh completion system
+# https://github.com/zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 bindkey '^ ' autosuggest-toggle
-
 # https://github.com/zsh-users/zsh-autosuggestions/issues/751#issuecomment-1774018197
 autoload -Uz compinit && compinit
 
-antigen bundle z
+# fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting!!
+# requirements: fzf
+antigen bundle Aloxaf/fzf-tab
+
+# Installed zoxide to /home/morke/.local/bin
+# Installed manpages to /home/morke/.local/share/man
+eval "$(zoxide init zsh)"
 
 antigen apply
 
@@ -229,8 +235,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias man='batman'
 
 alias v=openNvimWithConfigSelecion
-alias nvim1='NVIM_APPNAME=nvim-kickstart nvim'
-alias nvim2='NVIM_APPNAME=nvim-lazyvim nvim'
+alias nvim1='NVIM_APPNAME=nvim-editor nvim'
+alias nvim2='NVIM_APPNAME=nvim-ide nvim'
 
 # alias zsh-source-config=zshSourceConfigFile
 # alias zsh-reload-session=zshReloadSession
@@ -256,15 +262,8 @@ alias gpd='git push --dry-run'
 alias gpv='git push --verbose'
 alias grm='git rm'
 alias rmc='git rm --cached'
-alias notify-pipe='~/.config/scripts/helpers/notify-pipe.sh'
 
-# he instalado esto pero tira de su propia bdd asi que he vuelto con zsh-z para
-# no volver a completar la bdd, xq tampoco he visto ninguna mejora
-# estos son dirs donde cayeron los archivos que se instalaron con el script q viene en el github
-# Installed zoxide to /home/morke/.local/bin
-# Installed manpages to /home/morke/.local/share/man
-# add zoxide to zsh shell
-# eval "$(zoxide init zsh)"
+alias notify-pipe='~/.config/scripts/helpers/notify-pipe.sh'
 
 # +-----------------------+
 # |       FUNCTIONS       |
@@ -312,8 +311,8 @@ function yc() {
     # this will stage untracked files under this directories. If then this
     # files are unstaged without commiting, they will dissapear from index
     #
-    yadm add ~/.config/nvim-kickstart/
-    yadm add ~/.config/nvim-lazyvim/
+    yadm add ~/.config/nvim-editor/
+    yadm add ~/.config/nvim-ide/
     yadm add ~/.config/zellij/
     yadm add ~/.config/scripts/
 
@@ -362,7 +361,7 @@ function openNvimCfgSelection() {
     items=$(find "$HOME/.config" -type d -name "*nvim*" -exec sh -c 'basename "$1"' _ {} \;)
     selected=$(printf "%s\n" "${items[@]}" | FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS-} --preview-window 'right:border-left:50%:<40(right:border-left:50%:hidden)' --preview 'lsd -l -A --tree --depth=1 --color=always --blocks=size,name ~/.config/{} | head -200'" fzf)
     echo "$@"
-    $HOME/.config/scripts/helpers/nvim_runner.sh $selected
+    $HOME/.config/scripts/helpers/nvim-runner $selected
 }
 
 function zshSourceConfigFile() {
@@ -506,3 +505,27 @@ function yy() {
 }
 
 alias gam="/home/morke/bin/gam7/gam"
+
+# ~/.gum-theme.sh
+# --- choose ---
+export GUM_CHOOSE_CURSOR_FOREGROUND="#d5b100"   # cursor color
+export GUM_CHOOSE_SELECTED_FOREGROUND="#c64944" # selected text
+export GUM_CHOOSE_SELECTED_BACKGROUND="#263238" # selected bg
+# export GUM_CHOOSE_SELECTED_PREFIX="➤ "          # selected marker
+# Optional defaults (content, not strictly “theme”)
+export GUM_CHOOSE_HEADER_FOREGROUND="#90CAF9"
+export GUM_CHOOSE_HEADER="Select an option"
+
+# --- input ---
+export GUM_INPUT_PROMPT_FOREGROUND="#00E676"
+export GUM_INPUT_CURSOR_FOREGROUND="#00E676"
+export GUM_INPUT_PLACEHOLDER_FOREGROUND="#90A4AE"
+
+# --- confirm (if you use it) ---
+export GUM_CONFIRM_PROMPT_FOREGROUND="#00E676"
+export GUM_CONFIRM_SELECTED_BACKGROUND="#263238"
+export GUM_CONFIRM_SELECTED_FOREGROUND="#FFEB3B"
+
+# go-task completions
+alias task='go-task'
+eval "$(task --completion zsh)"

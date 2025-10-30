@@ -1,0 +1,85 @@
+#!/bin/bash
+
+set -u
+
+get_current_ws() {
+    if command -v jq >/dev/null 2>&1; then
+        i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true) | .name'
+    else
+        i3-msg -t get_workspaces |
+            tr -d '\n' |
+            sed -n 's/.*"name":"\([^"]*\)","visible":[^}]*"focused":true.*/\1/p'
+    fi
+}
+
+while :; do
+    # Rebuild the list each cycle so deletes show immediately
+    workspaces="$(i3-resurrect ls | awk '$3 == "layout" {print $2}')"
+
+    selection="$(
+        printf '%s\n' "$workspaces" |
+            rofi -sep '\n' -dmenu -multi-select \
+                -p 'select saved workspace layouts' \
+                -mesg '[S-Enter] select | [Enter] restore | [A-1] delete selected | [A-s] save current' \
+                -kb-custom-1 "Alt+1" \
+                -kb-custom-2 "Alt+s"
+    )"
+    rcode=$?
+
+    case "$rcode" in
+    1) # Esc / cancel -> exit loop
+        break
+        ;;
+
+    11) # Alt+s -> save current, then exit
+        current_ws="$(get_current_ws)"
+        if [ -n "${current_ws:-}" ]; then
+            i3-resurrect save -w "$current_ws"
+            command -v notify-send >/dev/null 2>&1 &&
+                notify-send "i3-resurrect" "Saved current workspace: $current_ws"
+        else
+            command -v notify-send >/dev/null 2>&1 &&
+                notify-send "i3-resurrect" "Could not detect current workspace."
+        fi
+        break
+        ;;
+
+    0 | 10) # Enter (restore) or Alt+d (delete)
+        if [ -z "${selection:-}" ]; then
+            [ $rcode -eq 10 ] && continue || break
+        fi
+
+        while IFS= read -r ws; do
+            [ -z "$ws" ] && continue
+            case "$rcode" in
+            0) # Enter -> restore, then exit
+                i3-resurrect restore -w "$ws"
+                ;;
+            10) # Alt+1 -> delete and loop again
+                lay="$HOME/.i3/i3-resurrect/workspace_${ws}_layout.json"
+                pro="$HOME/.i3/i3-resurrect/workspace_${ws}_programs.json"
+                removed_any=0
+                if [ -f "$lay" ]; then
+                    rm -f -- "$lay"
+                    removed_any=1
+                fi
+                if [ -f "$pro" ]; then
+                    rm -f -- "$pro"
+                    removed_any=1
+                fi
+                if command -v notify-send >/dev/null 2>&1; then
+                    if [ $removed_any -eq 1 ]; then
+                        notify-send "i3-resurrect" "Removed saved data for workspace: $ws"
+                    else
+                        notify-send "i3-resurrect" "No saved files found for: $ws"
+                    fi
+                fi
+                ;;
+            esac
+        done <<<"$selection"
+
+        # After delete -> reopen; after restore -> exit
+        [ $rcode -eq 10 ] && continue || break
+        ;;
+    esac
+done
