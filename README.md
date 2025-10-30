@@ -1,8 +1,14 @@
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/7d5b11d5-c2f0-43b3-96f2-011d8051550e" />
+<img width="1919" height="1079" alt="dotfiles-2" src="https://github.com/user-attachments/assets/8462bd55-4fe2-4c7e-b2c3-d6aa1f53f225" />
 
 ## setup
 
 - os ([eos](https://endeavouros.com/))
+  - filemanager ([yazi](https://github.com/sxyazi/yazi))
+  - network manager ([nm](https://github.com/NetworkManager/NetworkManager))
+  - clipboard ([greenclip](https://github.com/erebe/greenclip))
+  - *administration*
+    - dotfiles mgmt ([yadm](https://github.com/yadm-dev/yadm))
+    - system configuration/packages mgmt ([aconfmgr](https://github.com/CyberShadow/aconfmgr?tab=readme-ov-file#aconfmgr-vs-puppetansible))
 - *desktop environment*
   - tilling-wm ([i3](https://github.com/i3/i3))
   - status-bar ([polybar](https://github.com/polybar/polybar))
@@ -10,9 +16,9 @@
   - dynamic menu ([rofi](https://github.com/davatorium/rofi))
   - compositor ([picom](https://github.com/yshui/picom))
 - *terminal*
-  - terminal emulator ([kitty](https://github.com/kovidgoyal/kitty))
-  - terminal multiplexer ([zellij](https://github.com/zellij-org/zellij))
   - shell ([zsh](https://github.com/zsh-users/zsh))
+  - multiplexer ([zellij](https://github.com/zellij-org/zellij))
+  - emulator ([kitty](https://github.com/kovidgoyal/kitty))
 - *input*
   - remapping ([keyd](https://github.com/rvaiya/keyd))
   - keybind ([sxhkd](https://github.com/baskerville/sxhkd))
@@ -22,11 +28,9 @@
   - docker ([lazydocker](https://github.com/jesseduffield/lazydocker))
 - *pkm*
   - obsidian vim-way
-- *social clients*
+- *internet*
   - telegram client ([telega.el](https://github.com/zevlg/telega.el))
-- network manager ([nm](https://github.com/NetworkManager/NetworkManager))
-- clipboard ([greenclip](https://github.com/erebe/greenclip))
-- filemanager ([ranger](https://github.com/ranger/ranger))
-- browser ([qutebrowser](https://github.com/qutebrowser/qutebrowser))
-- pdf-viewer ([sioyek](https://github.com/ahrm/sioyek))
+  - browser ([qutebrowser](https://github.com/qutebrowser/qutebrowser))
+- *office*
+  - pdf-viewer ([sioyek](https://github.com/ahrm/sioyek))
 
