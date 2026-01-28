@@ -1,0 +1,78 @@
+#!/usr/bin/env sh
+
+# dynamically apply remap for each xkb layout
+# для активации нужно хотябы 1 раз сменить раскладку
+
+set -x
+
+ru_diktator() {
+    keyd bind \
+        "q = p" "w = m" "e = z" "r = semicolon" \
+        "t = a" "y = w" "u = d" "i = r" "o = l" \
+        "p = x" "[ = i" \
+        "a = e" "g = f" \
+        "h = k" "; = h" \
+        "z = q" "x = apostrophe" "c = [" "v = s" "b = period" \
+        "n = comma" "m = v" ", = g" ". = u" \
+        "Shift.[ = o" \
+        "Shift.w = ]" \
+        "raltLayer.comma = comma" \
+        "raltLayer.dot = slash" \
+        "f = overloadt(control, j, 180)" \
+        "j = overloadt(control, y, 180)" \
+        "d = overloadt(meta, t, 180)" \
+        "k = overloadt(meta, n, 180)" \
+        "s = overloadt(shift, b, 200)" \
+        "l = overloadt(shift, c, 200)"
+}
+
+ru_default() {
+    # символы и адаптация под урезанные кнопки
+    keyd bind \
+        "raltLayer.[ = apostrophe" \
+        "raltLayer.comma = S-slash" \
+        "raltLayer.dot = slash" \
+        "raltLayer.c = S-7" \
+        "raltLayer.m = ]"
+}
+
+us_default() {
+    keyd bind \
+        "[ = apostrophe" \
+        "{ = quotedbl" \
+        "raltLayer.m = kpasterisk" \
+        "raltLayer.c = ?" \
+        "raltLayer.semicolon = |" \
+        "raltLayer.k = backslash" \
+        "raltLayer.s = grave"
+
+    # "4 = y" \
+    # "raltLayer.4 = 4" \
+    # "raltLayer.S+4 = ^" \
+}
+
+once() {
+    once_impl "$(xkb-switch)" 1
+}
+
+once_impl() {
+    keyd bind reset
+    case $1 in
+    us)
+        us_default
+        ;;
+    ru)
+        # ru_diktator
+        ru_default
+        ;;
+    *) ;;
+    esac
+}
+
+many() {
+    while l=$(xkb-switch -wp); do
+        once_impl $l
+    done
+}
+
+"$@"

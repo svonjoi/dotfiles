@@ -356,6 +356,14 @@ function batman() {
     return $?
 }
 
+function openZellijWrapper() {
+    $HOME/.config/scripts/zellij/fzj-wrapper.sh
+}
+
+function openDumpWrapper() {
+    $HOME/.config/scripts_/dump-wrapper.sh
+}
+
 function openNvimCfgSelection() {
     set -x
     items=$(find "$HOME/.config" -type d -name "*nvim*" -exec sh -c 'basename "$1"' _ {} \;)
@@ -406,11 +414,10 @@ bindkey -s "\ea" "fzfAlias\n"
 bindkey -s "^[^E" "yy\n"
 
 # bindkey -L | grep "\^\[n"
-bindkey -s "\en" "openNvimCfgSelection\n"
 
-bindkey -s "\eo" "$HOME/.config/scripts/zellij/fzj-wrapper.sh\n"
-
-bindkey -s "\ev" "$HOME/.config/scripts_/dump-wrapper.sh\n"
+# bindkey -s "\en" "openNvimCfgSelection\n"
+# bindkey -s "\eo" "$HOME/.config/scripts/zellij/fzj-wrapper.sh\n"
+# bindkey -s "\ev" "$HOME/.config/scripts_/dump-wrapper.sh\n"
 
 if [[ -n $DISPLAY ]]; then
     copy_line_to_x_clipboard() {

@@ -4,17 +4,17 @@
 
 # TODO: ~/.xinitrc
 
-~/.config/scripts/hardware/mouse.sh
-~/.config/scripts/hardware/layout.sh
-
-#  не пашет или че?
-~/.config/scripts/helpers/setup-remap.sh
-
 # set keybinding
 # кривой кал из за капслока выдает кучу варнов. или мб из за ш3 биндов
 setsid -f sxhkd
 
-~/.config/scripts/mount-cloud.sh
+# NOTE: recently added nohup
+nohup ~/.config/scripts/hardware/mouse.sh &
+nohup ~/.config/scripts/hardware/layout.sh &
+nohup ~/.config/scripts/input/setup-remap &
+nohup ~/.config/scripts/input/keyd-dynamic-remap many &
+nohup ~/.config/scripts/mount-cloud.sh &
+
 nohup udiskie --tray &
 nohup greenclip daemon &
 nohup ~/.config/scripts/explorer/show-in-folder.pl &

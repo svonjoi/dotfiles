@@ -98,7 +98,7 @@ bindsym $M+$S+d exec --no-startup-id rofi -show window
 # +------------------------------------------------+
 
 # fixes (run when i3-msg restart)
-exec_always --no-startup-id ~/.config/scripts/helpers/setup-remap.sh
+exec_always --no-startup-id ~/.config/scripts/input/setup-remap
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id /usr/bin/dwall -s bitday
@@ -154,6 +154,7 @@ exec --no-startup-id kitty --class kitty_ranger -e ranger
 # https://www.reddit.com/r/i3wm/comments/mtdebu/comment/jhbf7bq/?utm_source=share&utm_medium=web2x&context=3
 bindsym $M+1 exec --no-startup-id xkb-switch -s us && xmodmap ~/.Xmodmap >/dev/null 2>&1
 bindsym $M+2 exec --no-startup-id xkb-switch -s ru && xmodmap ~/.Xmodmap >/dev/null 2>&1
+bindsym $M+F4 exec --no-startup-id ~/.config/scripts/input/switch-layout toggle
 
 # +------------------------------------------+
 # 30. Sound section
@@ -214,6 +215,7 @@ set $ws_n "200:n"
 set $ws_m "210:m"
 set $ws_comma "230:<"
 set $ws_period "231:>"
+set $ws_apostrophe "232:'"
 
 # 40.2. Switch to workspace
 bindsym $Y+1 workspace number $ws_1
@@ -241,6 +243,7 @@ bindsym $Y+bracketleft workspace $ws_b1
 bindsym $Y+bracketright workspace $ws_b2
 bindsym $Y+period workspace $ws_period
 bindsym $Y+comma workspace $ws_comma
+bindsym $Y+apostrophe workspace $ws_apostrophe
 
 # 40.3. Move focused container to workspace
 bindsym $M+$Y+1 move container to workspace number $ws_1
@@ -252,6 +255,7 @@ bindsym $M+$Y+comma move container to workspace $ws_comma
 bindsym $M+$Y+bracketleft move container to workspace $ws_b1
 bindsym $M+$Y+bracketright move container to workspace $ws_b2
 bindsym $M+$Y+period move container to workspace $ws_period
+bindsym $M+$Y+apostrophe move container to workspace $ws_apostrophe
 bindsym $M+$Y+r move container to workspace $ws_r
 bindsym $M+$Y+t move container to workspace $ws_t
 bindsym $M+$Y+i move container to workspace $ws_i
@@ -291,9 +295,9 @@ assign [class="Postman"] $ws_p
 # assign [class="Brave-browser"] $ws_e
 assign [class="Tor Browser"] $ws_e
 # social
-assign [class="TelegramDesktop"] $ws_i
-assign [class="whatsdesk"] $ws_i
-assign [class="discord"] $ws_i
+assign [class="TelegramDesktop"] $ws_z
+assign [class="whatsdesk"] $ws_z
+assign [class="discord"] $ws_z
 
 # +----------------------------------------------+
 # 60. Bind ws to outputs & move ws between outputs

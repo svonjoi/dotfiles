@@ -1,4 +1,7 @@
 #!/bin/bash
+# NOTE: если дроченый клауд не монтируется, запустить этот скрипт вручную еще раз (сначала размонтировать)
+
+set -x
 
 # prepare directories
 declare -a directories=(
@@ -19,9 +22,7 @@ eval $(opam env)
 
 google-drive-ocamlfuse -label gdrive-loadmaks ~/gdrive/gdrive_loadmaks
 
-# TODO: эта дрочь (?иногда) не работает, если запускается со скрипта
-#
+# TODO: эта дрочь не работает, если запускается со скрипта
 # а если вручную то сразу ебашит; тестануть в след раз с `set -x`
+#
 # mount | grep /mnt/gdrive_ >/dev/null || google-drive-ocamlfuse -label gdrive_loadmaks /mnt/gdrive_loadmaks/
-
-# NOTE: если дроченый клауд не монтируется, запустить этот скрипт вручную еще раз (сначала размонтировать)

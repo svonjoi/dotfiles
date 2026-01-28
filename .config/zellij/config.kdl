@@ -331,10 +331,11 @@ keybinds {
             TabNameInput 0
         }
         bind "n" {
+            // NewTab
+            // GoToNextTab
+            // SwitchToMode "RenameTab"
+            // TabNameInput 0
             NewTab
-            GoToNextTab
-            SwitchToMode "RenameTab"
-            TabNameInput 0
         }
         bind "x" {
             CloseTab

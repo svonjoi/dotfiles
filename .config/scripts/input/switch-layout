@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Check if parameter is provided
+if [ "$1" = "toggle" ]; then
+    current=$(xkb-switch -p)
+    if [ "$current" = 'us' ]; then xkb-switch -s ru; else xkb-switch -s us; fi
+    xmodmap ~/.Xmodmap >/dev/null 2>&1
+fi

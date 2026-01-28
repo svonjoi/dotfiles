@@ -68,13 +68,13 @@ super + 3
 super + F11
   flameshot gui
 
-# T-space y
-super + ctrl + F11
-  flameshot screen
-
 # T-space S-y
 super + shift + F11
   flameshot gui -d 2000 >/dev/null 2>&1
+
+# (?)T-space y
+super + ctrl + F11
+  flameshot screen
 
 # T-space Tab
 ctrl + shift + mod1 + F12
