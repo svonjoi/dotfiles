@@ -34,3 +34,8 @@
 - *office*
   - pdf-viewer ([sioyek](https://github.com/ahrm/sioyek))
 
+## dotfiles/.config/nvim-ide
+
+<a href="https://dotfyle.com/svonjoi/dotfiles-config-nvim-ide"><img src="https://dotfyle.com/svonjoi/dotfiles-config-nvim-ide/badges/plugins?style=flat" /></a>
+<a href="https://dotfyle.com/svonjoi/dotfiles-config-nvim-ide"><img src="https://dotfyle.com/svonjoi/dotfiles-config-nvim-ide/badges/leaderkey?style=flat" /></a>
+<a href="https://dotfyle.com/svonjoi/dotfiles-config-nvim-ide"><img src="https://dotfyle.com/svonjoi/dotfiles-config-nvim-ide/badges/plugin-manager?style=flat" /></a>
