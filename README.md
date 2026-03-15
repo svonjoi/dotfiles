@@ -6,21 +6,19 @@
   - filemanager ([yazi](https://github.com/sxyazi/yazi))
   - network manager ([nm](https://github.com/NetworkManager/NetworkManager))
   - clipboard ([greenclip](https://github.com/erebe/greenclip))
-  - *administration*
-    - dotfiles mgmt ([yadm](https://github.com/yadm-dev/yadm))
-    - system configuration/packages mgmt ([aconfmgr](https://github.com/CyberShadow/aconfmgr?tab=readme-ov-file#aconfmgr-vs-puppetansible))
+  - dotfiles mgmt ([yadm](https://github.com/yadm-dev/yadm))
 - *desktop environment*
-  - tilling-wm ([i3](https://github.com/i3/i3))
-  - status-bar ([polybar](https://github.com/polybar/polybar))
-  - notification daemon ([dunst](https://github.com/dunst-project/dunst))
-  - dynamic menu ([rofi](https://github.com/davatorium/rofi))
+  - wm ([i3](https://github.com/i3/i3))
+  - statusbar ([polybar](https://github.com/polybar/polybar))
+  - notifications ([dunst](https://github.com/dunst-project/dunst))
+  - menu ([rofi](https://github.com/davatorium/rofi))
   - compositor ([picom](https://github.com/yshui/picom))
 - *terminal*
   - shell ([zsh](https://github.com/zsh-users/zsh))
   - multiplexer ([zellij](https://github.com/zellij-org/zellij))
   - emulator ([kitty](https://github.com/kovidgoyal/kitty))
 - *input*
-  - remapping ([keyd](https://github.com/rvaiya/keyd))
+  - remap ([keyd](https://github.com/rvaiya/keyd))
   - keybind ([sxhkd](https://github.com/baskerville/sxhkd))
 - *development*
   - ide ([nvim](https://github.com/neovim/neovim))
